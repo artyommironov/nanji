@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include layout="@layout/widget_roundrect_bg" />
+
+  <TextView
+    android:id="@+id/textDate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/textDatePadding"
+    android:paddingBottom="@dimen/textDatePadding"
+    android:gravity="center"
+    android:focusable="true"
+    android:ellipsize="end"
+    android:singleLine="true"
+    android:textColor="@color/white"
+    android:textSize="@dimen/textSizeDate"
+    tools:ignore="SpUsage" />
+
+  <TextView
+    android:id="@+id/textTime"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/textDate"
+    android:gravity="center"
+    android:focusable="true"
+    android:ellipsize="end"
+    android:singleLine="true"
+    android:textColor="@color/white"
+    android:textSize="@dimen/textSizeTimeNormal"
+    tools:ignore="SpUsage" />
+
+  <TextView
+    android:id="@+id/textTimeSmall"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/textDate"
+    android:gravity="center"
+    android:focusable="true"
+    android:ellipsize="end"
+    android:textColor="@color/white"
+    android:textSize="@dimen/textSizeTimeSmall"
+    tools:ignore="SpUsage" />
+</RelativeLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about">About</string>
+  <string name="appName">Nanji</string>
+  <string name="appearance">Appearance</string>
+  <string name="appearanceReset">Reset</string>
+  <string name="japaneseEra">Era date</string>
+  <string name="language">Language</string>
+  <string name="languageCn">Chinese</string>
+  <string name="languageEn">English</string>
+  <string name="languageJa">Japanese</string>
+  <string name="languageKo">Korean</string>
+  <string name="languageRu">Russian</string>
+  <string name="languageSystem">System</string>
+  <string name="prefsReplaceDigits">Replace digits</string>
+  <string name="prefsExamples">Еxamples:</string>
+  <string name="prefsFeedback">Send feedback</string>
+  <string name="prefsOpenClock">Open clock on tap</string>
+  <string name="prefsShowBattery">Show battery level</string>
+  <string name="prefsTimeZone">Time zone</string>
+  <string name="prefsTwentyFour">Use 24-hour format</string>
+  <string name="reset">Reset</string>
+</resources>

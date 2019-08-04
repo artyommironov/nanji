@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about">情報</string>
+  <string name="appName">Nanji</string>
+  <string name="appearance">外観</string>
+  <string name="appearanceReset">リセット</string>
+  <string name="japaneseEra">元号の日付</string>
+  <string name="language">言語</string>
+  <string name="languageCn">中国語</string>
+  <string name="languageEn">英語</string>
+  <string name="languageJa">日本語</string>
+  <string name="languageKo">韓国語</string>
+  <string name="languageRu">ロシア語</string>
+  <string name="languageSystem">システム</string>
+  <string name="reset">リセット</string>
+  <string name="prefsReplaceDigits">数字を置き換える</string>
+  <string name="prefsExamples">例：</string>
+  <string name="prefsFeedback">フィードバックを送信</string>
+  <string name="prefsOpenClock">タッチで時計を開く</string>
+  <string name="prefsShowBattery">電池の状態を表示</string>
+  <string name="prefsTimeZone">タイムゾーン</string>
+  <string name="prefsTwentyFour">24時間表示</string>
+</resources>

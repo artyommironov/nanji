@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+androidExtensions {
+  experimental = true
+}
+
+android {
+  compileSdkVersion compileSdk
+
+  defaultConfig {
+    applicationId 'com.kazufukurou.nanji'
+    minSdkVersion 14
+    targetSdkVersion compileSdk
+    versionCode 34
+    versionName '1.2.0'
+    resConfigs "en", "ja", "ru"
+    vectorDrawables.useSupportLibrary = true
+  }
+
+  signingConfigs {
+    release {
+      if (project.hasProperty('keyAlias')) {
+        keyAlias project.keyAlias
+        keyPassword project.keyPassword
+        storeFile file(project.storeFile)
+        storePassword project.storePassword
+      }
+    }
+  }
+
+  buildTypes {
+    release {
+      shrinkResources true
+      minifyEnabled true
+      signingConfig signingConfigs.release
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+  implementation "com.kazufukurou.kprefs:kprefs:$kprefsVersion"
+  implementation "com.kazufukurou.colorpicker:colorpicker:$colorpickerVersion"
+  implementation "androidx.core:core-ktx:$androidxCorektxVersion"
+  implementation "androidx.appcompat:appcompat:$androidxAppcompatVersion"
+  implementation "androidx.recyclerview:recyclerview:$androidxRecyclerviewVersion"
+  implementation "androidx.constraintlayout:constraintlayout:$androidxConstraintlayoutVersion"
+
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="textDatePadding">6dp</dimen>
+  <dimen name="textSizeTimeNormal">32dp</dimen>
+  <dimen name="textSizeTimeSmall">18dp</dimen>
+  <dimen name="textSizeDate">16dp</dimen>
+</resources>

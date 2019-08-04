@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about">О программе</string>
+  <string name="appName">Nanji</string>
+  <string name="appearance">Внешний вид</string>
+  <string name="appearanceReset">Сбросить</string>
+  <string name="japaneseEra">Год императорской эры</string>
+  <string name="language">Язык</string>
+  <string name="languageCn">Китайский</string>
+  <string name="languageEn">Английский</string>
+  <string name="languageJa">Японский</string>
+  <string name="languageKo">Корейский</string>
+  <string name="languageRu">Русский</string>
+  <string name="languageSystem">Системный</string>
+  <string name="reset">Сбросить</string>
+  <string name="prefsReplaceDigits">Заменить цифры</string>
+  <string name="prefsExamples">Например:</string>
+  <string name="prefsFeedback">Отправить отзыв</string>
+  <string name="prefsOpenClock">Открыть часы по нажатию</string>
+  <string name="prefsShowBattery">Показать заряд батареи</string>
+  <string name="prefsTimeZone">Часовой пояс</string>
+  <string name="prefsTwentyFour">24-часовой формат</string>
+</resources>
