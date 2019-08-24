@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
 import android.content.SharedPreferences
 import android.graphics.Color

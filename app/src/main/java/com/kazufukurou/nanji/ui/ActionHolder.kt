@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.ui
 
-class EnRuNumberToTextConverter(private val wordSource: (Int) -> String) {
+import android.view.ViewGroup
+import androidx.core.view.isVisible
+import com.kazufukurou.anyadapter.AnyHolder
+import com.kazufukurou.nanji.R
+import kotlinx.android.synthetic.main.item.*
 
-  fun convert(num: Int): String = StringBuilder().apply {
-    when (num) {
-      in 0..20, 30, 40, 50, 60, 70, 80, 90, 100 -> append(wordSource(num))
-      in 21..99 -> append(wordSource(num - num % 10)).append(" ").append(wordSource(num % 10))
-    }
-  }.toString()
+class ActionHolder(parent: ViewGroup) : AnyHolder<ActionItem>(parent, R.layout.item) {
+  init {
+    switchValue.isVisible = false
+    textSubTitle.isVisible = false
+    containerView.onItemClick { it.onClick() }
+  }
+
+  override fun onBind(item: ActionItem) {
+    textTitle.setText(item.title)
+  }
 }

@@ -16,6 +16,11 @@
 
 package com.kazufukurou.nanji
 
+import com.kazufukurou.nanji.model.TimeCn
+import com.kazufukurou.nanji.model.TimeEn
+import com.kazufukurou.nanji.model.TimeJa
+import com.kazufukurou.nanji.model.TimeKo
+import com.kazufukurou.nanji.model.TimeRu
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import kotlin.test.*

@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.ui
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.widget.RemoteViews
+import com.kazufukurou.nanji.R
 
 object WidgetBg {
   fun draw(views: RemoteViews, bgColor: Int, bmpSize: Int, cornerRadius: Int) {

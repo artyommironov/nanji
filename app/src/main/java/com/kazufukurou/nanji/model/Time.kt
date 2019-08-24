@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
-enum class Language(val title: Int) {
-  system(R.string.languageSystem),
-  cn(R.string.languageCn),
-  ja(R.string.languageJa),
-  ko(R.string.languageKo),
-  ru(R.string.languageRu),
-  en(R.string.languageEn)
+import java.util.Calendar
+
+interface Time {
+  fun getPercentText(value: Int, digits: Boolean): String
+  fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String
+  fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String
 }

@@ -21,8 +21,9 @@ import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.math.roundToInt
 
-fun Resources.dp(dp: Int): Int = ((dp * displayMetrics.density) + 0.5f).toInt()
+fun Resources.dp(dp: Int): Int = (dp * displayMetrics.density).roundToInt()
 
 fun String.toCodePoints(): List<String> {
   var offset = 0

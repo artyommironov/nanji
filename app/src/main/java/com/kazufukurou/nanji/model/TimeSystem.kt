@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat

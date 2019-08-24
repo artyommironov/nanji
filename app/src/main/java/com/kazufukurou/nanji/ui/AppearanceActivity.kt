@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.ui
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
@@ -31,12 +31,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import com.kazufukurou.colorpicker.ColorTextWatcher
 import com.kazufukurou.colorpicker.SquareTileDrawable
+import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.dp
 import kotlinx.android.synthetic.main.appearance.*
 import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
   private val colorTextWatcher by lazy(LazyThreadSafetyMode.NONE) { ColorTextWatcher(colorPicker) }
-  private val prefs by lazy(LazyThreadSafetyMode.NONE) { Prefs(PreferenceManager.getDefaultSharedPreferences(this)) }
+  private val prefs by lazy(LazyThreadSafetyMode.NONE) {
+    Prefs(
+      PreferenceManager.getDefaultSharedPreferences(
+        this
+      )
+    )
+  }
   private var isText by Delegates.observable(false) { _, old, new -> if (new != old) init() }
   private var textColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var bgColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }

@@ -1,6 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+  id 'com.android.application'
+  id 'kotlin-android'
+  id 'kotlin-android-extensions'
+}
 
 androidExtensions {
   experimental = true
@@ -43,6 +45,7 @@ android {
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
   implementation "com.kazufukurou.kprefs:kprefs:$kprefsVersion"
+  implementation "com.kazufukurou.anyadapter:anyadapter:$anyadapterVersion"
   implementation "com.kazufukurou.colorpicker:colorpicker:$colorpickerVersion"
   implementation "androidx.core:core-ktx:$androidxCorektxVersion"
   implementation "androidx.appcompat:appcompat:$androidxAppcompatVersion"

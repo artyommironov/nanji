@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.ui
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -30,6 +30,18 @@ import android.os.Build
 import android.preference.PreferenceManager
 import android.view.View
 import android.widget.RemoteViews
+import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.dp
+import com.kazufukurou.nanji.model.Language
+import com.kazufukurou.nanji.model.Time
+import com.kazufukurou.nanji.model.TimeCn
+import com.kazufukurou.nanji.model.TimeEn
+import com.kazufukurou.nanji.model.TimeJa
+import com.kazufukurou.nanji.model.TimeKo
+import com.kazufukurou.nanji.model.TimeRu
+import com.kazufukurou.nanji.model.TimeSystem
+import com.kazufukurou.nanji.toCodePoints
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone

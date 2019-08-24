@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
+import com.kazufukurou.nanji.hour12
+import com.kazufukurou.nanji.hourOfDay
+import com.kazufukurou.nanji.minute
 import java.util.Calendar
 import java.util.Locale
 

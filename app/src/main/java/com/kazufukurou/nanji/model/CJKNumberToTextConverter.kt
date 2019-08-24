@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
 class CJKNumberToTextConverter(private val wordSource: (Int) -> String) {
 
