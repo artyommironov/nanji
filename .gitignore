@@ -14,7 +14,5 @@ build/
 .classpath
 .project
 .settings
-project.properties
-local.properties
 build.sh
 tags
