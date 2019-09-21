@@ -1,0 +1,10 @@
+*.iml
+.gradle
+build.sh
+.idea
+.DS_Store
+build
+captures
+.externalNativeBuild
+local.properties
+
