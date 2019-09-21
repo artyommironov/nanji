@@ -17,6 +17,7 @@
 package com.kazufukurou.nanji.ui
 
 import android.app.Dialog
+import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -25,15 +26,18 @@ import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.dp
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item.*
 
 class EditHolder(
   parent: ViewGroup,
   private val dialogShower: (Dialog) -> Unit
-) : AnyHolder<EditItem>(parent, R.layout.item) {
+) : AnyHolder<EditItem>(parent, R.layout.item), LayoutContainer {
+  override val containerView: View = itemView
+
   init {
     switchValue.isVisible = false
-    containerView.onItemClick(::showEditAlert)
+    containerView.setOnClickListener { showEditAlert(currentItem) }
   }
 
   override fun onBind(item: EditItem) {

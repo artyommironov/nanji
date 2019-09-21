@@ -16,17 +16,21 @@
 
 package com.kazufukurou.nanji.ui
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
 import com.kazufukurou.nanji.R
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item.*
 
-class SwitchHolder(parent: ViewGroup) : AnyHolder<SwitchItem>(parent, R.layout.item) {
+class SwitchHolder(parent: ViewGroup) : AnyHolder<SwitchItem>(parent, R.layout.item), LayoutContainer {
+  override val containerView: View = itemView
+
   init {
-    containerView.onItemClick {
-      it.property.set(!it.property.get())
-      onBind(it)
+    containerView.setOnClickListener {
+      currentItem.property.set(!currentItem.property.get())
+      onBind(currentItem)
     }
     textSubTitle.isVisible = false
     switchValue.isClickable = false

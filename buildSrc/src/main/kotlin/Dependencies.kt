@@ -14,34 +14,29 @@
  * limitations under the License.
  */
 
-private const val kotlinVersion = "1.3.50"
-private const val androidxKtxVersion = "1.0.2"
-private const val androidxAppcompatVersion = "1.1.0-rc01"
-private const val androidxRecyclerviewVersion = "1.0.0"
-private const val androidxConstraintlayoutVersion = "1.1.3"
-private const val kprefsVersion = "0.0.3"
-private const val colorpickerVersion = "1.0.3"
-private const val anyadapterVersion = "1.0.0"
+private val kotlinVersion = "1.3.50"
 
 object Sdk {
-  const val target = 28
-  const val compile = 28
+  val target = 28
+  val compile = 28
 }
 
 object Plugins {
-  const val android = "com.android.tools.build:gradle:3.3.2"
-  const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-  const val kotlinAndroidExtensions = "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+  val android = "com.android.tools.build:gradle:3.5.0"
+  val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+  val bintray = "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+  val gradleVersions = "com.github.ben-manes:gradle-versions-plugin:0.25.0"
 }
 
 object Libs {
-  const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-  const val kotlinTestJunit = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
-  const val androidxKtx = "androidx.core:core-ktx:$androidxKtxVersion"
-  const val androidxAppCompat = "androidx.appcompat:appcompat:$androidxAppcompatVersion"
-  const val androidxRecyclerView = "androidx.recyclerview:recyclerview:$androidxRecyclerviewVersion"
-  const val androidxConstraintLayout = "androidx.constraintlayout:constraintlayout:$androidxConstraintlayoutVersion"
-  const val kprefs = "com.kazufukurou.kprefs:kprefs:$kprefsVersion"
-  const val colorPicker = "com.kazufukurou.colorpicker:colorpicker:$colorpickerVersion"
-  const val anyAdapter = "com.kazufukurou.anyadapter:anyadapter:$anyadapterVersion"
+  val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+  val kotlinTestJunit = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+  val androidxKtx = "androidx.core:core-ktx:1.0.2"
+  val androidxAppCompat = "androidx.appcompat:appcompat:1.1.0"
+  val androidxAnnotation = "androidx.annotation:annotation:1.1.0"
+  val androidxRecyclerView = "androidx.recyclerview:recyclerview:1.0.0"
+  val androidxConstraintLayout = "androidx.constraintlayout:constraintlayout:1.1.3"
+  val kprefs = "com.kazufukurou.kprefs:kprefs:0.0.3"
+  val colorPicker = "com.kazufukurou.colorpicker:colorpicker:1.0.3"
+  val anyAdapter = "com.kazufukurou.anyadapter:anyadapter:1.1.0"
 }

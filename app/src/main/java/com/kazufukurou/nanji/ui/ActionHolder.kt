@@ -16,17 +16,21 @@
 
 package com.kazufukurou.nanji.ui
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
 import com.kazufukurou.nanji.R
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item.*
 
-class ActionHolder(parent: ViewGroup) : AnyHolder<ActionItem>(parent, R.layout.item) {
+class ActionHolder(parent: ViewGroup) : AnyHolder<ActionItem>(parent, R.layout.item), LayoutContainer {
+  override val containerView: View = itemView
+
   init {
     switchValue.isVisible = false
     textSubTitle.isVisible = false
-    containerView.onItemClick { it.onClick() }
+    containerView.setOnClickListener { currentItem.onClick() }
   }
 
   override fun onBind(item: ActionItem) {

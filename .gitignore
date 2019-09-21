@@ -16,3 +16,4 @@ build/
 .settings
 build.sh
 tags
+local.properties

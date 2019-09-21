@@ -7,7 +7,6 @@ buildscript {
   dependencies {
     classpath(Plugins.android)
     classpath(Plugins.kotlin)
-    classpath(Plugins.kotlinAndroidExtensions)
   }
 }
 

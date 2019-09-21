@@ -17,21 +17,25 @@
 package com.kazufukurou.nanji.ui
 
 import android.app.Dialog
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
 import com.kazufukurou.nanji.R
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item.*
 
 class SelectorHolder<T>(
   parent: ViewGroup,
   private val dialogShower: (Dialog) -> Unit,
   private val onChoose: () -> Unit
-) : AnyHolder<SelectorItem<T>>(parent, R.layout.item) {
+) : AnyHolder<SelectorItem<T>>(parent, R.layout.item), LayoutContainer {
+  override val containerView: View = itemView
+
   init {
     switchValue.isVisible = false
-    containerView.onItemClick(::showSelectorAlert)
+    containerView.setOnClickListener { showSelectorAlert(currentItem) }
   }
 
   override fun onBind(item: SelectorItem<T>) {
