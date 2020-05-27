@@ -15,8 +15,13 @@
   <string name="prefsReplaceDigits">Replace digits</string>
   <string name="prefsExamples">Еxamples:</string>
   <string name="prefsFeedback">Send feedback</string>
-  <string name="prefsOpenClock">Open clock on tap</string>
+  <string name="prefsHideTime">Hide time</string>
   <string name="prefsShowBattery">Show battery level</string>
+  <string name="prefsShowWords">Show words</string>
+  <string name="prefsTapAction">Tap action</string>
+  <string name="prefsTapActionOpenClock">Open clock</string>
+  <string name="prefsTapActionOpenSettings">Open settings</string>
+  <string name="prefsTapActionShowWords">Toggle show words</string>
   <string name="prefsTimeZone">Time zone</string>
   <string name="prefsTwentyFour">Use 24-hour format</string>
   <string name="reset">Reset</string>

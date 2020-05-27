@@ -12,12 +12,17 @@
   <string name="languageKo">Корейский</string>
   <string name="languageRu">Русский</string>
   <string name="languageSystem">Системный</string>
-  <string name="reset">Сбросить</string>
   <string name="prefsReplaceDigits">Заменить цифры</string>
   <string name="prefsExamples">Например:</string>
   <string name="prefsFeedback">Отправить отзыв</string>
-  <string name="prefsOpenClock">Открыть часы по нажатию</string>
+  <string name="prefsHideTime">Скрыть время</string>
   <string name="prefsShowBattery">Показать заряд батареи</string>
+  <string name="prefsShowWords">Показать слова</string>
+  <string name="prefsTapAction">Действие по нажатию</string>
+  <string name="prefsTapActionOpenClock">Открыть часы</string>
+  <string name="prefsTapActionOpenSettings">Открыть настройки</string>
+  <string name="prefsTapActionShowWords">Слова вместо чисел</string>
   <string name="prefsTimeZone">Часовой пояс</string>
   <string name="prefsTwentyFour">24-часовой формат</string>
+  <string name="reset">Сбросить</string>
 </resources>

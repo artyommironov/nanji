@@ -22,6 +22,7 @@ import com.kazufukurou.kprefs.boolean
 import com.kazufukurou.kprefs.enum
 import com.kazufukurou.kprefs.int
 import com.kazufukurou.kprefs.string
+import com.kazufukurou.nanji.ui.TapAction
 
 class Prefs(prefs: SharedPreferences) {
   val bgColorDef = Color.argb(192, 0, 0, 0)
@@ -32,12 +33,15 @@ class Prefs(prefs: SharedPreferences) {
   var cornerRadius by prefs.int(cornerRadiusDef)
   var smallTextSize by prefs.boolean()
   var fullWidthDigits by prefs.boolean()
+  var hideTime by prefs.boolean()
   var language by prefs.enum(Language.system)
+  var tapAction by prefs.enum(TapAction.ShowWords)
   var twentyFour by prefs.boolean()
   var japaneseEra by prefs.boolean()
-  var showDigits by prefs.boolean()
+  @Deprecated("use showWords") var showDigits by prefs.boolean()
+  var showWords by prefs.boolean()
   var showBattery by prefs.boolean()
-  var openClock by prefs.boolean()
+  @Deprecated("use tapAction") var openClock by prefs.boolean()
   var customSymbols by prefs.string()
   var timeZone by prefs.string()
 }

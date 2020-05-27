@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/content"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
   <include layout="@layout/widget_roundrect_bg" />
 
   <TextView
-    android:id="@+id/textDate"
+    android:id="@+id/textHeader"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/textDatePadding"
@@ -21,10 +22,10 @@
     tools:ignore="SpUsage" />
 
   <TextView
-    android:id="@+id/textTime"
+    android:id="@+id/textContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@id/textDate"
+    android:layout_below="@id/textHeader"
     android:gravity="center"
     android:focusable="true"
     android:ellipsize="end"
@@ -34,10 +35,10 @@
     tools:ignore="SpUsage" />
 
   <TextView
-    android:id="@+id/textTimeSmall"
+    android:id="@+id/textContentSmall"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@id/textDate"
+    android:layout_below="@id/textHeader"
     android:gravity="center"
     android:focusable="true"
     android:ellipsize="end"

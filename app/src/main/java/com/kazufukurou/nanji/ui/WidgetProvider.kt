@@ -66,7 +66,7 @@ class WidgetProvider : AppWidgetProvider() {
     super.onReceive(ctx, intent)
     intent ?: return
     val prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
-    if (intent.action == ACTION_CHANGE) prefs.showDigits = !prefs.showDigits
+    if (intent.action == ACTION_CHANGE) prefs.showWords = !prefs.showWords
     update(ctx)
   }
 
@@ -170,34 +170,39 @@ class WidgetProvider : AppWidgetProvider() {
     val prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
     val language = prefs.language
     val time = getGrammar(language)
+    val showWords = prefs.showWords
     val batteryText = when (prefs.showBattery) {
-      true -> "~" + time.getPercentText(getBatteryLevel(ctx), prefs.showDigits)
+      true -> "~" + time.getPercentText(getBatteryLevel(ctx), !showWords)
       else -> ""
     }
     val cal = Calendar.getInstance().apply {
       timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     }
-    val showDigits = prefs.showDigits
-    val multiLineTimeText = !showDigits && (language == Language.ru || language == Language.en)
+    val hideTime = prefs.hideTime
+    val multiLineTimeText = showWords && (language == Language.ru || language == Language.en)
     val (dateText, timeText) = convertDateAndTimeTexts(
-      prefs,
-      dateText = time.getDateText(cal, showDigits, prefs.japaneseEra) + batteryText,
-      timeText = time.getTimeText(cal, showDigits, prefs.twentyFour, multiLineTimeText)
+      prefs = prefs,
+      dateText = time.getDateText(cal, !showWords, prefs.japaneseEra) + batteryText,
+      timeText = time.getTimeText(cal, !showWords, prefs.twentyFour, multiLineTimeText)
     )
-    val smallTextSize = prefs.smallTextSize || multiLineTimeText
-    val externalClockWidget = if (prefs.openClock) getClockPendingIntent(ctx) else null
-    val dateIntent = externalClockWidget ?: createActivityPendingIntent(ctx)
-    val timeIntent = if (language == Language.system) dateIntent else createBroadcastPendingIntent(ctx, true)
-    val timeTextId = if (smallTextSize) R.id.textTimeSmall else R.id.textTime
+    val smallTextSize = prefs.smallTextSize || multiLineTimeText || hideTime
+    val textColor = prefs.textColor
+    val intent = when (prefs.tapAction) {
+      TapAction.ShowWords -> createBroadcastPendingIntent(ctx, true)
+      TapAction.OpenClock -> getClockPendingIntent(ctx) ?: createActivityPendingIntent(ctx)
+      TapAction.OpenSetting -> createActivityPendingIntent(ctx)
+    }
     val views = RemoteViews(ctx.packageName, R.layout.widget).apply {
-      setTextViewText(R.id.textDate, dateText)
-      setTextColor(R.id.textDate, prefs.textColor)
-      setOnClickPendingIntent(R.id.textDate, dateIntent)
-      setViewVisibility(R.id.textTime, if (!smallTextSize) View.VISIBLE else View.GONE)
-      setViewVisibility(R.id.textTimeSmall, if (smallTextSize) View.VISIBLE else View.GONE)
-      setTextViewText(timeTextId, timeText)
-      setTextColor(timeTextId, prefs.textColor)
-      setOnClickPendingIntent(timeTextId, timeIntent)
+      setViewVisibility(R.id.textHeader, if (hideTime) View.GONE else View.VISIBLE)
+      setViewVisibility(R.id.textContent, if (!smallTextSize) View.VISIBLE else View.GONE)
+      setViewVisibility(R.id.textContentSmall, if (smallTextSize) View.VISIBLE else View.GONE)
+      setTextViewText(R.id.textHeader, dateText)
+      setTextViewText(R.id.textContent, timeText)
+      setTextViewText(R.id.textContentSmall, if (hideTime) dateText else timeText)
+      setTextColor(R.id.textContent, textColor)
+      setTextColor(R.id.textHeader, textColor)
+      setTextColor(R.id.textContentSmall, textColor)
+      setOnClickPendingIntent(R.id.content, intent)
     }
     WidgetBg.draw(views, prefs.bgColor, res.dp(20), res.dp(prefs.cornerRadius))
     AppWidgetManager.getInstance(ctx).updateAppWidget(ComponentName(ctx, WidgetProvider::class.java), views)

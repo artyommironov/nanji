@@ -50,6 +50,18 @@ class MainActivity : AppCompatActivity() {
     .map(::SwitchHolder)
     .map { EditHolder(it, ::showDialog) }
     .map { SelectorHolder(it, ::showDialog) }
+  private var currentDialog: Dialog? = null
+  private var shouldHideTime: Boolean
+    get() = prefs.hideTime
+    set(value) {
+      prefs.hideTime = value
+      render()
+    }
+  private var tapActionIndex: Int
+    get() = TapAction.values().indexOf(prefs.tapAction)
+    set(value) {
+      prefs.tapAction = TapAction.values()[value]
+    }
   private var languageIndex: Int
     get() = Language.values().indexOf(prefs.language)
     set(value) {
@@ -62,7 +74,6 @@ class MainActivity : AppCompatActivity() {
     set(value) {
       prefs.timeZone = timeZones[value]
     }
-  private var currentDialog: Dialog? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -89,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun render() {
     val languageStrings = Language.values().map { getString(it.title) }
+    val tapActionStrings = TapAction.values().map { getString(it.title) }
     val timeZoneStrings = timeZones.map { if (it.isEmpty()) getString(R.string.languageSystem) else it }
     val messageReplaceDigits = String.format(TEXT_REPLACE_DIGITS_EXAMPLE, getString(R.string.prefsExamples))
 
@@ -96,9 +108,11 @@ class MainActivity : AppCompatActivity() {
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
         SelectorItem(R.string.language, languageStrings, ::languageIndex),
-        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour),
+        SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
+        SwitchItem(R.string.prefsShowWords, prefs::showWords).takeIf { prefs.language != Language.system },
+        SwitchItem(R.string.prefsHideTime, ::shouldHideTime),
+        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { !shouldHideTime },
         SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
-        SwitchItem(R.string.prefsOpenClock, prefs::openClock),
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
         SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
         EditItem(R.string.prefsReplaceDigits, messageReplaceDigits, prefs::customSymbols),
@@ -142,7 +156,7 @@ class MainActivity : AppCompatActivity() {
   }
 }
 
-private const val TEXT_REPLACE_DIGITS_EXAMPLE =  "ABCDEF = A->B C->D E->F\n%s\n零〇~♥\n一壱二弐三参十拾"
+private const val TEXT_REPLACE_DIGITS_EXAMPLE = "ABCDEF = A->B C->D E->F\n%s\n零〇~♥\n一壱二弐三参十拾"
 
 private const val LICENSE = """Copyright %d Artyom Mironov
 

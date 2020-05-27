@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Artyom Mironov
+ * Copyright 2020 Artyom Mironov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji.model
+package com.kazufukurou.nanji.ui
 
 import androidx.annotation.StringRes
 import com.kazufukurou.nanji.R
 
-enum class Language(@StringRes val title: Int) {
-  system(R.string.languageSystem),
-  cn(R.string.languageCn),
-  ja(R.string.languageJa),
-  ko(R.string.languageKo),
-  ru(R.string.languageRu),
-  en(R.string.languageEn)
+enum class TapAction(@StringRes val title: Int) {
+  ShowWords(R.string.prefsShowWords),
+  OpenClock(R.string.prefsTapActionOpenClock),
+  OpenSetting(R.string.prefsTapActionOpenSettings)
 }

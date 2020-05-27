@@ -12,12 +12,17 @@
   <string name="languageKo">韓国語</string>
   <string name="languageRu">ロシア語</string>
   <string name="languageSystem">システム</string>
-  <string name="reset">リセット</string>
   <string name="prefsReplaceDigits">数字を置き換える</string>
   <string name="prefsExamples">例：</string>
   <string name="prefsFeedback">フィードバックを送信</string>
-  <string name="prefsOpenClock">タッチで時計を開く</string>
+  <string name="prefsHideTime">時刻を隠す</string>
   <string name="prefsShowBattery">電池の状態を表示</string>
+  <string name="prefsShowWords">単語を表示</string>
+  <string name="prefsTapAction">タッチ時の動作</string>
+  <string name="prefsTapActionOpenClock">時計を開く</string>
+  <string name="prefsTapActionOpenSettings">設定を開く</string>
+  <string name="prefsTapActionShowWords">単語の表示を切り替える</string>
   <string name="prefsTimeZone">タイムゾーン</string>
   <string name="prefsTwentyFour">24時間表示</string>
+  <string name="reset">リセット</string>
 </resources>
