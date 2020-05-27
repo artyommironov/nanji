@@ -26,11 +26,10 @@ import com.kazufukurou.nanji.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item.*
 
-class SelectorHolder<T>(
+class SelectorHolder(
   parent: ViewGroup,
-  private val dialogShower: (Dialog) -> Unit,
-  private val onChoose: () -> Unit
-) : AnyHolder<SelectorItem<T>>(parent, R.layout.item), LayoutContainer {
+  private val dialogShower: (Dialog) -> Unit
+) : AnyHolder<SelectorItem>(parent, R.layout.item), LayoutContainer {
   override val containerView: View = itemView
 
   init {
@@ -38,23 +37,22 @@ class SelectorHolder<T>(
     containerView.setOnClickListener { showSelectorAlert(currentItem) }
   }
 
-  override fun onBind(item: SelectorItem<T>) {
+  override fun onBind(item: SelectorItem) {
     textTitle.setText(item.title)
-    textSubTitle.text = item.toString(item.property.get())
+    textSubTitle.text = item.items[item.indexProperty.get()]
     textSubTitle.isVisible = textSubTitle.text.toString().isNotEmpty()
   }
 
-  private fun showSelectorAlert(item: SelectorItem<T>) {
+  private fun showSelectorAlert(item: SelectorItem) {
     AlertDialog.Builder(context)
       .setTitle(item.title)
       .setSingleChoiceItems(
-        item.items.map(item.toString).toTypedArray(),
-        item.items.indexOf(item.property.get()).coerceAtLeast(0)
+        item.items.toTypedArray(),
+        item.indexProperty.get().coerceAtLeast(0)
       ) { d, w ->
-        item.property.set(item.items[w])
+        item.indexProperty.set(w)
         d.cancel()
         onBind(item)
-        onChoose()
       }
       .create()
       .let(dialogShower)

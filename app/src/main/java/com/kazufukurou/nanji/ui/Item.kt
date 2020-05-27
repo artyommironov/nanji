@@ -37,10 +37,9 @@ class EditItem(
   val property: KMutableProperty0<String>
 ) : Item(title)
 
-class SelectorItem<T>(
+class SelectorItem(
   title: Int,
-  val items: List<T>,
-  val property: KMutableProperty0<T>,
-  val toString: (T) -> String
+  val items: List<String>,
+  val indexProperty: KMutableProperty0<Int>
 ) : Item(title)
 

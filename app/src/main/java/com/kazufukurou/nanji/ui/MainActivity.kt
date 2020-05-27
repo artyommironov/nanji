@@ -49,8 +49,19 @@ class MainActivity : AppCompatActivity() {
     .map(::ActionHolder)
     .map(::SwitchHolder)
     .map { EditHolder(it, ::showDialog) }
-    .map { SelectorHolder<String>(it, ::showDialog, {}) }
-    .map { SelectorHolder<Language>(it, ::showDialog, ::render) }
+    .map { SelectorHolder(it, ::showDialog) }
+  private var languageIndex: Int
+    get() = Language.values().indexOf(prefs.language)
+    set(value) {
+      prefs.language = Language.values()[value]
+      render()
+    }
+  private val timeZones: List<String> = listOf("") + TimeZone.getAvailableIDs()
+  private var timeZoneIndex: Int
+    get() = timeZones.indexOf(prefs.timeZone)
+    set(value) {
+      prefs.timeZone = timeZones[value]
+    }
   private var currentDialog: Dialog? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,21 +88,19 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun render() {
-    val languages = Language.values().toList()
-    val languageToString: (Language) -> String = { getString(it.title) }
-    val timeZones = listOf("") + TimeZone.getAvailableIDs()
-    val timeZoneToString: (String) -> String = { if (it.isEmpty()) getString(R.string.languageSystem) else it }
+    val languageStrings = Language.values().map { getString(it.title) }
+    val timeZoneStrings = timeZones.map { if (it.isEmpty()) getString(R.string.languageSystem) else it }
     val messageReplaceDigits = String.format(TEXT_REPLACE_DIGITS_EXAMPLE, getString(R.string.prefsExamples))
 
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
-        SelectorItem(R.string.language, languages, prefs::language, languageToString),
+        SelectorItem(R.string.language, languageStrings, ::languageIndex),
         SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour),
         SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
         SwitchItem(R.string.prefsOpenClock, prefs::openClock),
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
-        SelectorItem(R.string.prefsTimeZone, timeZones, prefs::timeZone, timeZoneToString),
+        SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
         EditItem(R.string.prefsReplaceDigits, messageReplaceDigits, prefs::customSymbols),
         ActionItem(R.string.about, ::showAboutAlert)
       )
