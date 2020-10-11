@@ -16,41 +16,31 @@
 
 package com.kazufukurou.nanji.ui
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.Menu
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import com.kazufukurou.colorpicker.ColorTextWatcher
 import com.kazufukurou.colorpicker.SquareTileDrawable
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.dp
+import com.kazufukurou.nanji.onProgressChange
 import kotlinx.android.synthetic.main.appearance.*
 import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
   private val colorTextWatcher by lazy(LazyThreadSafetyMode.NONE) { ColorTextWatcher(colorPicker) }
-  private val prefs by lazy(LazyThreadSafetyMode.NONE) {
-    Prefs(
-      PreferenceManager.getDefaultSharedPreferences(
-        this
-      )
-    )
-  }
+  private val prefs by lazy(LazyThreadSafetyMode.NONE) { Prefs(PreferenceManager.getDefaultSharedPreferences(this)) }
   private var isText by Delegates.observable(false) { _, old, new -> if (new != old) init() }
   private var textColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var bgColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var cornerRadius by Delegates.observable(0) { _, old, new -> if (new != old) render() }
-  private var smallTextSize by Delegates.observable(false) { _, old, new -> if (new != old) render() }
+  private var textSize by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var fullWidthDigits by Delegates.observable(false) { _, old, new -> if (new != old) render() }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,36 +49,29 @@ class AppearanceActivity : AppCompatActivity() {
 
     bgColor = prefs.bgColor
     textColor = prefs.textColor
-    cornerRadius = prefs.cornerRadius.coerceIn(0, seekCornerRadius.max)
-    smallTextSize = prefs.smallTextSize
+    cornerRadius = prefs.cornerRadius.coerceIn(prefs.cornerRadiusRange)
+    textSize = prefs.textSize.coerceIn(prefs.textSizeRange)
     fullWidthDigits = prefs.fullWidthDigits
 
     ViewCompat.setBackground(viewSampleBg, SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY))
     viewSampleBg.setOnClickListener { isText = false }
     buttonText.setOnClickListener { isText = true }
     switchWideText.setOnClickListener { fullWidthDigits = !fullWidthDigits }
-    switchSmallText.setOnClickListener { smallTextSize = !smallTextSize }
-    with(seekCornerRadius) {
-      max = 20
-      setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-        override fun onStartTrackingTouch(seekbar: SeekBar) {}
-        override fun onStopTrackingTouch(seekbar: SeekBar) {}
-
-        override fun onProgressChanged(seekbar: SeekBar, progress: Int, fromUser: Boolean) {
-          if (fromUser) cornerRadius = progress
-        }
-      })
+    radioBg.setOnClickListener { isText = false }
+    radioText.setOnClickListener { isText = true }
+    with(seekTextSize) {
+      min = prefs.textSizeRange.first
+      max = prefs.textSizeRange.last
+      onProgressChange { fromUser, progress -> if (fromUser) textSize = progress }
     }
-    colorPicker.onColorChange = { if (isText) textColor = colorPicker.color else bgColor = colorPicker.color }
-    ObjectAnimator.ofPropertyValuesHolder(
-      imageCursor,
-      PropertyValuesHolder.ofFloat("scaleX", 1.2f),
-      PropertyValuesHolder.ofFloat("scaleY", 1.2f)
-    ).apply {
-      duration = 300
-      repeatCount = ObjectAnimator.INFINITE
-      repeatMode = ObjectAnimator.REVERSE
-      start()
+    with(seekCornerRadius) {
+      min = prefs.cornerRadiusRange.first
+      max = prefs.cornerRadiusRange.last
+      onProgressChange { fromUser, progress -> if (fromUser) cornerRadius = progress }
+    }
+    colorPicker.onColorChange = {
+      val color = colorPicker.color
+      if (isText) textColor = color  else bgColor = color
     }
     init()
   }
@@ -108,18 +91,19 @@ class AppearanceActivity : AppCompatActivity() {
 
   private fun init() {
     seekCornerRadius.progress = cornerRadius
+    seekTextSize.progress = textSize
     colorPicker.color = if (isText) textColor else bgColor
     render()
   }
 
   private fun render() {
     colorTextWatcher.updateEditText(editColor)
-    val textSizeDimen = if (smallTextSize) R.dimen.textSizeTimeSmall else R.dimen.textSizeTimeNormal
+    val textSize = resources.dp(textSize).toFloat()
     val radius = resources.dp(cornerRadius).toFloat()
     with(textSample) {
       text = if (fullWidthDigits) "１２" else "12"
       setTextColor(textColor)
-      setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(textSizeDimen).toFloat())
+      setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
       ViewCompat.setBackground(
         this,
         GradientDrawable().apply {
@@ -130,19 +114,16 @@ class AppearanceActivity : AppCompatActivity() {
       )
     }
     switchWideText.isChecked = fullWidthDigits
-    switchSmallText.isChecked = smallTextSize
-    imageCursor.layoutParams = (imageCursor.layoutParams as ConstraintLayout.LayoutParams).apply {
-      topMargin = if (isText) resources.dp(36) else resources.dp(52)
-      rightMargin = if (isText) 0 else resources.dp(56)
-    }
+    radioBg.isChecked = !isText
+    radioText.isChecked = isText
   }
 
   private fun reset() {
     isText = false
     bgColor = prefs.bgColorDef
     textColor = prefs.textColorDef
-    cornerRadius = prefs.cornerRadiusDef
-    smallTextSize = false
+    cornerRadius = prefs.cornerRadiusDefault
+    textSize = prefs.textSizeDefault
     fullWidthDigits = false
     init()
   }
@@ -151,7 +132,7 @@ class AppearanceActivity : AppCompatActivity() {
     prefs.bgColor = bgColor
     prefs.textColor = textColor
     prefs.cornerRadius = cornerRadius
-    prefs.smallTextSize = smallTextSize
+    prefs.textSize = textSize
     prefs.fullWidthDigits = fullWidthDigits
   }
 }

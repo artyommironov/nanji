@@ -25,9 +25,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.BatteryManager
 import android.os.Build
 import android.preference.PreferenceManager
+import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import com.kazufukurou.nanji.model.Prefs
@@ -153,7 +155,7 @@ class WidgetProvider : AppWidgetProvider() {
     var resultTimeText = timeText
     var resultDateText = dateText
     "0０1１2２3３4４5５6６7７8８9９:："
-      .takeIf {prefs.fullWidthDigits  }
+      .takeIf { prefs.fullWidthDigits }
       .orEmpty()
       .plus(prefs.customSymbols)
       .toCodePoints()
@@ -166,45 +168,43 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun update(ctx: Context) {
-    val res = ctx.resources
     val prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
     val language = prefs.language
-    val time = getGrammar(language)
     val showWords = prefs.showWords
-    val batteryText = when (prefs.showBattery) {
-      true -> "~" + time.getPercentText(getBatteryLevel(ctx), !showWords)
+    val hideTime = prefs.hideTime
+    val showBattery = prefs.showBattery
+    val grammar = getGrammar(language)
+    val batteryText = when (showBattery) {
+      true -> "~" + grammar.getPercentText(getBatteryLevel(ctx), !showWords)
       else -> ""
     }
     val cal = Calendar.getInstance().apply {
       timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     }
-    val hideTime = prefs.hideTime
-    val multiLineTimeText = showWords && (language == Language.ru || language == Language.en)
+    val multiLineTimeText = showWords && language in listOf(Language.ru, Language.en)
     val (dateText, timeText) = convertDateAndTimeTexts(
       prefs = prefs,
-      dateText = time.getDateText(cal, !showWords, prefs.japaneseEra) + batteryText,
-      timeText = time.getTimeText(cal, !showWords, prefs.twentyFour, multiLineTimeText)
+      dateText = grammar.getDateText(cal, !showWords, prefs.japaneseEra) + batteryText,
+      timeText = grammar.getTimeText(cal, !showWords, prefs.twentyFour, multiLineTimeText)
     )
-    val smallTextSize = prefs.smallTextSize || multiLineTimeText || hideTime
-    val textColor = prefs.textColor
     val intent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(ctx, true)
       TapAction.OpenClock -> getClockPendingIntent(ctx) ?: createActivityPendingIntent(ctx)
       TapAction.OpenSetting -> createActivityPendingIntent(ctx)
     }
+    val textSizeHeader =  ctx.resources.dp(prefs.textSizeRange.first).toFloat()
+    val textSizeContent = ctx.resources.dp(prefs.textSize).toFloat()
     val views = RemoteViews(ctx.packageName, R.layout.widget).apply {
+      setTextViewTextSize(R.id.textHeader, TypedValue.COMPLEX_UNIT_PX, textSizeHeader)
+      setTextViewTextSize(R.id.textContent, TypedValue.COMPLEX_UNIT_PX, textSizeContent)
       setViewVisibility(R.id.textHeader, if (hideTime) View.GONE else View.VISIBLE)
-      setViewVisibility(R.id.textContent, if (!smallTextSize) View.VISIBLE else View.GONE)
-      setViewVisibility(R.id.textContentSmall, if (smallTextSize) View.VISIBLE else View.GONE)
       setTextViewText(R.id.textHeader, dateText)
-      setTextViewText(R.id.textContent, timeText)
-      setTextViewText(R.id.textContentSmall, if (hideTime) dateText else timeText)
-      setTextColor(R.id.textContent, textColor)
-      setTextColor(R.id.textHeader, textColor)
-      setTextColor(R.id.textContentSmall, textColor)
+      setTextViewText(R.id.textContent, if (hideTime) dateText else timeText)
+      setTextColor(R.id.textHeader, prefs.textColor)
+      setTextColor(R.id.textContent, prefs.textColor)
       setOnClickPendingIntent(R.id.content, intent)
     }
-    WidgetBg.draw(views, prefs.bgColor, res.dp(20), res.dp(prefs.cornerRadius))
+    WidgetBg.draw(views, prefs.bgColor, ctx.resources.dp(20), ctx.resources.dp(prefs.cornerRadius))
     AppWidgetManager.getInstance(ctx).updateAppWidget(ComponentName(ctx, WidgetProvider::class.java), views)
     scheduleUpdate(ctx)
   }

@@ -103,14 +103,18 @@ class MainActivity : AppCompatActivity() {
     val tapActionStrings = TapAction.values().map { getString(it.title) }
     val timeZoneStrings = timeZones.map { if (it.isEmpty()) getString(R.string.languageSystem) else it }
     val messageReplaceDigits = String.format(TEXT_REPLACE_DIGITS_EXAMPLE, getString(R.string.prefsExamples))
+    val canShowWords = when (shouldHideTime) {
+      true -> listOf(Language.cn, Language.ja, Language.ko).contains(prefs.language)
+      false -> prefs.language != Language.system
+    }
 
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
         SelectorItem(R.string.language, languageStrings, ::languageIndex),
         SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
-        SwitchItem(R.string.prefsShowWords, prefs::showWords).takeIf { prefs.language != Language.system },
         SwitchItem(R.string.prefsHideTime, ::shouldHideTime),
+        SwitchItem(R.string.prefsShowWords, prefs::showWords).takeIf { canShowWords },
         SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { !shouldHideTime },
         SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },

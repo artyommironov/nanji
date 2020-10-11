@@ -3,6 +3,8 @@
   <string name="about">About</string>
   <string name="appName">Nanji</string>
   <string name="appearance">Appearance</string>
+  <string name="appearanceBg">Background</string>
+  <string name="appearanceText">Text</string>
   <string name="appearanceReset">Reset</string>
   <string name="japaneseEra">Era date</string>
   <string name="language">Language</string>

@@ -17,6 +17,7 @@
 package com.kazufukurou.nanji
 
 import android.content.res.Resources
+import android.widget.SeekBar
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -45,3 +46,11 @@ val Calendar.hourOfDay: Int get() = get(Calendar.HOUR_OF_DAY)
 val Calendar.hour12: Int get() = hour.let { if (it == 0) 12 else it }
 val Calendar.minute: Int get() = get(Calendar.MINUTE)
 fun Calendar.weekday(locale: Locale): String = SimpleDateFormat("EEEE", DateFormatSymbols(locale)).format(time)
+
+fun SeekBar.onProgressChange(action : (fromUser: Boolean, progress: Int) -> Unit) {
+  setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+    override fun onStartTrackingTouch(seekbar: SeekBar) {}
+    override fun onStopTrackingTouch(seekbar: SeekBar) {}
+    override fun onProgressChanged(seekbar: SeekBar, progress: Int, fromUser: Boolean) = action(fromUser,progress)
+  })
+}

@@ -24,10 +24,10 @@ android {
 
   defaultConfig {
     applicationId = "com.kazufukurou.nanji"
-    minSdkVersion(14)
+    minSdkVersion(16)
     targetSdkVersion(Sdk.target)
-    versionCode = 34
-    versionName = "1.2.0"
+    versionCode = 35
+    versionName = "1.3.0"
     resConfigs("en", "ja", "ru")
     vectorDrawables.useSupportLibrary = true
   }

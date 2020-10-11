@@ -10,12 +10,93 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
+    <ImageView
+      android:id="@+id/imageCornerRadius"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:src="@drawable/ic_corners"
+      android:tint="@color/grey1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+      android:id="@+id/seekCornerRadius"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginStart="8dp"
+      app:layout_constraintBottom_toBottomOf="@id/imageCornerRadius"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/imageCornerRadius"
+      app:layout_constraintTop_toTopOf="@id/imageCornerRadius" />
+
+    <ImageView
+      android:id="@+id/imageTextSize"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:tint="@color/grey1"
+      app:layout_constraintStart_toStartOf="@id/colorPicker"
+      app:layout_constraintTop_toBottomOf="@id/imageCornerRadius"
+      app:srcCompat="@drawable/ic_text_size" />
+
+    <SeekBar
+      android:id="@+id/seekTextSize"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginStart="8dp"
+      app:layout_constraintBottom_toBottomOf="@id/imageTextSize"
+      app:layout_constraintEnd_toEndOf="@id/seekCornerRadius"
+      app:layout_constraintStart_toEndOf="@id/imageTextSize"
+      app:layout_constraintTop_toTopOf="@id/imageTextSize" />
+
+    <ImageView
+      android:id="@+id/imageWideText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:tint="@color/grey1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/imageTextSize"
+      app:srcCompat="@drawable/ic_text_width" />
+
+    <androidx.appcompat.widget.SwitchCompat
+      android:id="@+id/switchWideText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      app:layout_constraintBottom_toBottomOf="@id/imageWideText"
+      app:layout_constraintStart_toEndOf="@id/imageWideText"
+      app:layout_constraintTop_toTopOf="@id/imageWideText" />
+
+    <RadioButton
+      android:id="@+id/radioBg"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:text="@string/appearanceBg"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/imageWideText" />
+
+    <RadioButton
+      android:id="@+id/radioText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="16dp"
+      android:layout_marginStart="16dp"
+      android:text="@string/appearanceText"
+      app:layout_constraintStart_toEndOf="@id/radioBg"
+      app:layout_constraintTop_toTopOf="@id/radioBg" />
+
     <View
       android:id="@+id/viewSampleBg"
       android:layout_width="112dp"
       android:layout_height="112dp"
+      android:layout_marginTop="8dp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/radioBg"
       tools:background="@color/grey1" />
 
     <TextView
@@ -65,78 +146,7 @@
       android:layout_marginEnd="16dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toStartOf="@id/viewSampleBg"
-      app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-      android:id="@+id/imageCornerRadius"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:src="@drawable/ic_corners"
-      android:tint="@color/grey1"
-      app:layout_constraintStart_toStartOf="@id/colorPicker"
-      app:layout_constraintTop_toBottomOf="@id/colorPicker" />
-
-    <SeekBar
-      android:id="@+id/seekCornerRadius"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
-      android:layout_marginLeft="8dp"
-      app:layout_constraintBottom_toBottomOf="@id/imageCornerRadius"
-      app:layout_constraintEnd_toEndOf="@id/colorPicker"
-      app:layout_constraintStart_toEndOf="@id/imageCornerRadius"
-      app:layout_constraintTop_toTopOf="@id/imageCornerRadius" />
-
-    <ImageView
-      android:id="@+id/imageSmallText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:tint="@color/grey1"
-      app:layout_constraintStart_toStartOf="@id/colorPicker"
-      app:layout_constraintTop_toBottomOf="@id/imageCornerRadius"
-      app:srcCompat="@drawable/ic_text_size" />
-
-    <ImageView
-      android:id="@+id/imageWideText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="24dp"
-      android:layout_marginLeft="24dp"
-      android:layout_marginTop="16dp"
-      android:tint="@color/grey1"
-      app:layout_constraintStart_toEndOf="@id/switchSmallText"
-      app:layout_constraintTop_toBottomOf="@id/imageCornerRadius"
-      app:srcCompat="@drawable/ic_text_width" />
-
-    <ImageView
-      android:id="@+id/imageCursor"
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_marginTop="8dp"
-      app:layout_constraintEnd_toEndOf="@+id/buttonText"
-      app:layout_constraintStart_toStartOf="@+id/buttonText"
-      app:layout_constraintTop_toTopOf="@+id/buttonText"
-      app:srcCompat="@drawable/ic_cursor" />
-
-    <androidx.appcompat.widget.SwitchCompat
-      android:id="@+id/switchSmallText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="8dp"
-      app:layout_constraintBottom_toBottomOf="@id/imageSmallText"
-      app:layout_constraintStart_toEndOf="@id/imageSmallText"
-      app:layout_constraintTop_toTopOf="@id/imageSmallText" />
-
-    <androidx.appcompat.widget.SwitchCompat
-      android:id="@+id/switchWideText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="8dp"
-      app:layout_constraintBottom_toBottomOf="@id/imageWideText"
-      app:layout_constraintStart_toEndOf="@id/imageWideText"
-      app:layout_constraintTop_toTopOf="@id/imageWideText" />
+      app:layout_constraintTop_toTopOf="@id/viewSampleBg" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
