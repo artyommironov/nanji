@@ -5,13 +5,12 @@ Home screen clock widget for Chinese, Japanese, Korean, Russian and English lear
 
 ## Features
 - Chinese, Japanese, Korean, Russian, English and default date and time format.
-- Switchable digits/characters time format
 - 12/24 hours time format
 - Japanese era date format
+- Customizable time zone
 - Highly customizable appearance
-- Replacable digits
-- Open system clock on tap
-- Time zone
+- Switch between showing digits/words on tap
+- Open system clock app on tap
 
 ## Download
 https://play.google.com/store/apps/details?id=com.kazufukurou.nanji
