@@ -26,7 +26,6 @@ import java.util.Calendar
 import kotlin.test.*
 
 class TimeTest {
-
   @Test
   fun getTimeTextJa() = with(TimeJa()) {
     assertEquals("午前零時零分", getTimeText(hm(0, 0), false, false, false))

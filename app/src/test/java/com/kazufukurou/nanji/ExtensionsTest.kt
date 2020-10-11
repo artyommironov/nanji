@@ -20,7 +20,7 @@ import kotlin.test.*
 
 class ExtensionsTest {
   @Test
-  fun testForEachCodePoint() {
+  fun toCodePoints() {
     assertEquals(listOf("0", "０", "1", "１", "2", "２", ":", "：", "~", "～"), "0０1１2２:：~～".toCodePoints())
   }
 }
