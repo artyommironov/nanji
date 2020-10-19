@@ -13,7 +13,10 @@ Home screen clock widget for Chinese, Japanese, Korean, Russian and English lear
 - Open system clock app on tap
 
 ## Download
-https://play.google.com/store/apps/details?id=com.kazufukurou.nanji
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/packages/com.kazufukurou.nanji/)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
       alt="Get it on Google Play"
