@@ -60,18 +60,18 @@ class AppearanceActivity : AppCompatActivity() {
     radioBg.setOnClickListener { isText = false }
     radioText.setOnClickListener { isText = true }
     with(seekTextSize) {
-      min = prefs.textSizeRange.first
-      max = prefs.textSizeRange.last
-      onProgressChange { fromUser, progress -> if (fromUser) textSize = progress }
+      val min = prefs.textSizeRange.first
+      max = prefs.textSizeRange.last - min
+      onProgressChange { fromUser, progress -> if (fromUser) textSize = min + progress }
     }
     with(seekCornerRadius) {
-      min = prefs.cornerRadiusRange.first
-      max = prefs.cornerRadiusRange.last
-      onProgressChange { fromUser, progress -> if (fromUser) cornerRadius = progress }
+      val min = prefs.cornerRadiusRange.first
+      max = prefs.cornerRadiusRange.last - min
+      onProgressChange { fromUser, progress -> if (fromUser) cornerRadius = min + progress }
     }
     colorPicker.onColorChange = {
       val color = colorPicker.color
-      if (isText) textColor = color  else bgColor = color
+      if (isText) textColor = color else bgColor = color
     }
     init()
   }
@@ -90,8 +90,8 @@ class AppearanceActivity : AppCompatActivity() {
   }
 
   private fun init() {
-    seekCornerRadius.progress = cornerRadius
-    seekTextSize.progress = textSize
+    seekCornerRadius.progress = cornerRadius - prefs.cornerRadiusRange.first
+    seekTextSize.progress = textSize - prefs.textSizeRange.first
     colorPicker.color = if (isText) textColor else bgColor
     render()
   }
