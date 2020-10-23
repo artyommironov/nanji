@@ -17,33 +17,27 @@
 package com.kazufukurou.nanji.ui
 
 import android.app.Dialog
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
-import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.dp
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item.*
 
 class EditHolder(
-  parent: ViewGroup,
+  private val binding: ItemBinding,
   private val dialogShower: (Dialog) -> Unit
-) : AnyHolder<EditItem>(parent, R.layout.item), LayoutContainer {
-  override val containerView: View = itemView
-
+) : AnyHolder<EditItem>(binding.root) {
   init {
-    switchValue.isVisible = false
-    containerView.setOnClickListener { showEditAlert(currentItem) }
+    binding.switchValue.isVisible = false
+    binding.root.setOnClickListener { showEditAlert(currentItem) }
   }
 
   override fun onBind(item: EditItem) {
-    textTitle.setText(item.title)
-    textSubTitle.text = item.property.get()
-    textSubTitle.isVisible = textSubTitle.text.toString().isNotEmpty()
+    binding.textTitle.setText(item.title)
+    binding.textSubTitle.text = item.property.get()
+    binding.textSubTitle.isVisible = binding.textSubTitle.text.toString().isNotEmpty()
   }
 
   private fun showEditAlert(item: EditItem) {

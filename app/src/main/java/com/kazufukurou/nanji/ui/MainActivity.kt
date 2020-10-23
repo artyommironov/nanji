@@ -23,6 +23,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -31,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kazufukurou.anyadapter.AnyAdapter
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.year
 import java.util.Calendar
@@ -46,10 +49,10 @@ class MainActivity : AppCompatActivity() {
     override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = false
   }
   private val myAdapter = AnyAdapter(diffUtilItemCallback)
-    .map(::ActionHolder)
-    .map(::SwitchHolder)
-    .map { EditHolder(it, ::showDialog) }
-    .map { SelectorHolder(it, ::showDialog) }
+    .map { ActionHolder(getItemBinding(it)) }
+    .map { SwitchHolder(getItemBinding(it)) }
+    .map { EditHolder(getItemBinding(it), ::showDialog) }
+    .map { SelectorHolder(getItemBinding(it), ::showDialog) }
   private var currentDialog: Dialog? = null
   private var shouldHideTime: Boolean
     get() = prefs.hideTime
@@ -123,6 +126,10 @@ class MainActivity : AppCompatActivity() {
         ActionItem(R.string.about, ::showAboutAlert)
       )
     )
+  }
+
+  private fun getItemBinding(parent: ViewGroup): ItemBinding {
+    return ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
   }
 
   private fun showDialog(dialog: Dialog) {

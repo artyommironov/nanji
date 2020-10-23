@@ -28,13 +28,13 @@ import com.kazufukurou.colorpicker.ColorTextWatcher
 import com.kazufukurou.colorpicker.SquareTileDrawable
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.databinding.AppearanceBinding
 import com.kazufukurou.nanji.dp
 import com.kazufukurou.nanji.onProgressChange
-import kotlinx.android.synthetic.main.appearance.*
 import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
-  private val colorTextWatcher by lazy(LazyThreadSafetyMode.NONE) { ColorTextWatcher(colorPicker) }
+  private val colorTextWatcher by lazy(LazyThreadSafetyMode.NONE) { ColorTextWatcher(binding.colorPicker) }
   private val prefs by lazy(LazyThreadSafetyMode.NONE) { Prefs(PreferenceManager.getDefaultSharedPreferences(this)) }
   private var isText by Delegates.observable(false) { _, old, new -> if (new != old) init() }
   private var textColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }
@@ -42,10 +42,12 @@ class AppearanceActivity : AppCompatActivity() {
   private var cornerRadius by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var textSize by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var fullWidthDigits by Delegates.observable(false) { _, old, new -> if (new != old) render() }
+  private lateinit var binding: AppearanceBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.appearance)
+    binding = AppearanceBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
     bgColor = prefs.bgColor
     textColor = prefs.textColor
@@ -53,24 +55,24 @@ class AppearanceActivity : AppCompatActivity() {
     textSize = prefs.textSize.coerceIn(prefs.textSizeRange)
     fullWidthDigits = prefs.fullWidthDigits
 
-    ViewCompat.setBackground(viewSampleBg, SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY))
-    viewSampleBg.setOnClickListener { isText = false }
-    buttonText.setOnClickListener { isText = true }
-    switchWideText.setOnClickListener { fullWidthDigits = !fullWidthDigits }
-    radioBg.setOnClickListener { isText = false }
-    radioText.setOnClickListener { isText = true }
-    with(seekTextSize) {
+    ViewCompat.setBackground(binding.viewSampleBg, SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY))
+    binding.viewSampleBg.setOnClickListener { isText = false }
+    binding.buttonText.setOnClickListener { isText = true }
+    binding.switchWideText.setOnClickListener { fullWidthDigits = !fullWidthDigits }
+    binding.radioBg.setOnClickListener { isText = false }
+    binding.radioText.setOnClickListener { isText = true }
+    with(binding.seekTextSize) {
       val min = prefs.textSizeRange.first
       max = prefs.textSizeRange.last - min
       onProgressChange { fromUser, progress -> if (fromUser) textSize = min + progress }
     }
-    with(seekCornerRadius) {
+    with(binding.seekCornerRadius) {
       val min = prefs.cornerRadiusRange.first
       max = prefs.cornerRadiusRange.last - min
       onProgressChange { fromUser, progress -> if (fromUser) cornerRadius = min + progress }
     }
-    colorPicker.onColorChange = {
-      val color = colorPicker.color
+    binding.colorPicker.onColorChange = {
+      val color = binding.colorPicker.color
       if (isText) textColor = color else bgColor = color
     }
     init()
@@ -90,32 +92,32 @@ class AppearanceActivity : AppCompatActivity() {
   }
 
   private fun init() {
-    seekCornerRadius.progress = cornerRadius - prefs.cornerRadiusRange.first
-    seekTextSize.progress = textSize - prefs.textSizeRange.first
-    colorPicker.color = if (isText) textColor else bgColor
+    binding.seekCornerRadius.progress = cornerRadius - prefs.cornerRadiusRange.first
+    binding.seekTextSize.progress = textSize - prefs.textSizeRange.first
+    binding.colorPicker.color = if (isText) textColor else bgColor
     render()
   }
 
   private fun render() {
-    colorTextWatcher.updateEditText(editColor)
+    colorTextWatcher.updateEditText(binding.editColor)
     val textSize = resources.dp(textSize).toFloat()
     val radius = resources.dp(cornerRadius).toFloat()
-    with(textSample) {
+    with(binding.textSample) {
       text = if (fullWidthDigits) "１２" else "12"
       setTextColor(textColor)
       setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
       ViewCompat.setBackground(
         this,
-        GradientDrawable().apply {
-          setColor(bgColor)
-          cornerRadius = radius
-          setBounds(0, 0, textSample.width, textSample.height)
+        GradientDrawable().also {
+          it.setColor(bgColor)
+          it.cornerRadius = radius
+          it.setBounds(0, 0, width, height)
         }
       )
     }
-    switchWideText.isChecked = fullWidthDigits
-    radioBg.isChecked = !isText
-    radioText.isChecked = isText
+    binding.switchWideText.isChecked = fullWidthDigits
+    binding.radioBg.isChecked = !isText
+    binding.radioText.isChecked = isText
   }
 
   private fun reset() {

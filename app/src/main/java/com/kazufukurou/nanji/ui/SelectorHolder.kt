@@ -17,30 +17,24 @@
 package com.kazufukurou.nanji.ui
 
 import android.app.Dialog
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
-import com.kazufukurou.nanji.R
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item.*
+import com.kazufukurou.nanji.databinding.ItemBinding
 
 class SelectorHolder(
-  parent: ViewGroup,
+  private val binding: ItemBinding,
   private val dialogShower: (Dialog) -> Unit
-) : AnyHolder<SelectorItem>(parent, R.layout.item), LayoutContainer {
-  override val containerView: View = itemView
-
+) : AnyHolder<SelectorItem>(binding.root) {
   init {
-    switchValue.isVisible = false
-    containerView.setOnClickListener { showSelectorAlert(currentItem) }
+    binding.switchValue.isVisible = false
+    binding.root.setOnClickListener { showSelectorAlert(currentItem) }
   }
 
   override fun onBind(item: SelectorItem) {
-    textTitle.setText(item.title)
-    textSubTitle.text = item.items[item.indexProperty.get()]
-    textSubTitle.isVisible = textSubTitle.text.toString().isNotEmpty()
+    binding.textTitle.setText(item.title)
+    binding.textSubTitle.text = item.items[item.indexProperty.get()]
+    binding.textSubTitle.isVisible = binding.textSubTitle.text.toString().isNotEmpty()
   }
 
   private fun showSelectorAlert(item: SelectorItem) {

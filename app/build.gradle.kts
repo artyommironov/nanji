@@ -6,12 +6,12 @@ plugins {
 
 setupDependencyUpdates(project)
 
-androidExtensions {
-  isExperimental = true
-}
-
 android {
   compileSdkVersion(Sdk.compile)
+
+  buildFeatures {
+    viewBinding = true
+  }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
