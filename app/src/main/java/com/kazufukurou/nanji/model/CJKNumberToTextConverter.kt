@@ -17,7 +17,6 @@
 package com.kazufukurou.nanji.model
 
 class CJKNumberToTextConverter(private val wordSource: (Int) -> String) {
-
   fun convert(num: Int): String = StringBuilder().apply {
     when (num) {
       in 0..10 -> append(wordSource(num))

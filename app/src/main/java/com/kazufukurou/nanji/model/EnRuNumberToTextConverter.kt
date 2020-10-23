@@ -17,7 +17,6 @@
 package com.kazufukurou.nanji.model
 
 class EnRuNumberToTextConverter(private val wordSource: (Int) -> String) {
-
   fun convert(num: Int): String = StringBuilder().apply {
     when (num) {
       in 0..20, 30, 40, 50, 60, 70, 80, 90, 100 -> append(wordSource(num))

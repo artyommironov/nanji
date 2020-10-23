@@ -74,7 +74,7 @@ class TimeRu : Time {
     val n100 = num % 100
     return when {
       n10 == 1 && n100 != 11 -> formOne
-      n10 in 2..4 && (n100 < 10 || n100 >= 20) -> formTwo
+      n10 in 2..4 && n100 !in 10..19 -> formTwo
       else -> formFive
     }
   }

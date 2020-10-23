@@ -54,10 +54,12 @@ class EditHolder(
     AlertDialog.Builder(context)
       .setTitle(item.title)
       .apply { if (item.message.isNotEmpty()) setMessage(item.message) }
-      .setView(FrameLayout(context).apply {
-        setPadding(resources.dp(16), 0, resources.dp(16), 0)
-        addView(edit)
-      })
+      .setView(
+        FrameLayout(context).apply {
+          setPadding(resources.dp(16), 0, resources.dp(16), 0)
+          addView(edit)
+        }
+      )
       .setPositiveButton(android.R.string.ok) { _, _ ->
         item.property.set(edit.text.toString().trim())
         onBind(item)
