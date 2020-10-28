@@ -15,7 +15,7 @@ android {
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
-      targetCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }
 
   kotlinOptions {
@@ -26,8 +26,8 @@ android {
     applicationId = "com.kazufukurou.nanji"
     minSdkVersion(16)
     targetSdkVersion(Sdk.target)
-    versionCode = 35
-    versionName = "1.3.0"
+    versionCode = 36
+    versionName = "1.3.1"
     resConfigs("en", "ja", "ru")
     vectorDrawables.useSupportLibrary = true
   }
