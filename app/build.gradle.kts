@@ -1,10 +1,9 @@
 plugins {
   id("com.android.application")
   kotlin("android")
-  kotlin("android.extensions")
 }
 
-setupDependencyUpdates(project)
+setupDependencyUpdates()
 
 android {
   compileSdkVersion(Sdk.compile)
