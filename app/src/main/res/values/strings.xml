@@ -14,7 +14,7 @@
   <string name="languageKo">Korean</string>
   <string name="languageRu">Russian</string>
   <string name="languageSystem">System</string>
-  <string name="prefsReplaceDigits">Replace digits</string>
+  <string name="prefsReplaceChars">Replace characters</string>
   <string name="prefsExamples">Еxamples:</string>
   <string name="prefsFeedback">Send feedback</string>
   <string name="prefsHideTime">Hide time</string>

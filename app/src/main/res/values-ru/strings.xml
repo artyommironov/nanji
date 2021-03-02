@@ -14,7 +14,7 @@
   <string name="languageKo">Корейский</string>
   <string name="languageRu">Русский</string>
   <string name="languageSystem">Системный</string>
-  <string name="prefsReplaceDigits">Заменить цифры</string>
+  <string name="prefsReplaceChars">Заменить символы</string>
   <string name="prefsExamples">Например:</string>
   <string name="prefsFeedback">Отправить отзыв</string>
   <string name="prefsHideTime">Скрыть время</string>

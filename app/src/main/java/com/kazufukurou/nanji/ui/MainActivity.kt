@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
         SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
-        EditItem(R.string.prefsReplaceDigits, messageReplaceDigits, prefs::customSymbols),
+        EditItem(R.string.prefsReplaceChars, messageReplaceDigits, prefs::customSymbols),
         ActionItem(R.string.about, ::showAboutAlert)
       )
     )

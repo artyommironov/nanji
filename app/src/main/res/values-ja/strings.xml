@@ -14,7 +14,7 @@
   <string name="languageKo">韓国語</string>
   <string name="languageRu">ロシア語</string>
   <string name="languageSystem">システム</string>
-  <string name="prefsReplaceDigits">数字を置き換える</string>
+  <string name="prefsReplaceChars">文字置換</string>
   <string name="prefsExamples">例：</string>
   <string name="prefsFeedback">フィードバックを送信</string>
   <string name="prefsHideTime">時刻を隠す</string>
