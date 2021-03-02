@@ -22,16 +22,18 @@ import com.kazufukurou.nanji.databinding.ItemBinding
 
 class SwitchHolder(private val binding: ItemBinding) : AnyHolder<SwitchItem>(binding.root) {
   init {
-    binding.root.setOnClickListener {
-      currentItem.property.set(!currentItem.property.get())
-      onBind(currentItem)
+    with(binding) {
+      root.setOnClickListener {
+        currentItem.property.set(!currentItem.property.get())
+        onBind(currentItem)
+      }
+      textSubTitle.isVisible = false
+      switchValue.isClickable = false
     }
-    binding.textSubTitle.isVisible = false
-    binding.switchValue.isClickable = false
   }
 
-  override fun onBind(item: SwitchItem) {
-    binding.textTitle.setText(item.title)
-    binding.switchValue.isChecked = item.property.get()
+  override fun onBind(item: SwitchItem) = with(binding) {
+    textTitle.setText(item.title)
+    switchValue.isChecked = item.property.get()
   }
 }

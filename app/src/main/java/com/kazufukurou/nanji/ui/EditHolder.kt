@@ -23,21 +23,22 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.kazufukurou.anyadapter.AnyHolder
 import com.kazufukurou.nanji.databinding.ItemBinding
-import com.kazufukurou.nanji.dp
 
 class EditHolder(
   private val binding: ItemBinding,
   private val dialogShower: (Dialog) -> Unit
 ) : AnyHolder<EditItem>(binding.root) {
   init {
-    binding.switchValue.isVisible = false
-    binding.root.setOnClickListener { showEditAlert(currentItem) }
+    with(binding) {
+      switchValue.isVisible = false
+      root.setOnClickListener { showEditAlert(currentItem) }
+    }
   }
 
-  override fun onBind(item: EditItem) {
-    binding.textTitle.setText(item.title)
-    binding.textSubTitle.text = item.property.get()
-    binding.textSubTitle.isVisible = binding.textSubTitle.text.toString().isNotEmpty()
+  override fun onBind(item: EditItem) = with(binding) {
+    textTitle.setText(item.title)
+    textSubTitle.text = item.property.get()
+    textSubTitle.isVisible = binding.textSubTitle.text.toString().isNotEmpty()
   }
 
   private fun showEditAlert(item: EditItem) {

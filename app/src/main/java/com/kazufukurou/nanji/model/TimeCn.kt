@@ -16,14 +16,6 @@
 
 package com.kazufukurou.nanji.model
 
-import com.kazufukurou.nanji.ampm
-import com.kazufukurou.nanji.day
-import com.kazufukurou.nanji.hour12
-import com.kazufukurou.nanji.hourOfDay
-import com.kazufukurou.nanji.minute
-import com.kazufukurou.nanji.monthNum
-import com.kazufukurou.nanji.weekday
-import com.kazufukurou.nanji.year
 import java.util.Calendar
 import java.util.Locale
 

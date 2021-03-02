@@ -31,11 +31,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kazufukurou.anyadapter.AnyAdapter
-import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.Language
-import com.kazufukurou.nanji.year
+import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.model.year
 import java.util.Calendar
 import java.util.TimeZone
 

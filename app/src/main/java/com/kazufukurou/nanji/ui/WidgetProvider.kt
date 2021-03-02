@@ -33,9 +33,8 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.getSystemService
-import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
-import com.kazufukurou.nanji.dp
+import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.Time
 import com.kazufukurou.nanji.model.TimeCn
@@ -44,7 +43,7 @@ import com.kazufukurou.nanji.model.TimeJa
 import com.kazufukurou.nanji.model.TimeKo
 import com.kazufukurou.nanji.model.TimeRu
 import com.kazufukurou.nanji.model.TimeSystem
-import com.kazufukurou.nanji.toCodePoints
+import com.kazufukurou.nanji.model.toCodePoints
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
@@ -185,7 +184,7 @@ class WidgetProvider : AppWidgetProvider() {
       setTextColor(R.id.textContent, prefs.textColor)
       setOnClickPendingIntent(R.id.content, intent)
     }
-    WidgetBg.draw(views, prefs.bgColor, ctx.resources.dp(20), ctx.resources.dp(prefs.cornerRadius))
+    views.drawBg(prefs.bgColor, ctx.resources.dp(20), ctx.resources.dp(prefs.cornerRadius))
     AppWidgetManager.getInstance(ctx).updateAppWidget(ComponentName(ctx, WidgetProvider::class.java), views)
     scheduleUpdate(ctx)
   }

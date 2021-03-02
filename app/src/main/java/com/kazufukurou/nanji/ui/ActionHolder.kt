@@ -22,12 +22,14 @@ import com.kazufukurou.nanji.databinding.ItemBinding
 
 class ActionHolder(private val binding: ItemBinding) : AnyHolder<ActionItem>(binding.root) {
   init {
-    binding.switchValue.isVisible = false
-    binding.textSubTitle.isVisible = false
-    binding.root.setOnClickListener { currentItem.onClick() }
+    with(binding) {
+      switchValue.isVisible = false
+      textSubTitle.isVisible = false
+      root.setOnClickListener { currentItem.onClick() }
+    }
   }
 
-  override fun onBind(item: ActionItem) {
-    binding.textTitle.setText(item.title)
+  override fun onBind(item: ActionItem) = with(binding) {
+    textTitle.setText(item.title)
   }
 }

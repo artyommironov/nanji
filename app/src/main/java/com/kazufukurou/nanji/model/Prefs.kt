@@ -22,7 +22,6 @@ import com.kazufukurou.kprefs.boolean
 import com.kazufukurou.kprefs.enum
 import com.kazufukurou.kprefs.int
 import com.kazufukurou.kprefs.string
-import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.ui.TapAction
 
 class Prefs(prefs: SharedPreferences) {

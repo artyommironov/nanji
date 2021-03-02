@@ -27,14 +27,16 @@ class SelectorHolder(
   private val dialogShower: (Dialog) -> Unit
 ) : AnyHolder<SelectorItem>(binding.root) {
   init {
-    binding.switchValue.isVisible = false
-    binding.root.setOnClickListener { showSelectorAlert(currentItem) }
+    with(binding) {
+      switchValue.isVisible = false
+      root.setOnClickListener { showSelectorAlert(currentItem) }
+    }
   }
 
-  override fun onBind(item: SelectorItem) {
-    binding.textTitle.setText(item.title)
-    binding.textSubTitle.text = item.items[item.indexProperty.get()]
-    binding.textSubTitle.isVisible = binding.textSubTitle.text.toString().isNotEmpty()
+  override fun onBind(item: SelectorItem) = with(binding) {
+    textTitle.setText(item.title)
+    textSubTitle.text = item.items[item.indexProperty.get()]
+    textSubTitle.isVisible = binding.textSubTitle.text.toString().isNotEmpty()
   }
 
   private fun showSelectorAlert(item: SelectorItem) {

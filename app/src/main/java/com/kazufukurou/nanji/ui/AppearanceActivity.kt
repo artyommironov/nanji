@@ -22,15 +22,14 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.Menu
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.kazufukurou.colorpicker.ColorTextWatcher
 import com.kazufukurou.colorpicker.SquareTileDrawable
-import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.AppearanceBinding
-import com.kazufukurou.nanji.dp
-import com.kazufukurou.nanji.onProgressChange
+import com.kazufukurou.nanji.model.Prefs
 import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
@@ -136,5 +135,16 @@ class AppearanceActivity : AppCompatActivity() {
     prefs.cornerRadius = cornerRadius
     prefs.textSize = textSize
     prefs.fullWidthDigits = fullWidthDigits
+  }
+
+
+  private fun SeekBar.onProgressChange(action : (fromUser: Boolean, progress: Int) -> Unit) {
+    setOnSeekBarChangeListener(
+      object : SeekBar.OnSeekBarChangeListener {
+        override fun onStartTrackingTouch(seekbar: SeekBar) {}
+        override fun onStopTrackingTouch(seekbar: SeekBar) {}
+        override fun onProgressChanged(seekbar: SeekBar, progress: Int, fromUser: Boolean) = action(fromUser,progress)
+      }
+    )
   }
 }
