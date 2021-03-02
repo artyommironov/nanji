@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
-import com.kazufukurou.nanji.model.TimeCn
-import com.kazufukurou.nanji.model.TimeEn
-import com.kazufukurou.nanji.model.TimeJa
-import com.kazufukurou.nanji.model.TimeKo
-import com.kazufukurou.nanji.model.TimeRu
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TimeTest {
   @Test
@@ -140,7 +136,6 @@ class TimeTest {
   }
 
   @Test
-  @Ignore
   fun print() {
     val cal = Calendar.getInstance()
     for (i in 0..24 * 60) {

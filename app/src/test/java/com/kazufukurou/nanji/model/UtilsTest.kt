@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.kazufukurou.nanji
+package com.kazufukurou.nanji.model
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class ExtensionsTest {
+class UtilsTest {
   @Test
   fun toCodePoints() {
     assertEquals(listOf("0", "０", "1", "１", "2", "２", ":", "：", "~", "～"), "0０1１2２:：~～".toCodePoints())
