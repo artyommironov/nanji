@@ -28,9 +28,11 @@ import android.content.pm.PackageManager
 import android.os.BatteryManager
 import android.os.Build
 import android.preference.PreferenceManager
+import android.provider.AlarmClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.dp
@@ -60,7 +62,7 @@ class WidgetProvider : AppWidgetProvider() {
 
   override fun onDisabled(ctx: Context) {
     super.onDisabled(ctx)
-    getAlarmManager(ctx)?.cancel(createBroadcastPendingIntent(ctx, false))
+    ctx.alarmManager?.cancel(createBroadcastPendingIntent(ctx, false))
   }
 
   override fun onReceive(ctx: Context, intent: Intent?) {
@@ -70,8 +72,6 @@ class WidgetProvider : AppWidgetProvider() {
     if (intent.action == ACTION_CHANGE) prefs.showWords = !prefs.showWords
     update(ctx)
   }
-
-  private fun getAlarmManager(ctx: Context) = ctx.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
   private fun createActivityPendingIntent(ctx: Context): PendingIntent {
     return PendingIntent.getActivity(ctx, 0, Intent(ctx, MainActivity::class.java), 0)
@@ -89,50 +89,32 @@ class WidgetProvider : AppWidgetProvider() {
       set(Calendar.MILLISECOND, 0)
       add(Calendar.MINUTE, 1)
     }
-    if (Build.VERSION.SDK_INT >= 19) {
-      getAlarmManager(ctx)?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      ctx.alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
     } else {
-      getAlarmManager(ctx)?.set(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
+      ctx.alarmManager?.set(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
     }
   }
 
-  private fun getClockPendingIntent(ctx: Context) = sequenceOf(
-    ComponentName("com.acer.deskclock", "com.acer.deskclock.DeskClock"),
-    ComponentName("com.android.deskclock", "com.android.deskclock.DeskClock"),
-    ComponentName("com.android.deskclock", "com.android.deskclock.AlarmClock"),
-    ComponentName("com.android.alarmclock", "com.android.alarmclock.AlarmClock"),
-    ComponentName("com.android.alarmclock", "com.meizu.flyme.alarmclock.DeskClock"),
-    ComponentName("com.android.BBKClock", "com.android.BBKClock.Timer"),
-    ComponentName("com.asus.deskclock", "com.asus.deskclock.DeskClock"),
-    ComponentName("com.asus.alarmclock", "com.asus.alarmclock.AlarmClock"),
-    ComponentName("com.coloros.alarmclock", "com.coloros.alarmclock.AlarmClock"),
-    ComponentName("com.google.android.deskclock", "com.android.deskclock.DeskClock"),
-    ComponentName("com.google.android.deskclock", "com.android.deskclock.AlarmClock"),
-    ComponentName("com.google.android.alarmclock", "com.android.alarmclock.AlarmClock"),
-    ComponentName("com.htc.android.worldclock", "com.htc.android.worldclock.WorldClockTabControl"),
-    ComponentName("com.lenovo.deskclock", "com.lenovo.clock.Clock"),
-    ComponentName("com.lenovo.deskclock", "com.lenovo.deskclock.DeskClock"),
-    ComponentName("com.lge.clock", "com.lge.clock.AlarmClockActivity"),
-    ComponentName("com.lge.clock", "com.lge.clock.DefaultAlarmClockActivity"),
-    ComponentName("com.lge.alarm.alarmclocknew", "com.lge.alarm.alarmclocknew.AlarmClockNew"),
-    ComponentName("com.motorola.blur.alarmclock", "com.motorola.blur.alarmclock.AlarmClock"),
-    ComponentName("com.motorola.alarmclock", "com.motorola.alarmclock.AlarmClock"),
-    ComponentName("com.oneplus.deskclock", "com.oneplus.deskclock.DeskClock"),
-    ComponentName("com.oppo.alarmclock", "com.oppo.alarmclock.AlarmClock"),
-    ComponentName("com.pantech.app.clock", "com.pantech.app.clock.launcher.ClockManager"),
-    ComponentName("com.sec.android.app.clockpackage", "com.sec.android.app.clockpackage.ClockPackage"),
-    ComponentName("com.sonyericsson.organizer", "com.sonyericsson.organizer.Organizer_WorldClock"),
-    ComponentName("com.sonyericsson.alarm", "com.sonyericsson.alarm.Alarm"),
-    ComponentName("com.tct.timetool", "com.tct.timetool.DeskClock"),
-    ComponentName("com.yulong.android.xtime", "yulong.xtime.ui.main.XTimeActivity"),
-    ComponentName("com.zui.deskclock", "com.zui.deskclock.DeskClock"),
-    ComponentName("net.oneplus.deskclock", "net.oneplus.deskclock.DeskClock"),
-    ComponentName("zte.com.cn.alarmclock", "zte.com.cn.alarmclock.AlarmClock")
-  )
-    .map { Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setComponent(it) }
-    .find { ctx.packageManager.queryIntentActivities(it, PackageManager.MATCH_DEFAULT_ONLY).isNotEmpty() }
-    ?.let { PendingIntent.getActivity(ctx, 0, it, 0) }
+  private fun getAlarmPendingIntent(ctx: Context): PendingIntent? {
+    val action = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      AlarmClock.ACTION_SHOW_ALARMS
+    } else {
+      AlarmClock.ACTION_SET_ALARM
+    }
+    val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setAction(action)
+    return if (ctx.isActivityExists(intent)) {
+      PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    } else {
+      null
+    }
+  }
 
+  private val Context.alarmManager: AlarmManager? get() = getSystemService()
+
+  private fun Context.isActivityExists(intent: Intent): Boolean {
+    return packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isNotEmpty()
+  }
 
   private fun getBatteryLevel(ctx: Context): Int {
     val batteryIntent = ctx.applicationContext.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -188,7 +170,7 @@ class WidgetProvider : AppWidgetProvider() {
     )
     val intent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(ctx, true)
-      TapAction.OpenClock -> getClockPendingIntent(ctx) ?: createActivityPendingIntent(ctx)
+      TapAction.OpenClock -> getAlarmPendingIntent(ctx) ?: createActivityPendingIntent(ctx)
       TapAction.OpenSetting -> createActivityPendingIntent(ctx)
     }
     val textSizeHeader =  ctx.resources.dp(prefs.textSizeRange.first).toFloat()
