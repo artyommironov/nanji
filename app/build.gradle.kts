@@ -25,8 +25,8 @@ android {
     applicationId = "com.kazufukurou.nanji"
     minSdkVersion(16)
     targetSdkVersion(Sdk.target)
-    versionCode = 36
-    versionName = "1.3.1"
+    versionCode = 37
+    versionName = "1.3.2"
     resConfigs("en", "ja", "ru")
     vectorDrawables.useSupportLibrary = true
   }
