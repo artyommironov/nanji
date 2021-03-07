@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Nanji Clock Widget
-Home screen clock widget for Chinese, Japanese, Korean, Russian and English learners.
+Home screen clock widget for language learners.
 
 ## Features
 - Chinese, Japanese, Korean, Russian, English and default date and time format.
@@ -10,7 +10,7 @@ Home screen clock widget for Chinese, Japanese, Korean, Russian and English lear
 - Customizable time zone
 - Highly customizable appearance
 - Switch between showing digits/words on tap
-- Open system clock app on tap
+- Open system alarm app on tap
 
 ## Download
 
