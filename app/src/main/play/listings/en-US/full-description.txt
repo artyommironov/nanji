@@ -1,0 +1,9 @@
+Home screen clock widget for language learners.
+
+- Chinese, Japanese, Korean, Russian, English and default date/time format.
+- 12/24 hours time format
+- Japanese era date format
+- Customizable time zone
+- Highly customizable appearance
+- Switch between showing digits/words on tap
+- Open system alarm app on tap
