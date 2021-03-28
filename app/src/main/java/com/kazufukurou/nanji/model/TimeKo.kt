@@ -27,7 +27,7 @@ class TimeKo : Time {
     val month = convert(cal.monthNum, digits)
     val day = convert(cal.day, digits)
     val weekday = cal.weekday(Locale.KOREAN)
-    return String.format("%s년%s월%s일%s", year, month, day, weekday)
+    return "${year}년${month}월${day}일${weekday}"
   }
 
   override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
@@ -49,7 +49,7 @@ class TimeKo : Time {
       ).getOrNull(h).orEmpty()
     }
     val minute = convert(cal.minute, digits)
-    return String.format("%s%s시%s분", ampm, hour, minute)
+    return "${ampm}${hour}시${minute}분"
   }
 
   private val Int.word: String get() = when (this) {

@@ -33,7 +33,7 @@ class TimeZh(private val simplified: Boolean) : Time {
     val hour = convertTime(if (twentyFour) cal.hourOfDay else cal.hour12, digits)
     val minute = convertTime(cal.minute, digits)
     val hourSuffix = if (simplified) "点" else "點"
-    return String.format("%s%s%s%s分", ampm, hour, hourSuffix, minute)
+    return "${ampm}${hour}${hourSuffix}${minute}分"
   }
 
   override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
@@ -41,7 +41,7 @@ class TimeZh(private val simplified: Boolean) : Time {
     val month = convert(cal.monthNum, digits)
     val day = convert(cal.day, digits)
     val weekday = cal.weekday(Locale.CHINESE)
-    return String.format("%s年%s月%s日%s", year, month, day, weekday)
+    return "${year}年${month}月${day}日${weekday}"
   }
 
   private fun convertTime(num: Int, digits: Boolean): String {

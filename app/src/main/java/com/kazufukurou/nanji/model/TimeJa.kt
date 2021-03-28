@@ -27,7 +27,7 @@ class TimeJa : Time {
     val month = convert(cal.monthNum, digits)
     val day = convert(cal.day, digits)
     val weekday = cal.weekday(Locale.JAPANESE)
-    return String.format("%s年%s月%s日%s", year, month, day, weekday)
+    return "${year}年${month}月${day}日${weekday}"
   }
 
   override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
@@ -38,7 +38,7 @@ class TimeJa : Time {
     }
     val hour = convert(if (twentyFour) cal.hourOfDay else cal.hour, digits)
     val minute = convert(cal.minute, digits)
-    return String.format("%s%s時%s分", ampm, hour, minute)
+    return "${ampm}${hour}時${minute}分"
   }
 
   private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsCJK(Int::kanji)
