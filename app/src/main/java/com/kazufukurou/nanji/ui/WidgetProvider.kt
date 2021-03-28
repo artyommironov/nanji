@@ -122,14 +122,18 @@ class WidgetProvider : AppWidgetProvider() {
     return if (level == -1 || scale == -1 || scale == 0) 50 else (100f * level.toFloat() / scale.toFloat()).toInt()
   }
 
-  private fun getGrammar(language: Language): Time = when (language) {
-    Language.zhCN -> TimeZh(simplified = true)
-    Language.zhTW -> TimeZh(simplified = false)
-    Language.ja -> TimeJa()
-    Language.ko -> TimeKo()
-    Language.en -> TimeEn()
-    Language.ru -> TimeRu()
-    Language.system -> TimeSystem(Locale.getDefault())
+  private fun getTime(prefs: Prefs): Time {
+    val useWords = prefs.showWords
+    val useTwentyFourHours = prefs.twentyFour
+    return when (prefs.language) {
+      Language.zhCN -> TimeZh(simplified = true, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.zhTW -> TimeZh(simplified = false, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.ja -> TimeJa(useEra = prefs.japaneseEra, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.ko -> TimeKo(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.en -> TimeEn(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.ru -> TimeRu(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.system -> TimeSystem(Locale.getDefault(), useTwentyFourHours = useTwentyFourHours)
+    }
   }
 
   private fun convertDateAndTimeTexts(prefs: Prefs, dateText: String, timeText: String): Pair<String, String> {
@@ -150,22 +154,16 @@ class WidgetProvider : AppWidgetProvider() {
 
   private fun update(ctx: Context) {
     val prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
-    val language = prefs.language
-    val showWords = prefs.showWords
     val hideTime = prefs.hideTime
-    val showBattery = prefs.showBattery
-    val grammar = getGrammar(language)
-    val batteryText = when (showBattery) {
-      true -> "~" + grammar.getPercentText(getBatteryLevel(ctx), !showWords)
-      else -> ""
-    }
+    val time = getTime(prefs)
+    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(ctx)) else ""
     val cal = Calendar.getInstance().apply {
       timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     }
     val (dateText, timeText) = convertDateAndTimeTexts(
       prefs = prefs,
-      dateText = grammar.getDateText(cal, !showWords, prefs.japaneseEra) + batteryText,
-      timeText = grammar.getTimeText(cal, !showWords, prefs.twentyFour)
+      dateText = time.getDateText(cal) + batteryText,
+      timeText = time.getTimeText(cal)
     )
     val intent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(ctx, true)

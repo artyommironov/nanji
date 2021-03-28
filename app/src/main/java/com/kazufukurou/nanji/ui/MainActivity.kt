@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
   private fun render() {
     val languageStrings = Language.values().map { getString(it.title) }
     val tapActionStrings = TapAction.values().map { getString(it.title) }
-    val timeZoneStrings = timeZones.map { if (it.isEmpty()) getString(R.string.languageSystem) else it }
+    val timeZoneStrings = timeZones.map { it.ifEmpty { getString(R.string.languageSystem) } }
     val messageReplaceDigits = String.format(TEXT_REPLACE_DIGITS_EXAMPLE, getString(R.string.prefsExamples))
     val canShowWords = when (shouldHideTime) {
       true -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)

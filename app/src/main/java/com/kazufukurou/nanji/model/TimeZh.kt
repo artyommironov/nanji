@@ -19,39 +19,42 @@ package com.kazufukurou.nanji.model
 import java.util.Calendar
 import java.util.Locale
 
-class TimeZh(private val simplified: Boolean) : Time {
-  override fun getPercentText(value: Int, digits: Boolean): String = convert(value, digits) + '％'
+class TimeZh(
+  private val simplified: Boolean,
+  private val useWords: Boolean,
+  private val useTwentyFourHours: Boolean
+) : Time {
+  override fun getPercentText(value: Int): String = value.toWords() + '％'
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
+  override fun getDateText(cal: Calendar): String {
+    val year = cal.year.toWords()
+    val month = cal.monthNum.toWords()
+    val day = cal.day.toWords()
+    val weekday = cal.weekday(Locale.CHINESE)
+    return "${year}年${month}月${day}日${weekday}"
+  }
+
+  override fun getTimeText(cal: Calendar): String {
     val ampm = when {
-      twentyFour -> ""
+      useTwentyFourHours -> ""
       cal.hourOfDay == 0 -> "午夜"
       cal.hourOfDay == 12 -> "中午"
       cal.ampm == Calendar.AM -> "上午"
       else -> "下午"
     }
-    val hour = convertTime(if (twentyFour) cal.hourOfDay else cal.hour12, digits)
-    val minute = convertTime(cal.minute, digits)
+    val hour = (if (useTwentyFourHours) cal.hourOfDay else cal.hour12).toWords(useSpecialKanjiForTwo = true)
+    val minute = cal.minute.toWords(useSpecialKanjiForTwo = true)
     val hourSuffix = if (simplified) "点" else "點"
     return "${ampm}${hour}${hourSuffix}${minute}分"
   }
 
-  override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
-    val year = convert(cal.year, digits)
-    val month = convert(cal.monthNum, digits)
-    val day = convert(cal.day, digits)
-    val weekday = cal.weekday(Locale.CHINESE)
-    return "${year}年${month}月${day}日${weekday}"
-  }
-
-  private fun convertTime(num: Int, digits: Boolean): String {
-    val isWordTwo = num == 2 && !digits
+  private fun Int.toWords(useSpecialKanjiForTwo: Boolean = false): String {
+    val isSpecialTwo = this == 2 && useSpecialKanjiForTwo
     return when {
-      isWordTwo && simplified -> "两"
-      isWordTwo -> "兩"
-      else -> convert(num, digits)
+      !useWords -> toString()
+      isSpecialTwo && simplified -> "两"
+      isSpecialTwo -> "兩"
+      else -> toWordsCJK(Int::kanji)
     }
   }
-
-  private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsCJK(Int::kanji)
 }

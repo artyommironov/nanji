@@ -21,17 +21,20 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class TimeSystem(private val locale: Locale) : Time {
-  override fun getPercentText(value: Int, digits: Boolean): String = "$value%"
+class TimeSystem(
+  private val locale: Locale,
+  private val useTwentyFourHours: Boolean
+) : Time {
+  override fun getPercentText(value: Int): String = "$value%"
 
-  override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
+  override fun getDateText(cal: Calendar): String {
     return DateFormat.getDateInstance(DateFormat.FULL, locale)
       .apply { timeZone = cal.timeZone }
       .format(cal.time)
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
-    return SimpleDateFormat(if (twentyFour) "H:mm" else "h:mm a")
+  override fun getTimeText(cal: Calendar): String {
+    return SimpleDateFormat(if (useTwentyFourHours) "H:mm" else "h:mm a")
       .apply { timeZone = cal.timeZone }
       .format(cal.time)
   }

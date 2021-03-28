@@ -19,19 +19,19 @@ package com.kazufukurou.nanji.model
 import java.util.Calendar
 import java.util.Locale
 
-class TimeRu : Time {
-  private val timeSystem = TimeSystem(Locale("ru"))
+class TimeRu(
+  private val useWords: Boolean,
+  private val useTwentyFourHours: Boolean
+) : Time {
+  private val timeSystem = TimeSystem(Locale("ru"), useTwentyFourHours = useTwentyFourHours)
 
-  override fun getPercentText(value: Int, digits: Boolean): String = timeSystem.getPercentText(value, digits)
+  override fun getPercentText(value: Int): String = timeSystem.getPercentText(value)
+  override fun getDateText(cal: Calendar): String = timeSystem.getDateText(cal)
 
-  override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
-    return timeSystem.getDateText(cal, digits, era)
-  }
-
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
-    val (h, m) = cal.run { (if (twentyFour) cal.hourOfDay else cal.hour12) to minute }
-    val hour = convert(h, female = false, digits = digits) + NBSP + getPlural(h, "час", "часа", "часов")
-    val minute = convert(m, female = true, digits = digits) + NBSP + getPlural(m, "минута", "минуты", "минут")
+  override fun getTimeText(cal: Calendar): String {
+    val (h, m) = cal.run { (if (useTwentyFourHours) cal.hourOfDay else cal.hour12) to minute }
+    val hour = h.toWords(female = false) + NBSP + h.toPlural("час", "часа", "часов")
+    val minute = m.toWords(female = true) + NBSP + m.toPlural("минута", "минуты", "минут")
     return "$hour $minute"
   }
 
@@ -63,9 +63,9 @@ class TimeRu : Time {
     else -> ""
   }
 
-  private fun getPlural(num: Int, formOne: String, formTwo: String, formFive: String): String {
-    val n10 = num % 10
-    val n100 = num % 100
+  private fun Int.toPlural(formOne: String, formTwo: String, formFive: String): String {
+    val n10 = this % 10
+    val n100 = this % 100
     return when {
       n10 == 1 && n100 != 11 -> formOne
       n10 in 2..4 && n100 !in 10..19 -> formTwo
@@ -73,11 +73,9 @@ class TimeRu : Time {
     }
   }
 
-  private fun convert(num: Int, female: Boolean, digits: Boolean): String {
-    return when {
-      digits -> num.toString()
-      female -> num.toWordsEnRu { it.toWord(female = true) }
-      else -> num.toWordsEnRu { it.toWord(female = false) }
-    }
+  private fun Int.toWords(female: Boolean): String = when {
+    !useWords -> toString()
+    female -> toWordsEnRu { it.toWord(female = true) }
+    else -> toWordsEnRu { it.toWord(female = false) }
   }
 }

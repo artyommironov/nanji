@@ -19,27 +19,32 @@ package com.kazufukurou.nanji.model
 import java.util.Calendar
 import java.util.Locale
 
-class TimeJa : Time {
-  override fun getPercentText(value: Int, digits: Boolean): String = convert(value, digits) + '％'
+class TimeJa(
+  private val useEra: Boolean,
+  private val useWords: Boolean,
+  private val useTwentyFourHours: Boolean
+) : Time {
+  override fun getPercentText(value: Int): String = value.toWords() + '％'
 
-  override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
-    val year = (if (era) "令和" else "") + convert(cal.year - (if (era) 2018 else 0), digits)
-    val month = convert(cal.monthNum, digits)
-    val day = convert(cal.day, digits)
+  override fun getDateText(cal: Calendar): String {
+    val (era, eraYearOffset) = if (useEra) "令和" to 2018 else "" to 0
+    val year = era + (cal.year - eraYearOffset).toWords()
+    val month = cal.monthNum.toWords()
+    val day = cal.day.toWords()
     val weekday = cal.weekday(Locale.JAPANESE)
     return "${year}年${month}月${day}日${weekday}"
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
+  override fun getTimeText(cal: Calendar): String {
     val ampm = when {
-      twentyFour -> ""
+      useTwentyFourHours -> ""
       cal.ampm == Calendar.AM -> "午前"
       else -> "午後"
     }
-    val hour = convert(if (twentyFour) cal.hourOfDay else cal.hour, digits)
-    val minute = convert(cal.minute, digits)
+    val hour = (if (useTwentyFourHours) cal.hourOfDay else cal.hour).toWords()
+    val minute = cal.minute.toWords()
     return "${ampm}${hour}時${minute}分"
   }
 
-  private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsCJK(Int::kanji)
+  private fun Int.toWords(): String = if (useWords) toWordsCJK(Int::kanji) else toString()
 }
