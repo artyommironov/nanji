@@ -33,8 +33,6 @@
       android:textSize="24dp"
       android:gravity="center"
       android:focusable="true"
-      android:ellipsize="end"
-      android:singleLine="true"
       android:textColor="@color/white"
       tools:ignore="SpUsage" />
   </LinearLayout>

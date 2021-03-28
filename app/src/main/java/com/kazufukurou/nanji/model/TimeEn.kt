@@ -28,33 +28,30 @@ class TimeEn : Time {
     return timeSystem.getDateText(cal, digits, era)
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
-    val h = cal.hourOfDay
-    val m = cal.minute
+  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
+    val (h, m) = cal.run { hourOfDay to minute }
     return when {
       twentyFour && digits -> "$h".padStart(2, '0') + ":" + "$m".padStart(2, '0')
       twentyFour -> {
-        val zero = 0.word
-        val hundred = 100.word
         val hour = convert(h, digits)
+          .let { if (h < 10 && !(h == 0 && m == 0)) "${0.word}$NBSP$it" else it }
         val minute = convert(m, digits)
-        val hourResult = if (h < 10 && !(h == 0 && m == 0)) "$zero $hour" else hour
-        val minuteResult = if (m == 0) hundred else if (m < 10) "$zero $minute" else minute
-        "$hourResult $minuteResult"
+          .let { if (m == 0) 100.word else if (m < 10) "${0.word}$NBSP$it" else it }
+        "$hour $minute"
       }
       else -> {
-        val hourValue = (cal.hour12 + (if (m > 30) 1 else 0)).takeIf { it < 13 } ?: 1
-        val hour = convert(hourValue, digits)
-        val hourPrefix = if (m > 30) "to " else "past "
-        val minuteValue = if (m > 30) 60 - m else m
-        val minute = convert(minuteValue, digits)
-        val divider = (if (multiLine) "\n" else " ")
-        "It's " + when (minuteValue) {
-          0 -> "$hour o'clock"
-          1 -> "$minute minute$divider$hourPrefix$hour"
-          15 -> "quarter$divider$hourPrefix$hour"
-          30 -> "half$divider$hourPrefix$hour"
-          else -> "$minute minutes$divider$hourPrefix$hour"
+        val (hr, mr) = when {
+          m > 30 -> ((cal.hour12 + 1).takeIf { it < 13 } ?: 1) to (60 - m)
+          else -> cal.hour12 to m
+        }
+        val minute = convert(mr, digits) + NBSP + (if (mr == 1) "minute" else "minutes")
+        val hour = convert(hr, digits)
+        val prefix = if (m > 30) "to" else "past"
+        "It's " + when (mr) {
+          0 -> "$hour${NBSP}o'clock"
+          15 -> "quarter $prefix$NBSP$hour"
+          30 -> "half $prefix$NBSP$hour"
+          else -> "$minute $prefix$NBSP$hour"
         }
       }
     }

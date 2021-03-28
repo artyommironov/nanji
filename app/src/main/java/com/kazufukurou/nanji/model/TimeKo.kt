@@ -30,7 +30,7 @@ class TimeKo : Time {
     return String.format("%s년%s월%s일%s", year, month, day, weekday)
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
+  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
     val hourOfDay = cal.hourOfDay
     val ampm = when {
       twentyFour -> ""
@@ -40,15 +40,13 @@ class TimeKo : Time {
       hourOfDay in 18..20 -> "저녁"
       else -> "밤"
     }
-    val hourValue = if (twentyFour) cal.hourOfDay else cal.hour12
+    val h = if (twentyFour) cal.hourOfDay else cal.hour12
     val hour = when {
-      digits -> hourValue.toString()
+      digits -> "$h"
       else -> listOf(
-        "영", "한", "두", "세", "네", "다섯",
-        "여섯", "일곱", "여덟", "아홉", "열", "열한",
-        "열두", "열세", "열네", "열다섯", "열여섯", "열일곱",
-        "열여덟", "열아홉", "스물", "스물한", "스물두", "스물세"
-      ).getOrNull(hourValue).orEmpty()
+        "영", "한", "두", "세", "네", "다섯", "여섯", "일곱", "여덟", "아홉", "열", "열한",
+        "열두", "열세", "열네", "열다섯", "열여섯", "열일곱", "열여덟", "열아홉", "스물", "스물한", "스물두", "스물세"
+      ).getOrNull(h).orEmpty()
     }
     val minute = convert(cal.minute, digits)
     return String.format("%s%s시%s분", ampm, hour, minute)

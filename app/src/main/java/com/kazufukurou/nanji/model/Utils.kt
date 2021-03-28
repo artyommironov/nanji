@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+const val NBSP = '\u00a0'
+
 fun String.toCodePoints(): List<String> {
   var offset = 0
   val result = mutableListOf<String>()
@@ -31,7 +33,7 @@ fun Int.toWordsEnRu(wordSource: (Int) -> String): String {
   return with(StringBuilder()) {
     when (num) {
       in 0..20, 30, 40, 50, 60, 70, 80, 90, 100 -> append(wordSource(num))
-      in 21..99 -> append(wordSource(num - num % 10)).append(" ").append(wordSource(num % 10))
+      in 21..99 -> append(wordSource(num - num % 10)).append(NBSP).append(wordSource(num % 10))
     }
     toString()
   }

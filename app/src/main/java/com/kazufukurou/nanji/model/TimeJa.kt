@@ -30,7 +30,7 @@ class TimeJa : Time {
     return String.format("%s年%s月%s日%s", year, month, day, weekday)
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
+  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
     val ampm = when {
       twentyFour -> ""
       cal.ampm == Calendar.AM -> "午前"

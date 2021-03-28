@@ -28,12 +28,11 @@ class TimeRu : Time {
     return timeSystem.getDateText(cal, digits, era)
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
-    val hourValue = if (twentyFour) cal.hourOfDay else cal.hour12
-    val minuteValue = cal.minute
-    val hour = convert(hourValue, false, digits) + " " + getPlural(hourValue, "час", "часа", "часов")
-    val minute = convert(minuteValue, true, digits) + " " + getPlural(minuteValue, "минута", "минуты", "минут")
-    return hour + (if (multiLine) "\n" else " ") + minute
+  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
+    val (h, m) = cal.run { (if (twentyFour) cal.hourOfDay else cal.hour12) to minute }
+    val hour = convert(h, female = false, digits = digits) + NBSP + getPlural(h, "час", "часа", "часов")
+    val minute = convert(m, female = true, digits = digits) + NBSP + getPlural(m, "минута", "минуты", "минут")
+    return "$hour $minute"
   }
 
   private fun Int.toWord(female: Boolean) = when (this) {

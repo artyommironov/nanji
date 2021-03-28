@@ -24,115 +24,109 @@ import kotlin.test.assertEquals
 class TimeTest {
   @Test
   fun getTimeTextJa() = with(TimeJa()) {
-    assertEquals("午前零時零分", getTimeText(hm(0, 0), false, false, false))
-    assertEquals("午前零時一分", getTimeText(hm(0, 1), false, false, false))
-    assertEquals("午後零時零分", getTimeText(hm(12, 0), false, false, false))
-    assertEquals("午後零時三十四分", getTimeText(hm(12, 34), false, false, false))
-    assertEquals("午後一時二十一分", getTimeText(hm(13, 21), false, false, false))
-    assertEquals("午前0時0分", getTimeText(hm(0, 0), true, false, false))
-    assertEquals("午前0時1分", getTimeText(hm(0, 1), true, false, false))
-    assertEquals("午後0時0分", getTimeText(hm(12, 0), true, false, false))
-    assertEquals("午後0時34分", getTimeText(hm(12, 34), true, false, false))
-    assertEquals("午後1時21分", getTimeText(hm(13, 21), true, false, false))
-    assertEquals("零時零分", getTimeText(hm(0, 0), false, true, false))
-    assertEquals("零時一分", getTimeText(hm(0, 1), false, true, false))
-    assertEquals("十二時零分", getTimeText(hm(12, 0), false, true, false))
-    assertEquals("十二時三十四分", getTimeText(hm(12, 34), false, true, false))
-    assertEquals("十三時二十一分", getTimeText(hm(13, 21), false, true, false))
-    assertEquals("0時0分", getTimeText(hm(0, 0), true, true, false))
-    assertEquals("0時1分", getTimeText(hm(0, 1), true, true, false))
-    assertEquals("12時0分", getTimeText(hm(12, 0), true, true, false))
-    assertEquals("12時34分", getTimeText(hm(12, 34), true, true, false))
-    assertEquals("13時21分", getTimeText(hm(13, 21), true, true, false))
+    assertEquals("午前零時零分", hm(0, 0))
+    assertEquals("午前零時一分", hm(0, 1))
+    assertEquals("午後零時零分", hm(12, 0))
+    assertEquals("午後零時三十四分", hm(12, 34))
+    assertEquals("午後一時二十一分", hm(13, 21))
+    assertEquals("午前0時0分", hm(0, 0, digits = true))
+    assertEquals("午前0時1分", hm(0, 1, digits = true))
+    assertEquals("午後0時0分", hm(12, 0, digits = true))
+    assertEquals("午後0時34分", hm(12, 34, digits = true))
+    assertEquals("午後1時21分", hm(13, 21, digits = true))
+    assertEquals("零時零分", hm(0, 0, twentyFour = true))
+    assertEquals("零時一分", hm(0, 1, twentyFour = true))
+    assertEquals("十二時零分", hm(12, 0, twentyFour = true))
+    assertEquals("十二時三十四分", hm(12, 34, twentyFour = true))
+    assertEquals("十三時二十一分", hm(13, 21, twentyFour = true))
+    assertEquals("0時0分", hm(0, 0, digits = true, twentyFour = true))
+    assertEquals("0時1分", hm(0, 1, digits = true, twentyFour = true))
+    assertEquals("12時0分", hm(12, 0, digits = true, twentyFour = true))
+    assertEquals("12時34分", hm(12, 34, digits = true, twentyFour = true))
+    assertEquals("13時21分", hm(13, 21, digits = true, twentyFour = true))
   }
 
   @Test
   fun getTimeTextCn() = with(TimeCn()) {
-    assertEquals("午夜十二時零分", getTimeText(hm(0, 0), false, false, false))
-    assertEquals("午夜十二時一分", getTimeText(hm(0, 1), false, false, false))
-    assertEquals("中午十二時零分", getTimeText(hm(12, 0), false, false, false))
-    assertEquals("午夜12時0分", getTimeText(hm(0, 0), true, false, false))
-    assertEquals("午夜12時1分", getTimeText(hm(0, 1), true, false, false))
-    assertEquals("中午12時0分", getTimeText(hm(12, 0), true, false, false))
-    assertEquals("零時零分", getTimeText(hm(0, 0), false, true, false))
-    assertEquals("零時一分", getTimeText(hm(0, 1), false, true, false))
-    assertEquals("十二時零分", getTimeText(hm(12, 0), false, true, false))
-    assertEquals("0時0分", getTimeText(hm(0, 0), true, true, false))
-    assertEquals("0時1分", getTimeText(hm(0, 1), true, true, false))
-    assertEquals("12時0分", getTimeText(hm(12, 0), true, true, false))
+    assertEquals("午夜十二時零分", hm(0, 0))
+    assertEquals("午夜十二時一分", hm(0, 1))
+    assertEquals("中午十二時零分", hm(12, 0))
+    assertEquals("午夜12時0分", hm(0, 0, digits = true))
+    assertEquals("午夜12時1分", hm(0, 1, digits = true))
+    assertEquals("中午12時0分", hm(12, 0, digits = true))
+    assertEquals("零時零分", hm(0, 0, twentyFour = true))
+    assertEquals("零時一分", hm(0, 1, twentyFour = true))
+    assertEquals("十二時零分", hm(12, 0, twentyFour = true))
+    assertEquals("0時0分", hm(0, 0, digits = true, twentyFour = true))
+    assertEquals("0時1分", hm(0, 1, digits = true, twentyFour = true))
+    assertEquals("12時0分", hm(12, 0, digits = true, twentyFour = true))
   }
 
   @Test
   fun getTimeTextKo() = with(TimeKo()) {
-    assertEquals("새벽열두시영분", getTimeText(hm(0, 0), false, false, false))
-    assertEquals("새벽12시0분", getTimeText(hm(0, 0), true, false, false))
-    assertEquals("영시영분", getTimeText(hm(0, 0), false, true, false))
-    assertEquals("0시0분", getTimeText(hm(0, 0), true, true, false))
+    assertEquals("새벽열두시영분", hm(0, 0))
+    assertEquals("새벽12시0분", hm(0, 0, digits = true))
+    assertEquals("영시영분", hm(0, 0, twentyFour = true))
+    assertEquals("0시0분", hm(0, 0, digits = true, twentyFour = true))
   }
 
   @Test
   fun getTimeTextRu() = with(TimeRu()) {
-    assertEquals("двенадцать часов ноль минут", getTimeText(hm(0, 0), false, false, false))
-    assertEquals("двенадцать часов одна минута", getTimeText(hm(0, 1), false, false, false))
-    assertEquals("двенадцать часов ноль минут", getTimeText(hm(12, 0), false, false, false))
-    assertEquals("двенадцать часов тридцать четыре минуты", getTimeText(hm(12, 34), false, false, false))
-    assertEquals("двенадцать часов\nтридцать четыре минуты", getTimeText(hm(12, 34), false, false, true))
-    assertEquals("один час двадцать одна минута", getTimeText(hm(13, 21), false, false, false))
-    assertEquals("12 часов 0 минут", getTimeText(hm(0, 0), true, false, false))
-    assertEquals("12 часов 1 минута", getTimeText(hm(0, 1), true, false, false))
-    assertEquals("12 часов 0 минут", getTimeText(hm(12, 0), true, false, false))
-    assertEquals("12 часов 34 минуты", getTimeText(hm(12, 34), true, false, false))
-    assertEquals("1 час 21 минута", getTimeText(hm(13, 21), true, false, false))
-    assertEquals("ноль часов ноль минут", getTimeText(hm(0, 0), false, true, false))
-    assertEquals("ноль часов одна минута", getTimeText(hm(0, 1), false, true, false))
-    assertEquals("двенадцать часов ноль минут", getTimeText(hm(12, 0), false, true, false))
-    assertEquals("двенадцать часов тридцать четыре минуты", getTimeText(hm(12, 34), false, true, false))
-    assertEquals("тринадцать часов двадцать одна минута", getTimeText(hm(13, 21), false, true, false))
-    assertEquals("0 часов 0 минут", getTimeText(hm(0, 0), true, true, false))
-    assertEquals("0 часов 1 минута", getTimeText(hm(0, 1), true, true, false))
-    assertEquals("12 часов 0 минут", getTimeText(hm(12, 0), true, true, false))
-    assertEquals("12 часов 34 минуты", getTimeText(hm(12, 34), true, true, false))
-    assertEquals("13 часов 21 минута", getTimeText(hm(13, 21), true, true, false))
+    assertEquals("двенадцать_часов ноль_минут", hm(0, 0))
+    assertEquals("двенадцать_часов одна_минута", hm(0, 1))
+    assertEquals("двенадцать_часов ноль_минут", hm(12, 0))
+    assertEquals("двенадцать_часов тридцать_четыре_минуты", hm(12, 34))
+    assertEquals("один_час двадцать_одна_минута", hm(13, 21))
+    assertEquals("12_часов 0_минут", hm(0, 0, digits = true))
+    assertEquals("12_часов 1_минута", hm(0, 1, digits = true))
+    assertEquals("12_часов 0_минут", hm(12, 0, digits = true))
+    assertEquals("12_часов 34_минуты", hm(12, 34, digits = true))
+    assertEquals("1_час 21_минута", hm(13, 21, digits = true))
+    assertEquals("ноль_часов ноль_минут", hm(0, 0, twentyFour = true))
+    assertEquals("ноль_часов одна_минута", hm(0, 1, twentyFour = true))
+    assertEquals("двенадцать_часов ноль_минут", hm(12, 0, twentyFour = true))
+    assertEquals("двенадцать_часов тридцать_четыре_минуты", hm(12, 34, twentyFour = true))
+    assertEquals("тринадцать_часов двадцать_одна_минута", hm(13, 21, twentyFour = true))
+    assertEquals("0_часов 0_минут", hm(0, 0, digits = true, twentyFour = true))
+    assertEquals("0_часов 1_минута", hm(0, 1, digits = true, twentyFour = true))
+    assertEquals("12_часов 0_минут", hm(12, 0, digits = true, twentyFour = true))
+    assertEquals("12_часов 34_минуты", hm(12, 34, digits = true, twentyFour = true))
+    assertEquals("13_часов 21_минута", hm(13, 21, digits = true, twentyFour = true))
   }
 
   @Test
   fun getTimeTextEn() = with(TimeEn()) {
-    assertEquals("It's twelve o'clock", getTimeText(hm(0, 0), false, false, false))
-    assertEquals("It's one minute past twelve", getTimeText(hm(0, 1), false, false, false))
-    assertEquals("It's twelve o'clock", getTimeText(hm(12, 0), false, false, false))
-    assertEquals("It's twenty six minutes to one", getTimeText(hm(12, 34), false, false, false))
-    assertEquals("It's twenty six minutes\nto one", getTimeText(hm(12, 34), false, false, true))
-    assertEquals("It's twenty one minutes past one", getTimeText(hm(13, 21), false, false, false))
-    assertEquals("It's 12 o'clock", getTimeText(hm(0, 0), true, false, false))
-    assertEquals("It's 1 minute past 12", getTimeText(hm(0, 1), true, false, false))
-    assertEquals("It's 12 o'clock", getTimeText(hm(12, 0), true, false, false))
-    assertEquals("It's 26 minutes to 1", getTimeText(hm(12, 34), true, false, false))
-    assertEquals("It's 21 minutes past 1", getTimeText(hm(13, 21), true, false, false))
-    assertEquals("zero hundred", getTimeText(hm(0, 0), false, true, false))
-    assertEquals("zero zero zero one", getTimeText(hm(0, 1), false, true, false))
-    assertEquals("twelve hundred", getTimeText(hm(12, 0), false, true, false))
-    assertEquals("twelve thirty four", getTimeText(hm(12, 34), false, true, false))
-    assertEquals("thirteen twenty one", getTimeText(hm(13, 21), false, true, false))
-    assertEquals("00:00", getTimeText(hm(0, 0), true, true, false))
-    assertEquals("00:01", getTimeText(hm(0, 1), true, true, false))
-    assertEquals("12:00", getTimeText(hm(12, 0), true, true, false))
-    assertEquals("12:34", getTimeText(hm(12, 34), true, true, false))
-    assertEquals("13:21", getTimeText(hm(13, 21), true, true, false))
+    assertEquals("It's twelve_o'clock", hm(0, 0))
+    assertEquals("It's one_minute past_twelve", hm(0, 1))
+    assertEquals("It's twelve_o'clock", hm(12, 0))
+    assertEquals("It's twenty_six_minutes to_one", hm(12, 34))
+    assertEquals("It's twenty_one_minutes past_one", hm(13, 21))
+    assertEquals("It's 12_o'clock", hm(0, 0, digits = true))
+    assertEquals("It's 1_minute past_12", hm(0, 1, digits = true))
+    assertEquals("It's 12_o'clock", hm(12, 0, digits = true))
+    assertEquals("It's 26_minutes to_1", hm(12, 34, digits = true))
+    assertEquals("It's 21_minutes past_1", hm(13, 21, digits = true))
+    assertEquals("zero hundred", hm(0, 0, twentyFour = true))
+    assertEquals("zero_zero zero_one", hm(0, 1, twentyFour = true))
+    assertEquals("twelve hundred", hm(12, 0, twentyFour = true))
+    assertEquals("twelve thirty_four", hm(12, 34, twentyFour = true))
+    assertEquals("thirteen twenty_one", hm(13, 21, twentyFour = true))
+    assertEquals("00:00", hm(0, 0, digits = true, twentyFour = true))
+    assertEquals("00:01", hm(0, 1, digits = true, twentyFour = true))
+    assertEquals("12:00", hm(12, 0, digits = true, twentyFour = true))
+    assertEquals("12:34", hm(12, 34, digits = true, twentyFour = true))
+    assertEquals("13:21", hm(13, 21, digits = true, twentyFour = true))
   }
 
   @Test
-  fun getDateText() {
-    val date19910418 = ymd(1991, Calendar.APRIL, 18)
-    val date20191231 = ymd(2019, Calendar.DECEMBER, 31)
-
-    assertEquals("千九百九十一年四月十八日木曜日", TimeJa().getDateText(date19910418, false, false))
-    assertEquals("Thursday, April 18, 1991", TimeEn().getDateText(date19910418, true, false))
-
-    assertEquals("二千十九年十二月三十一日星期二", TimeCn().getDateText(date20191231, false, false))
-    assertEquals("二千十九年十二月三十一日火曜日", TimeJa().getDateText(date20191231, false, false))
-    assertEquals("令和一年十二月三十一日火曜日", TimeJa().getDateText(date20191231, false, true))
-    assertEquals("이천십구년십이월삼십일일화요일", TimeKo().getDateText(date20191231, false, false))
-    assertEquals("Tuesday, December 31, 2019", TimeEn().getDateText(date20191231, true, false))
+  fun getDateTextAll() {
+    assertEquals("Thursday, April 18, 1991", TimeEn().ymd(1991, Calendar.APRIL, 18, digits = true))
+    assertEquals("Tuesday, December 31, 2019", TimeEn().ymd(2019, Calendar.DECEMBER, 31, digits = true))
+    assertEquals("千九百九十一年四月十八日木曜日", TimeJa().ymd(1991, Calendar.APRIL, 18))
+    assertEquals("二千十九年十二月三十一日火曜日", TimeJa().ymd(2019, Calendar.DECEMBER, 31))
+    assertEquals("令和一年十二月三十一日火曜日", TimeJa().ymd(2019, Calendar.DECEMBER, 31, era = true))
+    assertEquals("二千十九年十二月三十一日星期二", TimeCn().ymd(2019, Calendar.DECEMBER, 31))
+    assertEquals("이천십구년십이월삼십일일화요일", TimeKo().ymd(2019, Calendar.DECEMBER, 31))
   }
 
   @Test
@@ -142,23 +136,38 @@ class TimeTest {
       cal.timeInMillis = i * 60L * 1000L + 60L * 1000L * 60L * 16L
       println(
         listOf(
-          listOf(SimpleDateFormat("H:mm").format(cal.time)),
-          TimeJa().run { listOf(getTimeText(cal, false, false, false), getTimeText(cal, false, true, false)) },
-          TimeCn().run { listOf(getTimeText(cal, false, false, false), getTimeText(cal, false, true, false)) },
-          TimeKo().run { listOf(getTimeText(cal, false, false, false), getTimeText(cal, false, true, false)) }
-        ).flatten().joinToString()
+          SimpleDateFormat("H:mm").format(cal.time),
+          TimeJa().getTimeText(cal, digits = false, twentyFour = false),
+          TimeJa().getTimeText(cal, digits = false, twentyFour = true),
+          TimeCn().getTimeText(cal, digits = false, twentyFour = false),
+          TimeCn().getTimeText(cal, digits = false, twentyFour = true),
+          TimeKo().getTimeText(cal, digits = false, twentyFour = false),
+          TimeKo().getTimeText(cal, digits = false, twentyFour = true)
+        ).joinToString()
       )
     }
   }
 
-  fun hm(hour: Int, minute: Int): Calendar = Calendar.getInstance().apply {
-    set(Calendar.HOUR_OF_DAY, hour)
-    set(Calendar.MINUTE, minute)
+  private fun Time.hm(hour: Int, minute: Int, digits: Boolean = false, twentyFour: Boolean = false): String {
+    return getTimeText(
+      cal = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, hour)
+        set(Calendar.MINUTE, minute)
+      },
+      digits = digits,
+      twentyFour = twentyFour
+    ).replace(NBSP, '_')
   }
 
-  fun ymd(year: Int, month: Int, day: Int) = Calendar.getInstance().apply {
-    set(Calendar.YEAR, year)
-    set(Calendar.MONTH, month)
-    set(Calendar.DAY_OF_MONTH, day)
+  private fun Time.ymd(year: Int, month: Int, day: Int, digits: Boolean = false, era: Boolean = false): String {
+    return getDateText(
+      cal = Calendar.getInstance().apply {
+        set(Calendar.YEAR, year)
+        set(Calendar.MONTH, month)
+        set(Calendar.DAY_OF_MONTH, day)
+      },
+      digits = digits,
+      era = era
+    )
   }
 }

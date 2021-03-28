@@ -21,5 +21,5 @@ import java.util.Calendar
 interface Time {
   fun getPercentText(value: Int, digits: Boolean): String
   fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String
-  fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String
+  fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String
 }

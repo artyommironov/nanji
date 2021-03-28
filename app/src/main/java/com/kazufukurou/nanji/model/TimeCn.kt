@@ -22,7 +22,7 @@ import java.util.Locale
 class TimeCn : Time {
   override fun getPercentText(value: Int, digits: Boolean): String = convert(value, digits) + '％'
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
+  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
     val ampm = when {
       twentyFour -> ""
       cal.hourOfDay == 0 -> "午夜"

@@ -161,11 +161,10 @@ class WidgetProvider : AppWidgetProvider() {
     val cal = Calendar.getInstance().apply {
       timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     }
-    val multiLineTimeText = showWords && language in listOf(Language.ru, Language.en)
     val (dateText, timeText) = convertDateAndTimeTexts(
       prefs = prefs,
       dateText = grammar.getDateText(cal, !showWords, prefs.japaneseEra) + batteryText,
-      timeText = grammar.getTimeText(cal, !showWords, prefs.twentyFour, multiLineTimeText)
+      timeText = grammar.getTimeText(cal, !showWords, prefs.twentyFour)
     )
     val intent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(ctx, true)

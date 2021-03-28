@@ -30,7 +30,7 @@ class TimeSystem(private val locale: Locale) : Time {
       .format(cal.time)
   }
 
-  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
+  override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
     return SimpleDateFormat(if (twentyFour) "H:mm" else "h:mm a")
       .apply { timeZone = cal.timeZone }
       .format(cal.time)
