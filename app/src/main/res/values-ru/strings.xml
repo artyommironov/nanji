@@ -8,12 +8,13 @@
   <string name="appearanceReset">Сбросить</string>
   <string name="japaneseEra">Год императорской эры</string>
   <string name="language">Язык</string>
-  <string name="languageCn">Китайский</string>
   <string name="languageEn">Английский</string>
   <string name="languageJa">Японский</string>
   <string name="languageKo">Корейский</string>
   <string name="languageRu">Русский</string>
   <string name="languageSystem">Системный</string>
+  <string name="languageZhCn">Китайский (упрощённый)</string>
+  <string name="languageZhTw">Китайский (традиционный)</string>
   <string name="prefsReplaceChars">Заменить символы</string>
   <string name="prefsExamples">Например:</string>
   <string name="prefsFeedback">Отправить отзыв</string>

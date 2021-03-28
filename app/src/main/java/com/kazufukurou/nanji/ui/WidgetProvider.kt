@@ -37,7 +37,7 @@ import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.Time
-import com.kazufukurou.nanji.model.TimeCn
+import com.kazufukurou.nanji.model.TimeZh
 import com.kazufukurou.nanji.model.TimeEn
 import com.kazufukurou.nanji.model.TimeJa
 import com.kazufukurou.nanji.model.TimeKo
@@ -123,7 +123,8 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun getGrammar(language: Language): Time = when (language) {
-    Language.cn -> TimeCn()
+    Language.zhCN -> TimeZh(simplified = true)
+    Language.zhTW -> TimeZh(simplified = false)
     Language.ja -> TimeJa()
     Language.ko -> TimeKo()
     Language.en -> TimeEn()

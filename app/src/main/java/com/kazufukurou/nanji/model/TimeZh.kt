@@ -19,7 +19,7 @@ package com.kazufukurou.nanji.model
 import java.util.Calendar
 import java.util.Locale
 
-class TimeCn : Time {
+class TimeZh(private val simplified: Boolean) : Time {
   override fun getPercentText(value: Int, digits: Boolean): String = convert(value, digits) + '％'
 
   override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean): String {
@@ -30,9 +30,10 @@ class TimeCn : Time {
       cal.ampm == Calendar.AM -> "上午"
       else -> "下午"
     }
-    val hour = convert(if (twentyFour) cal.hourOfDay else cal.hour12, digits)
-    val minute = convert(cal.minute, digits)
-    return String.format("%s%s時%s分", ampm, hour, minute)
+    val hour = convertTime(if (twentyFour) cal.hourOfDay else cal.hour12, digits)
+    val minute = convertTime(cal.minute, digits)
+    val hourSuffix = if (simplified) "点" else "點"
+    return String.format("%s%s%s%s分", ampm, hour, hourSuffix, minute)
   }
 
   override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
@@ -41,6 +42,15 @@ class TimeCn : Time {
     val day = convert(cal.day, digits)
     val weekday = cal.weekday(Locale.CHINESE)
     return String.format("%s年%s月%s日%s", year, month, day, weekday)
+  }
+
+  private fun convertTime(num: Int, digits: Boolean): String {
+    val isWordTwo = num == 2 && !digits
+    return when {
+      isWordTwo && simplified -> "两"
+      isWordTwo -> "兩"
+      else -> convert(num, digits)
+    }
   }
 
   private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsCJK(Int::kanji)

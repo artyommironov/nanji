@@ -8,12 +8,13 @@
   <string name="appearanceReset">リセット</string>
   <string name="japaneseEra">元号の日付</string>
   <string name="language">言語</string>
-  <string name="languageCn">中国語</string>
   <string name="languageEn">英語</string>
   <string name="languageJa">日本語</string>
   <string name="languageKo">韓国語</string>
   <string name="languageRu">ロシア語</string>
   <string name="languageSystem">システム</string>
+  <string name="languageZhCn">中国語（簡体）</string>
+  <string name="languageZhTw">中国語（繁体）</string>
   <string name="prefsReplaceChars">文字置換</string>
   <string name="prefsExamples">例：</string>
   <string name="prefsFeedback">フィードバックを送信</string>

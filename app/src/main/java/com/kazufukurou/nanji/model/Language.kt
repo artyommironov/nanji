@@ -21,7 +21,8 @@ import com.kazufukurou.nanji.R
 
 enum class Language(@StringRes val title: Int) {
   system(R.string.languageSystem),
-  cn(R.string.languageCn),
+  zhCN(R.string.languageZhCn),
+  zhTW(R.string.languageZhTw),
   ja(R.string.languageJa),
   ko(R.string.languageKo),
   ru(R.string.languageRu),

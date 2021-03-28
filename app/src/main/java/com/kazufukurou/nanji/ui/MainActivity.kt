@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
     val timeZoneStrings = timeZones.map { if (it.isEmpty()) getString(R.string.languageSystem) else it }
     val messageReplaceDigits = String.format(TEXT_REPLACE_DIGITS_EXAMPLE, getString(R.string.prefsExamples))
     val canShowWords = when (shouldHideTime) {
-      true -> listOf(Language.cn, Language.ja, Language.ko).contains(prefs.language)
+      true -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
       false -> prefs.language != Language.system
     }
 

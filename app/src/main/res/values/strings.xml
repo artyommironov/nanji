@@ -8,12 +8,13 @@
   <string name="appearanceReset">Reset</string>
   <string name="japaneseEra">Era date</string>
   <string name="language">Language</string>
-  <string name="languageCn">Chinese</string>
   <string name="languageEn">English</string>
   <string name="languageJa">Japanese</string>
   <string name="languageKo">Korean</string>
   <string name="languageRu">Russian</string>
   <string name="languageSystem">System</string>
+  <string name="languageZhCn">Chinese (Simplified)</string>
+  <string name="languageZhTw">Chinese (Traditional)</string>
   <string name="prefsReplaceChars">Replace characters</string>
   <string name="prefsExamples">Еxamples:</string>
   <string name="prefsFeedback">Send feedback</string>

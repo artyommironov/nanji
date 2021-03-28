@@ -47,19 +47,21 @@ class TimeTest {
   }
 
   @Test
-  fun getTimeTextCn() = with(TimeCn()) {
-    assertEquals("午夜十二時零分", hm(0, 0))
-    assertEquals("午夜十二時一分", hm(0, 1))
-    assertEquals("中午十二時零分", hm(12, 0))
-    assertEquals("午夜12時0分", hm(0, 0, digits = true))
-    assertEquals("午夜12時1分", hm(0, 1, digits = true))
-    assertEquals("中午12時0分", hm(12, 0, digits = true))
-    assertEquals("零時零分", hm(0, 0, twentyFour = true))
-    assertEquals("零時一分", hm(0, 1, twentyFour = true))
-    assertEquals("十二時零分", hm(12, 0, twentyFour = true))
-    assertEquals("0時0分", hm(0, 0, digits = true, twentyFour = true))
-    assertEquals("0時1分", hm(0, 1, digits = true, twentyFour = true))
-    assertEquals("12時0分", hm(12, 0, digits = true, twentyFour = true))
+  fun getTimeTextCn() = with(TimeZh(simplified = true)) {
+    assertEquals("午夜十二点零分", hm(0, 0))
+    assertEquals("午夜十二点一分", hm(0, 1))
+    assertEquals("上午两点两分", hm(2, 2))
+    assertEquals("中午十二点零分", hm(12, 0))
+    assertEquals("下午两点两分", hm(14, 2))
+    assertEquals("午夜12点0分", hm(0, 0, digits = true))
+    assertEquals("午夜12点1分", hm(0, 1, digits = true))
+    assertEquals("中午12点0分", hm(12, 0, digits = true))
+    assertEquals("零点零分", hm(0, 0, twentyFour = true))
+    assertEquals("零点一分", hm(0, 1, twentyFour = true))
+    assertEquals("十二点零分", hm(12, 0, twentyFour = true))
+    assertEquals("0点0分", hm(0, 0, digits = true, twentyFour = true))
+    assertEquals("0点1分", hm(0, 1, digits = true, twentyFour = true))
+    assertEquals("12点0分", hm(12, 0, digits = true, twentyFour = true))
   }
 
   @Test
@@ -125,7 +127,7 @@ class TimeTest {
     assertEquals("千九百九十一年四月十八日木曜日", TimeJa().ymd(1991, Calendar.APRIL, 18))
     assertEquals("二千十九年十二月三十一日火曜日", TimeJa().ymd(2019, Calendar.DECEMBER, 31))
     assertEquals("令和一年十二月三十一日火曜日", TimeJa().ymd(2019, Calendar.DECEMBER, 31, era = true))
-    assertEquals("二千十九年十二月三十一日星期二", TimeCn().ymd(2019, Calendar.DECEMBER, 31))
+    assertEquals("二千十九年十二月三十一日星期二", TimeZh(simplified = true).ymd(2019, Calendar.DECEMBER, 31))
     assertEquals("이천십구년십이월삼십일일화요일", TimeKo().ymd(2019, Calendar.DECEMBER, 31))
   }
 
@@ -137,10 +139,10 @@ class TimeTest {
       println(
         listOf(
           SimpleDateFormat("H:mm").format(cal.time),
+          TimeZh(simplified = true).getTimeText(cal, digits = false, twentyFour = false),
+          TimeZh(simplified = true).getTimeText(cal, digits = false, twentyFour = true),
           TimeJa().getTimeText(cal, digits = false, twentyFour = false),
           TimeJa().getTimeText(cal, digits = false, twentyFour = true),
-          TimeCn().getTimeText(cal, digits = false, twentyFour = false),
-          TimeCn().getTimeText(cal, digits = false, twentyFour = true),
           TimeKo().getTimeText(cal, digits = false, twentyFour = false),
           TimeKo().getTimeText(cal, digits = false, twentyFour = true)
         ).joinToString()
