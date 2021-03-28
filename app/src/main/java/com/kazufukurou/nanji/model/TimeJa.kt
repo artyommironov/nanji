@@ -20,14 +20,12 @@ import java.util.Calendar
 import java.util.Locale
 
 class TimeJa : Time {
-  private val grammarCn = TimeCn()
-
-  override fun getPercentText(value: Int, digits: Boolean): String = grammarCn.getPercentText(value, digits)
+  override fun getPercentText(value: Int, digits: Boolean): String = convert(value, digits) + '％'
 
   override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
-    val year = (if (era) "令和" else "") + grammarCn.convert(cal.year - (if (era) 2018 else 0), digits)
-    val month = grammarCn.convert(cal.monthNum, digits)
-    val day = grammarCn.convert(cal.day, digits)
+    val year = (if (era) "令和" else "") + convert(cal.year - (if (era) 2018 else 0), digits)
+    val month = convert(cal.monthNum, digits)
+    val day = convert(cal.day, digits)
     val weekday = cal.weekday(Locale.JAPANESE)
     return String.format("%s年%s月%s日%s", year, month, day, weekday)
   }
@@ -38,8 +36,10 @@ class TimeJa : Time {
       cal.ampm == Calendar.AM -> "午前"
       else -> "午後"
     }
-    val hour = grammarCn.convert(if (twentyFour) cal.hourOfDay else cal.hour, digits)
-    val minute = grammarCn.convert(cal.minute, digits)
+    val hour = convert(if (twentyFour) cal.hourOfDay else cal.hour, digits)
+    val minute = convert(cal.minute, digits)
     return String.format("%s%s時%s分", ampm, hour, minute)
   }
+
+  private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsCJK(Int::kanji)
 }

@@ -20,8 +20,6 @@ import java.util.Calendar
 import java.util.Locale
 
 class TimeKo : Time {
-  private val numberConverter = CJKNumberToTextConverter(::getWord)
-
   override fun getPercentText(value: Int, digits: Boolean): String = convert(value, digits) + '％'
 
   override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
@@ -56,7 +54,7 @@ class TimeKo : Time {
     return String.format("%s%s시%s분", ampm, hour, minute)
   }
 
-  private fun getWord(num: Int) = when (num) {
+  private val Int.word: String get() = when (this) {
     0 -> "영"
     1 -> "일"
     2 -> "이"
@@ -73,5 +71,5 @@ class TimeKo : Time {
     else -> ""
   }
 
-  private fun convert(i: Int, digits: Boolean): String = if (digits) i.toString() else numberConverter.convert(i)
+  private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsCJK { it.word }
 }

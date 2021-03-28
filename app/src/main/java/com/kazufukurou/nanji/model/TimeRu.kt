@@ -20,14 +20,12 @@ import java.util.Calendar
 import java.util.Locale
 
 class TimeRu : Time {
-  private val grammarSystem = TimeSystem(Locale("ru"))
-  private val femaleNumberConverter = EnRuNumberToTextConverter { getWord(it, true) }
-  private val maleNumberConverter = EnRuNumberToTextConverter { getWord(it, false) }
+  private val timeSystem = TimeSystem(Locale("ru"))
 
-  override fun getPercentText(value: Int, digits: Boolean): String = grammarSystem.getPercentText(value, digits)
+  override fun getPercentText(value: Int, digits: Boolean): String = timeSystem.getPercentText(value, digits)
 
   override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
-    return grammarSystem.getDateText(cal, digits, era)
+    return timeSystem.getDateText(cal, digits, era)
   }
 
   override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
@@ -38,7 +36,7 @@ class TimeRu : Time {
     return hour + (if (multiLine) "\n" else " ") + minute
   }
 
-  private fun getWord(digit: Int, female: Boolean) = when (digit) {
+  private fun Int.toWord(female: Boolean) = when (this) {
     0 -> "ноль"
     1 -> if (female) "одна" else "один"
     2 -> if (female) "две" else "два"
@@ -79,8 +77,8 @@ class TimeRu : Time {
   private fun convert(num: Int, female: Boolean, digits: Boolean): String {
     return when {
       digits -> num.toString()
-      female -> femaleNumberConverter.convert(num)
-      else -> maleNumberConverter.convert(num)
+      female -> num.toWordsEnRu { it.toWord(female = true) }
+      else -> num.toWordsEnRu { it.toWord(female = false) }
     }
   }
 }

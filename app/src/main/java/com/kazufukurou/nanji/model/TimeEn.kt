@@ -20,13 +20,12 @@ import java.util.Calendar
 import java.util.Locale
 
 class TimeEn : Time {
-  private val grammarSystem = TimeSystem(Locale.ENGLISH)
-  private val numberConverter = EnRuNumberToTextConverter(::getWord)
+  private val timeSystem = TimeSystem(Locale.ENGLISH)
 
-  override fun getPercentText(value: Int, digits: Boolean): String = grammarSystem.getPercentText(value, digits)
+  override fun getPercentText(value: Int, digits: Boolean): String = timeSystem.getPercentText(value, digits)
 
   override fun getDateText(cal: Calendar, digits: Boolean, era: Boolean): String {
-    return grammarSystem.getDateText(cal, digits, era)
+    return timeSystem.getDateText(cal, digits, era)
   }
 
   override fun getTimeText(cal: Calendar, digits: Boolean, twentyFour: Boolean, multiLine: Boolean): String {
@@ -35,8 +34,8 @@ class TimeEn : Time {
     return when {
       twentyFour && digits -> "$h".padStart(2, '0') + ":" + "$m".padStart(2, '0')
       twentyFour -> {
-        val zero = getWord(0)
-        val hundred = getWord(100)
+        val zero = 0.word
+        val hundred = 100.word
         val hour = convert(h, digits)
         val minute = convert(m, digits)
         val hourResult = if (h < 10 && !(h == 0 && m == 0)) "$zero $hour" else hour
@@ -61,7 +60,7 @@ class TimeEn : Time {
     }
   }
 
-  private fun getWord(digit: Int) = when (digit) {
+  private val Int.word: String get() = when (this) {
     0 -> "zero"
     1 -> "one"
     2 -> "two"
@@ -90,5 +89,5 @@ class TimeEn : Time {
     else -> ""
   }
 
-  private fun convert(num: Int, digits: Boolean): String = if (digits) num.toString() else numberConverter.convert(num)
+  private fun convert(num: Int, digits: Boolean): String = if (digits) "$num" else num.toWordsEnRu { it.word }
 }
