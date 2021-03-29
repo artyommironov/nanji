@@ -198,8 +198,13 @@ class TimeTest {
   }
 
   @Test
-  fun getDateTextZh() = with(TimeZh(simplified = true, useWords = true, useTwentyFourHours = false)) {
-    assertEquals("二千十九年十二月三十一日星期二", ymd(2019, Calendar.DECEMBER, 31))
+  fun getDateTextZh() = with(TimeZh(simplified = true, useWords = false, useTwentyFourHours = false)) {
+    assertEquals("2019年12月31日星期二", ymd(2019, Calendar.DECEMBER, 31))
+  }
+
+  @Test
+  fun getDateTextZhWords() = with(TimeZh(simplified = true, useWords = true, useTwentyFourHours = false)) {
+    assertEquals("二零一九年十二月三十一日星期二", ymd(2019, Calendar.DECEMBER, 31))
   }
 
   @Test
