@@ -25,8 +25,8 @@ import android.view.Menu
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import com.kazufukurou.colorpicker.ColorTextWatcher
-import com.kazufukurou.colorpicker.SquareTileDrawable
+import com.artyommironov.colorpicker.ColorTextWatcher
+import com.artyommironov.colorpicker.SquareTileDrawable
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.AppearanceBinding
 import com.kazufukurou.nanji.model.Prefs

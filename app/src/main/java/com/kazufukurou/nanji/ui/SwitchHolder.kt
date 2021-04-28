@@ -17,7 +17,7 @@
 package com.kazufukurou.nanji.ui
 
 import androidx.core.view.isVisible
-import com.kazufukurou.anyadapter.AnyHolder
+import com.artyommironov.anyadapter.AnyHolder
 import com.kazufukurou.nanji.databinding.ItemBinding
 
 class SwitchHolder(private val binding: ItemBinding) : AnyHolder<SwitchItem>(binding.root) {

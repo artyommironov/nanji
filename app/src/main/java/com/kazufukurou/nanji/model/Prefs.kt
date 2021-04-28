@@ -18,10 +18,10 @@ package com.kazufukurou.nanji.model
 
 import android.content.SharedPreferences
 import android.graphics.Color
-import com.kazufukurou.kprefs.boolean
-import com.kazufukurou.kprefs.enum
-import com.kazufukurou.kprefs.int
-import com.kazufukurou.kprefs.string
+import com.artyommironov.kprefs.boolean
+import com.artyommironov.kprefs.enum
+import com.artyommironov.kprefs.int
+import com.artyommironov.kprefs.string
 import com.kazufukurou.nanji.ui.TapAction
 
 class Prefs(prefs: SharedPreferences) {

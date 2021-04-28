@@ -21,7 +21,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
-import com.kazufukurou.anyadapter.AnyHolder
+import com.artyommironov.anyadapter.AnyHolder
 import com.kazufukurou.nanji.databinding.ItemBinding
 
 class EditHolder(
