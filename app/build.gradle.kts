@@ -3,10 +3,9 @@ plugins {
   kotlin("android")
 }
 
-setupDependencyUpdates()
-
 android {
-  compileSdkVersion(Sdk.compile)
+  val sdkVersion = 30
+  compileSdkVersion(sdkVersion)
 
   buildFeatures {
     viewBinding = true
@@ -15,7 +14,7 @@ android {
   defaultConfig {
     applicationId = "com.kazufukurou.nanji"
     minSdkVersion(16)
-    targetSdkVersion(Sdk.target)
+    targetSdkVersion(sdkVersion)
     versionCode = 38
     versionName = "1.3.3"
     resConfigs("en", "ja", "ru")
@@ -44,14 +43,14 @@ android {
 }
 
 dependencies {
-  implementation(Libs.kotlinStdLib)
-  implementation(Libs.kprefs)
-  implementation(Libs.anyAdapter)
-  implementation(Libs.colorPicker)
-  implementation(Libs.androidxKtx)
-  implementation(Libs.androidxAppCompat)
-  implementation(Libs.androidxRecyclerView)
-  implementation(Libs.androidxConstraintLayout)
+  implementation(libs.kotlinStdlib)
+  implementation(libs.kprefs)
+  implementation(libs.anyadapter)
+  implementation(libs.colorpicker)
+  implementation(libs.androidxCoreKtx)
+  implementation(libs.androidxAppCompat)
+  implementation(libs.androidxRecyclerView)
+  implementation(libs.androidxConstraintLayout)
 
-  testImplementation(Libs.kotlinTestJunit)
+  testImplementation(libs.kotlinTestJunit)
 }
