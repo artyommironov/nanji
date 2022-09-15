@@ -73,12 +73,12 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun createActivityPendingIntent(ctx: Context): PendingIntent {
-    return PendingIntent.getActivity(ctx, 0, Intent(ctx, MainActivity::class.java), 0)
+    return PendingIntent.getActivity(ctx, 0, Intent(ctx, MainActivity::class.java), fixPendingIntentFlags(0))
   }
 
   private fun createBroadcastPendingIntent(ctx: Context, change: Boolean): PendingIntent {
     val intent = Intent(ctx, WidgetProvider::class.java).setAction(if (change) ACTION_CHANGE else ACTION_TICK)
-    return PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    return PendingIntent.getBroadcast(ctx, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
   }
 
   private fun scheduleUpdate(ctx: Context) {
@@ -103,16 +103,27 @@ class WidgetProvider : AppWidgetProvider() {
     }
     val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setAction(action)
     return if (ctx.isActivityExists(intent)) {
-      PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+      PendingIntent.getActivity(ctx, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
     } else {
       null
     }
   }
 
+  private fun fixPendingIntentFlags(flags: Int): Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    flags or PendingIntent.FLAG_IMMUTABLE
+  } else {
+    flags
+  }
+
   private val Context.alarmManager: AlarmManager? get() = getSystemService()
 
   private fun Context.isActivityExists(intent: Intent): Boolean {
-    return packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isNotEmpty()
+    val flags = PackageManager.MATCH_DEFAULT_ONLY
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(flags.toLong()))
+    } else {
+      packageManager.queryIntentActivities(intent, flags)
+    }.isNotEmpty()
   }
 
   private fun getBatteryLevel(ctx: Context): Int {

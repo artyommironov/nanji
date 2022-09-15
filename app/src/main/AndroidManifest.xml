@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.kazufukurou.nanji">
 
+  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
   <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.SHOW_ALARMS" />
+    </intent>
+  </queries>
 
   <application
     android:icon="@mipmap/ic_launcher"
@@ -10,6 +17,7 @@
     android:theme="@style/MyTheme">
     <activity
       android:name=".ui.MainActivity"
+      android:exported="true"
       android:label="@string/appName"
       android:launchMode="singleTop">
       <intent-filter>
@@ -20,11 +28,14 @@
 
     <activity
       android:name=".ui.AppearanceActivity"
+      android:exported="false"
       android:theme="@style/MyTheme.Dark"
       android:windowSoftInputMode="stateHidden"
       android:label="@string/appearance" />
 
-    <receiver android:name=".ui.WidgetProvider">
+    <receiver
+      android:name=".ui.WidgetProvider"
+      android:exported="false">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
       </intent-filter>
