@@ -43,14 +43,14 @@ android {
 }
 
 dependencies {
-  implementation(libs.kotlinStdlib)
-  implementation(libs.kprefs)
-  implementation(libs.anyadapter)
-  implementation(libs.colorpicker)
-  implementation(libs.androidxCoreKtx)
-  implementation(libs.androidxAppCompat)
-  implementation(libs.androidxRecyclerView)
-  implementation(libs.androidxConstraintLayout)
+  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
+  implementation("com.github.artyommironov:kprefs:1.0.0")
+  implementation("com.github.artyommironov:anyadapter:1.0.0")
+  implementation("com.github.artyommironov:colorpicker:1.0.0")
+  implementation("androidx.core:core-ktx:1.5.0")
+  implementation("androidx.appcompat:appcompat:1.3.0")
+  implementation("androidx.recyclerview:recyclerview:1.2.1")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
-  testImplementation(libs.kotlinTestJunit)
+  testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.5.21")
 }
