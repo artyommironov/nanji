@@ -57,7 +57,7 @@ fun Int.toWordsEnRu(wordSource: (Int) -> String): String {
 
 fun Int.toWordsCJK(wordSource: (Int) -> String): String {
   val num = this
-  return with(StringBuilder()) {
+  return buildString {
     when (num) {
       in 0..10 -> append(wordSource(num))
       in 11..19 -> append(wordSource(10)).append((num - 10).toWordsCJK(wordSource))
@@ -70,7 +70,6 @@ fun Int.toWordsCJK(wordSource: (Int) -> String): String {
       in 2000..9999 -> append(wordSource(num / 1000)).append((num - 1000 * (num / 1000 - 1)).toWordsCJK(wordSource))
       else -> Unit
     }
-    toString()
   }
 }
 
