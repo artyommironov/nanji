@@ -49,48 +49,48 @@ import java.util.Locale
 import java.util.TimeZone
 
 class WidgetProvider : AppWidgetProvider() {
-  override fun onUpdate(ctx: Context, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
-    super.onUpdate(ctx, appWidgetManager, appWidgetIds)
-    update(ctx)
+  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
+    super.onUpdate(context, appWidgetManager, appWidgetIds)
+    update(context)
   }
 
-  override fun onEnabled(ctx: Context) {
-    super.onEnabled(ctx)
-    scheduleUpdate(ctx)
+  override fun onEnabled(context: Context) {
+    super.onEnabled(context)
+    scheduleUpdate(context)
   }
 
-  override fun onDisabled(ctx: Context) {
-    super.onDisabled(ctx)
-    ctx.getSystemService<AlarmManager>()?.cancel(createBroadcastPendingIntent(ctx, false))
+  override fun onDisabled(context: Context) {
+    super.onDisabled(context)
+    context.getSystemService<AlarmManager>()?.cancel(createBroadcastPendingIntent(context, false))
   }
 
-  override fun onReceive(ctx: Context, intent: Intent?) {
-    super.onReceive(ctx, intent)
+  override fun onReceive(context: Context, intent: Intent?) {
+    super.onReceive(context, intent)
     intent ?: return
     if (intent.action == ACTION_CHANGE) {
-      val prefs = getPrefs(ctx)
+      val prefs = getPrefs(context)
       prefs.showWords = !prefs.showWords
     }
-    update(ctx)
+    update(context)
   }
 
-  private fun createActivityPendingIntent(ctx: Context): PendingIntent {
-    return PendingIntent.getActivity(ctx, 0, Intent(ctx, MainActivity::class.java), fixPendingIntentFlags(0))
+  private fun createActivityPendingIntent(context: Context): PendingIntent {
+    return PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), fixPendingIntentFlags(0))
   }
 
-  private fun createBroadcastPendingIntent(ctx: Context, change: Boolean): PendingIntent {
-    val intent = Intent(ctx, WidgetProvider::class.java).setAction(if (change) ACTION_CHANGE else ACTION_TICK)
-    return PendingIntent.getBroadcast(ctx, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
+  private fun createBroadcastPendingIntent(context: Context, change: Boolean): PendingIntent {
+    val intent = Intent(context, WidgetProvider::class.java).setAction(if (change) ACTION_CHANGE else ACTION_TICK)
+    return PendingIntent.getBroadcast(context, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
   }
 
-  private fun scheduleUpdate(ctx: Context) {
-    val pendingIntent = createBroadcastPendingIntent(ctx, false)
+  private fun scheduleUpdate(context: Context) {
+    val pendingIntent = createBroadcastPendingIntent(context, false)
     val cal = Calendar.getInstance().apply {
       set(Calendar.SECOND, 0)
       set(Calendar.MILLISECOND, 0)
       add(Calendar.MINUTE, 1)
     }
-    val alarmManager = ctx.getSystemService<AlarmManager>()
+    val alarmManager = context.getSystemService<AlarmManager>()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
     } else {
@@ -98,15 +98,15 @@ class WidgetProvider : AppWidgetProvider() {
     }
   }
 
-  private fun getAlarmPendingIntent(ctx: Context): PendingIntent? {
+  private fun getAlarmPendingIntent(context: Context): PendingIntent? {
     val action = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       AlarmClock.ACTION_SHOW_ALARMS
     } else {
       AlarmClock.ACTION_SET_ALARM
     }
     val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setAction(action)
-    return if (isActivityExists(ctx.packageManager, intent)) {
-      PendingIntent.getActivity(ctx, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
+    return if (isActivityExists(context.packageManager, intent)) {
+      PendingIntent.getActivity(context, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
     } else {
       null
     }
@@ -127,10 +127,10 @@ class WidgetProvider : AppWidgetProvider() {
     }.isNotEmpty()
   }
 
-  private fun getPrefs(ctx: Context): Prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
+  private fun getPrefs(context: Context): Prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(context))
 
-  private fun getBatteryLevel(ctx: Context): Int {
-    val batteryIntent = ctx.applicationContext.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+  private fun getBatteryLevel(context: Context): Int {
+    val batteryIntent = context.applicationContext.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     val level = batteryIntent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
     val scale = batteryIntent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
     return if (level == -1 || scale == -1 || scale == 0) 50 else (100f * level.toFloat() / scale.toFloat()).toInt()
@@ -166,11 +166,11 @@ class WidgetProvider : AppWidgetProvider() {
     return resultDateText to resultTimeText
   }
 
-  private fun update(ctx: Context) {
-    val prefs = getPrefs(ctx)
+  private fun update(context: Context) {
+    val prefs = getPrefs(context)
     val hideTime = prefs.hideTime
     val time = getTime(prefs)
-    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(ctx)) else ""
+    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(context)) else ""
     val cal = Calendar.getInstance().apply {
       timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     }
@@ -180,13 +180,13 @@ class WidgetProvider : AppWidgetProvider() {
       timeText = time.getTimeText(cal)
     )
     val intent = when (prefs.tapAction) {
-      TapAction.ShowWords -> createBroadcastPendingIntent(ctx, true)
-      TapAction.OpenClock -> getAlarmPendingIntent(ctx) ?: createActivityPendingIntent(ctx)
-      TapAction.OpenSetting -> createActivityPendingIntent(ctx)
+      TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
+      TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
+      TapAction.OpenSetting -> createActivityPendingIntent(context)
     }
-    val textSizeHeader =  ctx.resources.dp(prefs.textSizeRange.first).toFloat()
-    val textSizeContent = ctx.resources.dp(prefs.textSize).toFloat()
-    val views = RemoteViews(ctx.packageName, R.layout.widget).apply {
+    val textSizeHeader =  context.resources.dp(prefs.textSizeRange.first).toFloat()
+    val textSizeContent = context.resources.dp(prefs.textSize).toFloat()
+    val views = RemoteViews(context.packageName, R.layout.widget).apply {
       setTextViewTextSize(R.id.textHeader, TypedValue.COMPLEX_UNIT_PX, textSizeHeader)
       setTextViewTextSize(R.id.textContent, TypedValue.COMPLEX_UNIT_PX, textSizeContent)
       setViewVisibility(R.id.textHeader, if (hideTime) View.GONE else View.VISIBLE)
@@ -196,9 +196,9 @@ class WidgetProvider : AppWidgetProvider() {
       setTextColor(R.id.textContent, prefs.textColor)
       setOnClickPendingIntent(R.id.content, intent)
     }
-    views.drawBg(prefs.bgColor, ctx.resources.dp(20), ctx.resources.dp(prefs.cornerRadius))
-    AppWidgetManager.getInstance(ctx).updateAppWidget(ComponentName(ctx, WidgetProvider::class.java), views)
-    scheduleUpdate(ctx)
+    views.drawBg(prefs.bgColor, context.resources.dp(20), context.resources.dp(prefs.cornerRadius))
+    AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, WidgetProvider::class.java), views)
+    scheduleUpdate(context)
   }
 }
 
