@@ -61,14 +61,16 @@ class WidgetProvider : AppWidgetProvider() {
 
   override fun onDisabled(ctx: Context) {
     super.onDisabled(ctx)
-    ctx.alarmManager?.cancel(createBroadcastPendingIntent(ctx, false))
+    ctx.getSystemService<AlarmManager>()?.cancel(createBroadcastPendingIntent(ctx, false))
   }
 
   override fun onReceive(ctx: Context, intent: Intent?) {
     super.onReceive(ctx, intent)
     intent ?: return
-    val prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
-    if (intent.action == ACTION_CHANGE) prefs.showWords = !prefs.showWords
+    if (intent.action == ACTION_CHANGE) {
+      val prefs = getPrefs(ctx)
+      prefs.showWords = !prefs.showWords
+    }
     update(ctx)
   }
 
@@ -88,10 +90,11 @@ class WidgetProvider : AppWidgetProvider() {
       set(Calendar.MILLISECOND, 0)
       add(Calendar.MINUTE, 1)
     }
+    val alarmManager = ctx.getSystemService<AlarmManager>()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-      ctx.alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
+      alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
     } else {
-      ctx.alarmManager?.set(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
+      alarmManager?.set(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
     }
   }
 
@@ -102,7 +105,7 @@ class WidgetProvider : AppWidgetProvider() {
       AlarmClock.ACTION_SET_ALARM
     }
     val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setAction(action)
-    return if (ctx.isActivityExists(intent)) {
+    return if (isActivityExists(ctx.packageManager, intent)) {
       PendingIntent.getActivity(ctx, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
     } else {
       null
@@ -115,9 +118,7 @@ class WidgetProvider : AppWidgetProvider() {
     flags
   }
 
-  private val Context.alarmManager: AlarmManager? get() = getSystemService()
-
-  private fun Context.isActivityExists(intent: Intent): Boolean {
+  private fun isActivityExists(packageManager: PackageManager, intent: Intent): Boolean {
     val flags = PackageManager.MATCH_DEFAULT_ONLY
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
       packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(flags.toLong()))
@@ -125,6 +126,8 @@ class WidgetProvider : AppWidgetProvider() {
       packageManager.queryIntentActivities(intent, flags)
     }.isNotEmpty()
   }
+
+  private fun getPrefs(ctx: Context): Prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
 
   private fun getBatteryLevel(ctx: Context): Int {
     val batteryIntent = ctx.applicationContext.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -164,7 +167,7 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun update(ctx: Context) {
-    val prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(ctx))
+    val prefs = getPrefs(ctx)
     val hideTime = prefs.hideTime
     val time = getTime(prefs)
     val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(ctx)) else ""
