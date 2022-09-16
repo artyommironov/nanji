@@ -5,7 +5,7 @@ plugins {
 
 android {
   val sdkVersion = 33
-  compileSdkVersion(sdkVersion)
+  compileSdk = sdkVersion
 
   buildFeatures {
     viewBinding = true
@@ -13,11 +13,11 @@ android {
 
   defaultConfig {
     applicationId = "com.kazufukurou.nanji"
-    minSdkVersion(16)
-    targetSdkVersion(sdkVersion)
+    minSdk = 16
+    targetSdk = sdkVersion
     versionCode = 38
     versionName = "1.3.3"
-    resConfigs("en", "ja", "ru")
+    resourceConfigurations.addAll(listOf("en", "ja", "ru"))
     vectorDrawables.useSupportLibrary = true
   }
 
