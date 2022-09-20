@@ -18,6 +18,7 @@ package com.kazufukurou.nanji.model
 
 import android.content.SharedPreferences
 import android.graphics.Color
+import androidx.core.content.edit
 import com.artyommironov.kprefs.boolean
 import com.artyommironov.kprefs.enum
 import com.artyommironov.kprefs.int
@@ -45,7 +46,11 @@ class Prefs(prefs: SharedPreferences) {
   var showBattery by prefs.boolean()
   var customSymbols by prefs.string()
   var timeZone by prefs.string()
-  @Deprecated("use textSize") var smallTextSize by prefs.boolean()
-  @Deprecated("use showWords") var showDigits by prefs.boolean()
-  @Deprecated("use tapAction") var openClock by prefs.boolean()
+
+  init {
+    prefs.edit {
+      val oldKeys = listOf("smallTextSize", "showDigits", "openClock")
+      oldKeys.forEach(::remove)
+    }
+  }
 }
