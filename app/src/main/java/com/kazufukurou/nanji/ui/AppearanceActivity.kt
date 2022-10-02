@@ -9,6 +9,7 @@ import android.view.Menu
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import com.artyommironov.colorpicker.ColorPicker
 import com.artyommironov.colorpicker.ColorTextWatcher
 import com.artyommironov.colorpicker.SquareTileDrawable
 import com.kazufukurou.nanji.R
@@ -54,10 +55,13 @@ class AppearanceActivity : AppCompatActivity() {
       max = prefs.cornerRadiusRange.last - min
       onProgressChange { fromUser, progress -> if (fromUser) cornerRadius = min + progress }
     }
-    binding.colorPicker.onColorChange = {
-      val color = binding.colorPicker.color
-      if (isText) textColor = color else bgColor = color
-    }
+    binding.colorPicker.setup(
+      mode = ColorPicker.Mode.RGBA,
+      onColorChange = {
+        val color = binding.colorPicker.color
+        if (isText) textColor = color else bgColor = color
+      }
+    )
     init()
   }
 
