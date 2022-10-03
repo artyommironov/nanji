@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
+  namespace = "com.kazufukurou.nanji"
   val sdkVersion = 33
   compileSdk = sdkVersion
 
   buildFeatures {
     viewBinding = true
   }
-
   defaultConfig {
     applicationId = "com.kazufukurou.nanji"
     minSdk = 16
@@ -20,7 +20,6 @@ android {
     resourceConfigurations.addAll(listOf("en", "ja", "ru"))
     vectorDrawables.useSupportLibrary = true
   }
-
   signingConfigs {
     create("release") {
       if (project.hasProperty("keyAlias")) {
@@ -31,7 +30,6 @@ android {
       }
     }
   }
-
   buildTypes {
     getByName("release") {
       isShrinkResources = true
