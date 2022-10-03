@@ -16,15 +16,15 @@
   <string name="languageZhCn">Китайский (упрощённый)</string>
   <string name="languageZhTw">Китайский (традиционный)</string>
   <string name="prefsReplaceChars">Заменить символы</string>
-  <string name="prefsExamples">Например:</string>
+  <string name="prefsExample">ABCDEF = заменить A на B、C на D、E на F\nНапример: 零〇~♥</string>
   <string name="prefsFeedback">Отправить отзыв</string>
   <string name="prefsHideTime">Скрыть время</string>
   <string name="prefsShowBattery">Показать заряд батареи</string>
-  <string name="prefsShowWords">Показать слова</string>
+  <string name="prefsVerboseDisplayMode">Подробный режим отображения</string>
   <string name="prefsTapAction">Действие по нажатию</string>
   <string name="prefsTapActionOpenClock">Открыть часы</string>
   <string name="prefsTapActionOpenSettings">Открыть настройки</string>
-  <string name="prefsTapActionShowWords">Слова вместо чисел</string>
+  <string name="prefsTapActionToggleVerboseDisplay">Переключить подробный режим отображения</string>
   <string name="prefsTimeZone">Часовой пояс</string>
   <string name="prefsTwentyFour">24-часовой формат</string>
   <string name="reset">Сбросить</string>

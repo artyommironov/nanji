@@ -89,24 +89,22 @@ class MainActivity : AppCompatActivity() {
     val languageStrings = Language.values().map { getString(it.title) }
     val tapActionStrings = TapAction.values().map { getString(it.title) }
     val timeZoneStrings = timeZones.map { it.ifEmpty { getString(R.string.languageSystem) } }
-    val messageReplaceDigits = String.format(TEXT_REPLACE_DIGITS_EXAMPLE, getString(R.string.prefsExamples))
     val canShowWords = when (shouldHideTime) {
       true -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
       false -> prefs.language != Language.system
     }
-
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
         SelectorItem(R.string.language, languageStrings, ::languageIndex),
         SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
         SwitchItem(R.string.prefsHideTime, ::shouldHideTime),
-        SwitchItem(R.string.prefsShowWords, prefs::showWords).takeIf { canShowWords },
+        SwitchItem(R.string.prefsVerboseDisplayMode, prefs::showWords).takeIf { canShowWords },
         SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { !shouldHideTime },
         SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
         SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
-        EditItem(R.string.prefsReplaceChars, messageReplaceDigits, prefs::customSymbols),
+        EditItem(R.string.prefsReplaceChars, getString(R.string.prefsExample), prefs::customSymbols),
         ActionItem(R.string.about, ::showAboutAlert)
       )
     )
@@ -150,8 +148,6 @@ class MainActivity : AppCompatActivity() {
       .let(::showDialog)
   }
 }
-
-private const val TEXT_REPLACE_DIGITS_EXAMPLE = "ABCDEF = A->B C->D E->F\n%s\n零〇~♥\n一壱二弐三参十拾"
 
 private const val LICENSE = """Copyright %d Artyom Mironov
 
