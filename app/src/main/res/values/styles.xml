@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
   <style name="MyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <item name="colorPrimary">@color/brown1</item>
-    <item name="colorPrimaryDark">@color/brown3</item>
-    <item name="colorAccent">@color/blue1</item>
+    <item name="colorPrimary">@color/brown2</item>
+    <item name="colorPrimaryDark">@color/brown4</item>
+    <item name="colorAccent">@color/brown2</item>
   </style>
 
   <style name="MyTheme.Dark" parent="Theme.AppCompat">
-    <item name="colorAccent">@color/blue1</item>
+    <item name="colorAccent">@color/brown1</item>
   </style>
 </resources>

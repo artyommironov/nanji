@@ -4,8 +4,8 @@
   <color name="black">#000000</color>
   <color name="grey1">#757575</color>
   <color name="grey2">#eeeeee</color>
-  <color name="brown1">#8d6e63</color>
-  <color name="brown2">#795548</color>
-  <color name="brown3">#5f4339</color>
-  <color name="blue1">#039be5</color>
+  <color name="brown1">#a1887f</color>
+  <color name="brown2">#8d6e63</color>
+  <color name="brown3">#795548</color>
+  <color name="brown4">#5f4339</color>
 </resources>
