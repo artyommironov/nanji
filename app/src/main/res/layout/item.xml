@@ -5,36 +5,37 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
+  android:minHeight="56dp"
   android:paddingLeft="16dp"
-  android:paddingRight="16dp"
-  android:minHeight="56dp">
+  android:paddingRight="16dp">
 
   <TextView
     android:id="@+id/textTitle"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
     app:layout_constraintBottom_toTopOf="@+id/textSubTitle"
     app:layout_constraintEnd_toStartOf="@id/switchValue"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_chainStyle="packed"
-    tools:text="@string/prefsShowBattery" />
+    tools:text="@string/language" />
 
   <TextView
     android:id="@+id/textSubTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/textTitle"
+    android:layout_marginTop="4dp"
+    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toStartOf="@id/switchValue"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/textTitle"
-    tools:visibility="gone"
-    tools:text="@string/prefsShowBattery" />
+    tools:text="@string/languageJa" />
 
-  <androidx.appcompat.widget.SwitchCompat
+  <com.google.android.material.switchmaterial.SwitchMaterial
     android:id="@+id/switchValue"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

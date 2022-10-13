@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="white">#ffffff</color>
-  <color name="black">#000000</color>
-  <color name="grey1">#757575</color>
-  <color name="grey2">#eeeeee</color>
-  <color name="brown1">#a1887f</color>
-  <color name="brown2">#8d6e63</color>
-  <color name="brown3">#795548</color>
-  <color name="brown4">#5f4339</color>
+  <color name="textColorSecondary">@color/gray600</color>
+  <color name="primary">@color/brown400</color>
+  <color name="primaryContainer">@color/brown200</color>
+  <color name="primaryDark">@color/brown400</color>
+  <color name="switchThumbUnchecked">@color/gray200</color>
+  <color name="switchTrackChecked">@color/brown200</color>
+  <color name="switchTrackUnchecked">@color/gray400</color>
 </resources>

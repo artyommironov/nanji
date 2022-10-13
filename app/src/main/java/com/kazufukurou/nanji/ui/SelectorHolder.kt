@@ -1,9 +1,9 @@
 package com.kazufukurou.nanji.ui
 
 import android.app.Dialog
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.artyommironov.anyadapter.AnyHolder
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.databinding.ItemBinding
 
 class SelectorHolder(
@@ -24,7 +24,7 @@ class SelectorHolder(
   }
 
   private fun showSelectorAlert(item: SelectorItem) {
-    AlertDialog.Builder(context)
+    MaterialAlertDialogBuilder(context)
       .setTitle(item.title)
       .setSingleChoiceItems(
         item.items.toTypedArray(),

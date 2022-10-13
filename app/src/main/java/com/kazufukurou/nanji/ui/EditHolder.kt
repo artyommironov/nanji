@@ -3,9 +3,9 @@ package com.kazufukurou.nanji.ui
 import android.app.Dialog
 import android.widget.EditText
 import android.widget.FrameLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.artyommironov.anyadapter.AnyHolder
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.databinding.ItemBinding
 
 class EditHolder(
@@ -30,7 +30,7 @@ class EditHolder(
       setSingleLine()
       append(item.property.get())
     }
-    AlertDialog.Builder(context)
+    MaterialAlertDialogBuilder(context)
       .setTitle(item.title)
       .apply { if (item.message.isNotEmpty()) setMessage(item.message) }
       .setView(

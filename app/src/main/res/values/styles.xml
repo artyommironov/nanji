@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="MyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <item name="colorPrimary">@color/brown2</item>
-    <item name="colorPrimaryDark">@color/brown4</item>
-    <item name="colorAccent">@color/brown2</item>
+  <style name="MyTheme" parent="Theme.Material3.DayNight">
+    <item name="android:textColorSecondary">@color/textColorSecondary</item>
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryContainer">@color/primaryContainer</item>
+    <item name="colorPrimaryDark">@color/primaryDark</item>
+    <item name="colorAccent">@color/primary</item>
+    <item name="switchStyle">@style/MySwitch</item>
   </style>
-
-  <style name="MyTheme.Dark" parent="Theme.AppCompat">
-    <item name="colorAccent">@color/brown1</item>
+  <style name="MySwitch" parent="Widget.Material3.CompoundButton.Switch">
+    <item name="materialThemeOverlay">@style/MySwitchOverlay</item>
+  </style>
+  <style name="MySwitchOverlay">
+    <item name="colorOutline">@color/switchTrackUnchecked</item>
+    <item name="colorOnSurface">@color/switchThumbUnchecked</item>
+    <item name="colorPrimaryContainer">@color/switchTrackChecked</item>
   </style>
 </resources>

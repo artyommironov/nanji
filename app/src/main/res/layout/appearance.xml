@@ -15,10 +15,11 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
+      android:alpha="0.5"
       android:src="@drawable/ic_corners"
-      android:tint="@color/grey1"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:tint="?attr/colorOnSurface" />
 
     <SeekBar
       android:id="@+id/seekCornerRadius"
@@ -36,7 +37,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:tint="@color/grey1"
+      android:alpha="0.5"
+      android:tint="?attr/colorOnSurface"
       app:layout_constraintStart_toStartOf="@id/colorPicker"
       app:layout_constraintTop_toBottomOf="@id/imageCornerRadius"
       app:srcCompat="@drawable/ic_text_size" />
@@ -57,12 +59,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:tint="@color/grey1"
+      android:alpha="0.5"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/imageTextSize"
-      app:srcCompat="@drawable/ic_text_width" />
+      app:srcCompat="@drawable/ic_text_width"
+      app:tint="?attr/colorOnSurface" />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.google.android.material.switchmaterial.SwitchMaterial
       android:id="@+id/switchWideText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -97,7 +100,7 @@
       android:layout_marginTop="8dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/radioBg"
-      tools:background="@color/grey1" />
+      tools:background="?attr/colorOnSurface" />
 
     <TextView
       android:id="@+id/textSample"

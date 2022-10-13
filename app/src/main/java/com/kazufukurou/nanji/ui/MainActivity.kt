@@ -9,12 +9,12 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artyommironov.anyadapter.AnyAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.Language
@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
     val appName = getString(R.string.appName)
     val appVersion = packageInfo.versionName
     val year = Calendar.getInstance().year
-    AlertDialog.Builder(this)
+    MaterialAlertDialogBuilder(this)
       .setTitle("$appName $appVersion")
       .setMessage(String.format(LICENSE, year))
       .setPositiveButton(android.R.string.ok, null)

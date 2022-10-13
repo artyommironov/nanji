@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="textColorSecondary">@color/gray500</color>
+  <color name="primary">@color/brown400</color>
+  <color name="primaryContainer">@color/brown600</color>
+  <color name="primaryDark">@color/brown600</color>
+  <color name="switchThumbUnchecked">@color/gray500</color>
+  <color name="switchTrackChecked">@color/brown600</color>
+  <color name="switchTrackUnchecked">@color/gray700</color>
+</resources>

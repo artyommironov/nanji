@@ -26,7 +26,6 @@
     <activity
       android:name=".ui.AppearanceActivity"
       android:exported="false"
-      android:theme="@style/MyTheme.Dark"
       android:windowSoftInputMode="stateHidden"
       android:label="@string/appearance" />
 
