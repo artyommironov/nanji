@@ -1,13 +1,17 @@
 package com.kazufukurou.nanji.ui
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
 import com.artyommironov.colorpicker.ColorPicker
 import com.artyommironov.colorpicker.ColorTextWatcher
@@ -40,11 +44,9 @@ class AppearanceActivity : AppCompatActivity() {
     fullWidthDigits = prefs.fullWidthDigits
 
     ViewCompat.setBackground(binding.viewSampleBg, SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY))
-    binding.viewSampleBg.setOnClickListener { isText = false }
-    binding.buttonText.setOnClickListener { isText = true }
     binding.switchWideText.setOnClickListener { fullWidthDigits = !fullWidthDigits }
-    binding.radioBg.setOnClickListener { isText = false }
-    binding.radioText.setOnClickListener { isText = true }
+    binding.buttonBg.setOnClickListener { isText = false }
+    binding.buttonText.setOnClickListener { isText = true }
     with(binding.seekTextSize) {
       val min = prefs.textSizeRange.first
       max = prefs.textSizeRange.last - min
@@ -65,8 +67,12 @@ class AppearanceActivity : AppCompatActivity() {
     init()
   }
 
-  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menu?.add(R.string.reset)?.setOnMenuItemClickListener {
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    val item = menu.add(R.string.reset)
+    item.setIcon(R.drawable.ic_reset)
+    MenuItemCompat.setIconTintList(item, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary)))
+    item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+    item.setOnMenuItemClickListener {
       reset()
       true
     }
@@ -103,8 +109,7 @@ class AppearanceActivity : AppCompatActivity() {
       )
     }
     binding.switchWideText.isChecked = fullWidthDigits
-    binding.radioBg.isChecked = !isText
-    binding.radioText.isChecked = isText
+    binding.buttons.check((if (isText) binding.buttonText else binding.buttonBg).id)
   }
 
   private fun reset() {
@@ -126,12 +131,12 @@ class AppearanceActivity : AppCompatActivity() {
   }
 
 
-  private fun SeekBar.onProgressChange(action : (fromUser: Boolean, progress: Int) -> Unit) {
+  private fun SeekBar.onProgressChange(action: (fromUser: Boolean, progress: Int) -> Unit) {
     setOnSeekBarChangeListener(
       object : SeekBar.OnSeekBarChangeListener {
         override fun onStartTrackingTouch(seekbar: SeekBar) {}
         override fun onStopTrackingTouch(seekbar: SeekBar) {}
-        override fun onProgressChanged(seekbar: SeekBar, progress: Int, fromUser: Boolean) = action(fromUser,progress)
+        override fun onProgressChanged(seekbar: SeekBar, progress: Int, fromUser: Boolean) = action(fromUser, progress)
       }
     )
   }

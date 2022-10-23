@@ -4,6 +4,7 @@
   <color name="primary">@color/brown400</color>
   <color name="primaryContainer">@color/brown200</color>
   <color name="primaryDark">@color/brown400</color>
+  <color name="secondaryContainer">@color/brown100</color>
   <color name="switchThumbUnchecked">@color/gray200</color>
   <color name="switchTrackChecked">@color/brown200</color>
   <color name="switchTrackUnchecked">@color/gray400</color>

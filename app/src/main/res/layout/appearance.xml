@@ -14,11 +14,11 @@
       android:id="@+id/imageCornerRadius"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
       android:alpha="0.5"
       android:src="@drawable/ic_corners"
+      app:layout_constraintBottom_toBottomOf="@id/seekCornerRadius"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@id/seekCornerRadius"
       app:tint="?attr/colorOnSurface" />
 
     <SeekBar
@@ -27,20 +27,21 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:layout_marginLeft="8dp"
-      app:layout_constraintBottom_toBottomOf="@id/imageCornerRadius"
+      android:layout_marginTop="16dp"
+      android:paddingVertical="8dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/imageCornerRadius"
-      app:layout_constraintTop_toTopOf="@id/imageCornerRadius" />
+      app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
       android:id="@+id/imageTextSize"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
       android:alpha="0.5"
       android:tint="?attr/colorOnSurface"
-      app:layout_constraintStart_toStartOf="@id/colorPicker"
-      app:layout_constraintTop_toBottomOf="@id/imageCornerRadius"
+      app:layout_constraintBottom_toBottomOf="@id/seekTextSize"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/seekTextSize"
       app:srcCompat="@drawable/ic_text_size" />
 
     <SeekBar
@@ -49,19 +50,20 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:layout_marginLeft="8dp"
-      app:layout_constraintBottom_toBottomOf="@id/imageTextSize"
+      android:layout_marginTop="8dp"
+      android:paddingVertical="8dp"
       app:layout_constraintEnd_toEndOf="@id/seekCornerRadius"
       app:layout_constraintStart_toEndOf="@id/imageTextSize"
-      app:layout_constraintTop_toTopOf="@id/imageTextSize" />
+      app:layout_constraintTop_toBottomOf="@id/seekCornerRadius" />
 
     <ImageView
       android:id="@+id/imageWideText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
       android:alpha="0.5"
+      app:layout_constraintBottom_toBottomOf="@id/switchWideText"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/imageTextSize"
+      app:layout_constraintTop_toTopOf="@id/switchWideText"
       app:srcCompat="@drawable/ic_text_width"
       app:tint="?attr/colorOnSurface" />
 
@@ -69,29 +71,48 @@
       android:id="@+id/switchWideText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="8dp"
-      app:layout_constraintBottom_toBottomOf="@id/imageWideText"
+      android:layout_marginStart="12dp"
+      android:layout_marginTop="4dp"
       app:layout_constraintStart_toEndOf="@id/imageWideText"
-      app:layout_constraintTop_toTopOf="@id/imageWideText" />
+      app:layout_constraintTop_toBottomOf="@id/seekTextSize" />
 
-    <RadioButton
-      android:id="@+id/radioBg"
+    <ImageView
+      android:id="@+id/imageColor"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/appearanceBg"
+      android:alpha="0.5"
+      app:layout_constraintBottom_toBottomOf="@id/buttons"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/imageWideText" />
+      app:layout_constraintTop_toTopOf="@id/buttons"
+      app:srcCompat="@drawable/ic_color"
+      app:tint="?attr/colorOnSurface" />
 
-    <RadioButton
-      android:id="@+id/radioText"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+      android:id="@+id/buttons"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginLeft="16dp"
-      android:text="@string/appearanceText"
-      app:layout_constraintStart_toEndOf="@id/radioBg"
-      app:layout_constraintTop_toTopOf="@id/radioBg" />
+      android:layout_marginTop="16dp"
+      app:layout_constraintStart_toEndOf="@id/imageColor"
+      app:layout_constraintTop_toBottomOf="@id/imageWideText"
+      app:selectionRequired="true"
+      app:singleSelection="true">
+
+      <Button
+        android:id="@+id/buttonBg"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appearanceBg" />
+
+      <Button
+        android:id="@+id/buttonText"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appearanceText" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <View
       android:id="@+id/viewSampleBg"
@@ -99,7 +120,7 @@
       android:layout_height="112dp"
       android:layout_marginTop="8dp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/radioBg"
+      app:layout_constraintTop_toBottomOf="@id/buttons"
       tools:background="?attr/colorOnSurface" />
 
     <TextView
@@ -114,15 +135,6 @@
       app:layout_constraintStart_toStartOf="@id/viewSampleBg"
       app:layout_constraintTop_toTopOf="@id/viewSampleBg"
       tools:text="12" />
-
-    <View
-      android:id="@+id/buttonText"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      app:layout_constraintBottom_toBottomOf="@id/viewSampleBg"
-      app:layout_constraintEnd_toEndOf="@id/viewSampleBg"
-      app:layout_constraintStart_toStartOf="@id/viewSampleBg"
-      app:layout_constraintTop_toTopOf="@id/viewSampleBg" />
 
     <EditText
       android:id="@+id/editColor"

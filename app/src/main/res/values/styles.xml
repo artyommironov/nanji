@@ -5,6 +5,7 @@
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryContainer">@color/primaryContainer</item>
     <item name="colorPrimaryDark">@color/primaryDark</item>
+    <item name="colorSecondaryContainer">@color/secondaryContainer</item>
     <item name="colorAccent">@color/primary</item>
     <item name="switchStyle">@style/MySwitch</item>
   </style>
