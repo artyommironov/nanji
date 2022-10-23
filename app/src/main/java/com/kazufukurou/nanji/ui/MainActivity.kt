@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,13 +17,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.Language
-import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.model.getPrefs
 import com.kazufukurou.nanji.model.year
 import java.util.Calendar
 import java.util.TimeZone
 
 class MainActivity : AppCompatActivity() {
-  private val prefs by lazy { Prefs(PreferenceManager.getDefaultSharedPreferences(this)) }
+  private val prefs by lazy { getPrefs() }
   private val diffUtilItemCallback = object : DiffUtil.ItemCallback<Any>() {
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
       return oldItem is Item && newItem is Item && oldItem.title == newItem.title

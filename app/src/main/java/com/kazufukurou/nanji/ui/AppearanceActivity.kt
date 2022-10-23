@@ -12,18 +12,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
-import androidx.preference.PreferenceManager
 import com.artyommironov.colorpicker.ColorPicker
 import com.artyommironov.colorpicker.ColorTextWatcher
 import com.artyommironov.colorpicker.SquareTileDrawable
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.AppearanceBinding
-import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.model.getPrefs
 import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
-  private val colorTextWatcher by lazy(LazyThreadSafetyMode.NONE) { ColorTextWatcher(binding.colorPicker) }
-  private val prefs by lazy(LazyThreadSafetyMode.NONE) { Prefs(PreferenceManager.getDefaultSharedPreferences(this)) }
+  private val colorTextWatcher by lazy { ColorTextWatcher(binding.colorPicker) }
+  private val prefs by lazy { getPrefs() }
   private var isText by Delegates.observable(false) { _, old, new -> if (new != old) init() }
   private var textColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var bgColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }

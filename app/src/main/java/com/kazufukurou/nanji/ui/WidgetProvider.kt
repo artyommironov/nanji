@@ -16,18 +16,8 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.getSystemService
-import androidx.preference.PreferenceManager
 import com.kazufukurou.nanji.R
-import com.kazufukurou.nanji.model.Prefs
-import com.kazufukurou.nanji.model.Language
-import com.kazufukurou.nanji.model.Time
-import com.kazufukurou.nanji.model.TimeZh
-import com.kazufukurou.nanji.model.TimeEn
-import com.kazufukurou.nanji.model.TimeJa
-import com.kazufukurou.nanji.model.TimeKo
-import com.kazufukurou.nanji.model.TimeRu
-import com.kazufukurou.nanji.model.TimeSystem
-import com.kazufukurou.nanji.model.toCodePoints
+import com.kazufukurou.nanji.model.*
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
@@ -52,7 +42,7 @@ class WidgetProvider : AppWidgetProvider() {
     super.onReceive(context, intent)
     intent ?: return
     if (intent.action == ACTION_CHANGE) {
-      val prefs = getPrefs(context)
+      val prefs = context.getPrefs()
       prefs.showWords = !prefs.showWords
     }
     update(context)
@@ -111,8 +101,6 @@ class WidgetProvider : AppWidgetProvider() {
     }.isNotEmpty()
   }
 
-  private fun getPrefs(context: Context): Prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(context))
-
   private fun getBatteryLevel(context: Context): Int {
     val batteryIntent = context.applicationContext.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     val level = batteryIntent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
@@ -151,7 +139,7 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun update(context: Context) {
-    val prefs = getPrefs(context)
+    val prefs = context.getPrefs()
     val hideTime = prefs.hideTime
     val time = getTime(prefs)
     val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(context)) else ""
