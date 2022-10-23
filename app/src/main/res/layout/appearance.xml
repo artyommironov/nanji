@@ -24,8 +24,8 @@
       android:id="@+id/seekCornerRadius"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="8dp"
       android:layout_marginStart="8dp"
+      android:layout_marginLeft="8dp"
       app:layout_constraintBottom_toBottomOf="@id/imageCornerRadius"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/imageCornerRadius"
@@ -45,8 +45,8 @@
       android:id="@+id/seekTextSize"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="8dp"
       android:layout_marginStart="8dp"
+      android:layout_marginLeft="8dp"
       app:layout_constraintBottom_toBottomOf="@id/imageTextSize"
       app:layout_constraintEnd_toEndOf="@id/seekCornerRadius"
       app:layout_constraintStart_toEndOf="@id/imageTextSize"
@@ -84,8 +84,8 @@
       android:id="@+id/radioText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
+      android:layout_marginLeft="16dp"
       android:text="@string/appearanceText"
       app:layout_constraintStart_toEndOf="@id/radioBg"
       app:layout_constraintTop_toTopOf="@id/radioBg" />
@@ -116,10 +116,10 @@
       android:id="@+id/buttonText"
       android:layout_width="40dp"
       android:layout_height="40dp"
-      app:layout_constraintStart_toStartOf="@id/viewSampleBg"
+      app:layout_constraintBottom_toBottomOf="@id/viewSampleBg"
       app:layout_constraintEnd_toEndOf="@id/viewSampleBg"
-      app:layout_constraintTop_toTopOf="@id/viewSampleBg"
-      app:layout_constraintBottom_toBottomOf="@id/viewSampleBg" />
+      app:layout_constraintStart_toStartOf="@id/viewSampleBg"
+      app:layout_constraintTop_toTopOf="@id/viewSampleBg" />
 
     <EditText
       android:id="@+id/editColor"
@@ -142,10 +142,10 @@
       android:id="@+id/colorPicker"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginRight="16dp"
       android:layout_marginEnd="16dp"
-      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginRight="16dp"
       app:layout_constraintEnd_toStartOf="@id/viewSampleBg"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/viewSampleBg" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
