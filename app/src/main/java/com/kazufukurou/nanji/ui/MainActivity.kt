@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artyommironov.anyadapter.AnyAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.kazufukurou.nanji.BuildConfig
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.Language
@@ -134,9 +135,8 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun showAboutAlert() {
-    val packageInfo = packageManager.getPackageInfo(packageName, 0)
     val appName = getString(R.string.appName)
-    val appVersion = packageInfo.versionName
+    val appVersion = BuildConfig.VERSION_NAME
     val year = Calendar.getInstance().year
     MaterialAlertDialogBuilder(this)
       .setTitle("$appName $appVersion")

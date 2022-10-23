@@ -97,6 +97,7 @@ class WidgetProvider : AppWidgetProvider() {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
       packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(flags.toLong()))
     } else {
+      @Suppress("DEPRECATION")
       packageManager.queryIntentActivities(intent, flags)
     }.isNotEmpty()
   }
