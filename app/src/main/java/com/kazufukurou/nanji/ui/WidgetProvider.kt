@@ -11,12 +11,12 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.BatteryManager
 import android.os.Build
-import android.preference.PreferenceManager
 import android.provider.AlarmClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.getSystemService
+import androidx.preference.PreferenceManager
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.model.Language

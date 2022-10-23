@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
+import androidx.preference.PreferenceManager
 import com.artyommironov.colorpicker.ColorPicker
 import com.artyommironov.colorpicker.ColorTextWatcher
 import com.artyommironov.colorpicker.SquareTileDrawable
