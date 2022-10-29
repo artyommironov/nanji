@@ -18,6 +18,7 @@ import com.kazufukurou.nanji.BuildConfig
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.Language
+import com.kazufukurou.nanji.model.TapAction
 import com.kazufukurou.nanji.model.getPrefs
 import com.kazufukurou.nanji.model.year
 import java.util.Calendar

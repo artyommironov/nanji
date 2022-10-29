@@ -19,6 +19,7 @@ import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.model.TapAction
 import com.kazufukurou.nanji.model.Time
 import com.kazufukurou.nanji.model.TimeEn
 import com.kazufukurou.nanji.model.TimeJa

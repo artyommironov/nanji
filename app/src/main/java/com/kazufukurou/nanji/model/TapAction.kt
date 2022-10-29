@@ -1,4 +1,4 @@
-package com.kazufukurou.nanji.ui
+package com.kazufukurou.nanji.model
 
 import androidx.annotation.StringRes
 import com.kazufukurou.nanji.R
