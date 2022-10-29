@@ -17,7 +17,17 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
-import com.kazufukurou.nanji.model.*
+import com.kazufukurou.nanji.model.Language
+import com.kazufukurou.nanji.model.Prefs
+import com.kazufukurou.nanji.model.Time
+import com.kazufukurou.nanji.model.TimeEn
+import com.kazufukurou.nanji.model.TimeJa
+import com.kazufukurou.nanji.model.TimeKo
+import com.kazufukurou.nanji.model.TimeRu
+import com.kazufukurou.nanji.model.TimeSystem
+import com.kazufukurou.nanji.model.TimeZh
+import com.kazufukurou.nanji.model.getPrefs
+import com.kazufukurou.nanji.model.toCodePoints
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
@@ -149,11 +159,12 @@ class WidgetProvider : AppWidgetProvider() {
       TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
       TapAction.OpenSetting -> createActivityPendingIntent(context)
     }
-    val textSizeHeader =  context.resources.dp(prefs.textSizeRange.first).toFloat()
-    val textSizeContent = context.resources.dp(prefs.textSize).toFloat()
+    val resources = context.resources
+    val headerTextSize =  resources.dp(prefs.textSizeRange.first).toFloat()
+    val contentTextSize = resources.dp(prefs.textSize).toFloat()
     val views = RemoteViews(context.packageName, R.layout.widget).apply {
-      setTextViewTextSize(R.id.textHeader, TypedValue.COMPLEX_UNIT_PX, textSizeHeader)
-      setTextViewTextSize(R.id.textContent, TypedValue.COMPLEX_UNIT_PX, textSizeContent)
+      setTextViewTextSize(R.id.textHeader, TypedValue.COMPLEX_UNIT_PX, headerTextSize)
+      setTextViewTextSize(R.id.textContent, TypedValue.COMPLEX_UNIT_PX, contentTextSize)
       setViewVisibility(R.id.textHeader, if (hideTime) View.GONE else View.VISIBLE)
       setTextViewText(R.id.textHeader, dateText)
       setTextViewText(R.id.textContent, if (hideTime) dateText else timeText)
@@ -161,7 +172,7 @@ class WidgetProvider : AppWidgetProvider() {
       setTextColor(R.id.textContent, prefs.textColor)
       setOnClickPendingIntent(R.id.content, intent)
     }
-    views.drawBg(prefs.bgColor, context.resources.dp(20), context.resources.dp(prefs.cornerRadius))
+    views.drawBg(prefs.bgColor, resources.dp(20), resources.dp(prefs.cornerRadius))
     AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, WidgetProvider::class.java), views)
     scheduleUpdate(context)
   }
