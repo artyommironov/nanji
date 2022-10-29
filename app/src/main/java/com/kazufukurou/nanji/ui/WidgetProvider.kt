@@ -9,12 +9,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.BatteryManager
 import android.os.Build
 import android.provider.AlarmClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
+import androidx.annotation.ColorInt
+import androidx.annotation.IdRes
 import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.model.DateTimeDisplayMode
@@ -127,62 +130,72 @@ class WidgetProvider : AppWidgetProvider() {
     }
   }
 
-  private fun convertDateAndTimeTexts(prefs: Prefs, dateText: String, timeText: String): Pair<String, String> {
-    var resultTimeText = timeText
-    var resultDateText = dateText
-    "0０1１2２3３4４5５6６7７8８9９:："
-      .takeIf { prefs.fullWidthDigits }
-      .orEmpty()
-      .plus(prefs.customSymbols)
-      .toCodePoints()
-      .windowed(2, 2, partialWindows = false, transform = { it[0] to it[1] })
-      .forEach { (oldString, newString) ->
-        resultDateText = resultDateText.replace(oldString, newString)
-        resultTimeText = resultTimeText.replace(oldString, newString)
-      }
-    return resultDateText to resultTimeText
-  }
-
   private fun update(context: Context) {
     val prefs = context.getPrefs()
-    val dateTimeDisplayMode = prefs.dateTimeDisplayMode
     val time = getTime(prefs)
-    val cal = Calendar.getInstance().apply {
-      timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
-    }
-    val (dateText, timeText) = convertDateAndTimeTexts(
-      prefs = prefs,
-      dateText = time.getDateText(cal),
-      timeText = time.getTimeText(cal)
-    )
+    val cal = Calendar.getInstance()
+    cal.timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
+    val dateText = time.getDateText(cal).transform(prefs.fullWidthDigits, prefs.customSymbols)
+    val timeText = time.getTimeText(cal).transform(prefs.fullWidthDigits, prefs.customSymbols)
     val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(context)) else ""
-    val intent = when (prefs.tapAction) {
-      TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
-      TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
-      TapAction.OpenSetting -> createActivityPendingIntent(context)
-    }
-    val resources = context.resources
-    val headerTextSize =  resources.dp(prefs.textSizeRange.first).toFloat()
-    val contentTextSize = resources.dp(prefs.textSize).toFloat()
-    val headerVisible = dateTimeDisplayMode == DateTimeDisplayMode.DateTime
-    val (headerText, contentText) = when (dateTimeDisplayMode) {
+    val (headerText, contentText) = when (prefs.dateTimeDisplayMode) {
       DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText
       DateTimeDisplayMode.OnlyDate -> "" to dateText + batteryText
       DateTimeDisplayMode.OnlyTime -> "" to timeText + batteryText
     }
-    val views = RemoteViews(context.packageName, R.layout.widget).apply {
-      setTextViewTextSize(R.id.textHeader, TypedValue.COMPLEX_UNIT_PX, headerTextSize)
-      setTextViewTextSize(R.id.textContent, TypedValue.COMPLEX_UNIT_PX, contentTextSize)
-      setViewVisibility(R.id.textHeader, if (headerVisible) View.VISIBLE else View.GONE)
-      setTextViewText(R.id.textHeader, headerText)
-      setTextViewText(R.id.textContent, contentText)
-      setTextColor(R.id.textHeader, prefs.textColor)
-      setTextColor(R.id.textContent, prefs.textColor)
-      setOnClickPendingIntent(R.id.content, intent)
+    val resources = context.resources
+    val views = RemoteViews(context.packageName, R.layout.widget)
+    views.updateTextView(
+      resources = resources,
+      id = R.id.textHeader,
+      color = prefs.textColor,
+      sizeDp = prefs.textSizeRange.first,
+      text = headerText,
+      visible = headerText.isNotEmpty()
+    )
+    views.updateTextView(
+      resources = resources,
+      id = R.id.textContent,
+      color = prefs.textColor,
+      sizeDp = prefs.textSize,
+      text = contentText,
+      visible = true
+    )
+    val pendingIntent = when (prefs.tapAction) {
+      TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
+      TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
+      TapAction.OpenSetting -> createActivityPendingIntent(context)
     }
+    views.setOnClickPendingIntent(R.id.content, pendingIntent)
     views.drawBg(prefs.bgColor, resources.dp(20), resources.dp(prefs.cornerRadius))
     AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, WidgetProvider::class.java), views)
     scheduleUpdate(context)
+  }
+
+  private fun RemoteViews.updateTextView(
+    resources: Resources,
+    @IdRes id: Int,
+    @ColorInt color: Int,
+    sizeDp: Int,
+    text: String,
+    visible: Boolean,
+  ) {
+    setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, resources.dp(sizeDp).toFloat())
+    setTextViewText(id, text)
+    setTextColor(id, color)
+    setViewVisibility(id, if (visible) View.VISIBLE else View.GONE)
+  }
+
+  private fun String.transform(useFullWidthDigits: Boolean, customSymbols: String): String {
+    var result = this
+    "0０1１2２3３4４5５6６7７8８9９:："
+      .takeIf { useFullWidthDigits }
+      .orEmpty()
+      .plus(customSymbols)
+      .toCodePoints()
+      .windowed(2, 2, partialWindows = false, transform = { it[0] to it[1] })
+      .forEach { (oldString, newString) -> result = result.replace(oldString, newString) }
+    return result
   }
 }
 
