@@ -11,7 +11,6 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
-import androidx.core.view.ViewCompat
 import com.artyommironov.colorpicker.ColorPicker
 import com.artyommironov.colorpicker.ColorTextWatcher
 import com.artyommironov.colorpicker.SquareTileDrawable
@@ -42,7 +41,7 @@ class AppearanceActivity : AppCompatActivity() {
     textSize = prefs.textSize.coerceIn(prefs.textSizeRange)
     fullWidthDigits = prefs.fullWidthDigits
 
-    ViewCompat.setBackground(binding.viewSampleBg, SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY))
+    binding.viewSampleBg.background = SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY)
     binding.switchWideText.setOnClickListener { fullWidthDigits = !fullWidthDigits }
     binding.buttonBg.setOnClickListener { isText = false }
     binding.buttonText.setOnClickListener { isText = true }
@@ -98,14 +97,11 @@ class AppearanceActivity : AppCompatActivity() {
       text = if (fullWidthDigits) "１２" else "12"
       setTextColor(textColor)
       setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-      ViewCompat.setBackground(
-        this,
-        GradientDrawable().also {
-          it.setColor(bgColor)
-          it.cornerRadius = radius
-          it.setBounds(0, 0, width, height)
-        }
-      )
+      background = GradientDrawable().also {
+        it.setColor(bgColor)
+        it.cornerRadius = radius
+        it.setBounds(0, 0, width, height)
+      }
     }
     binding.switchWideText.isChecked = fullWidthDigits
     binding.buttons.check((if (isText) binding.buttonText else binding.buttonBg).id)

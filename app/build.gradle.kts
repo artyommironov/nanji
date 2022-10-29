@@ -13,7 +13,7 @@ android {
   }
   defaultConfig {
     applicationId = "com.kazufukurou.nanji"
-    minSdk = 16
+    minSdk = 21
     targetSdk = sdkVersion
     versionCode = 38
     versionName = "1.3.3"

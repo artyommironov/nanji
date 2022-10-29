@@ -65,20 +65,12 @@ class WidgetProvider : AppWidgetProvider() {
       add(Calendar.MINUTE, 1)
     }
     val alarmManager = context.getSystemService<AlarmManager>()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-      alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
-    } else {
-      alarmManager?.set(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
-    }
+    alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
   }
 
   private fun getAlarmPendingIntent(context: Context): PendingIntent? {
-    val action = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-      AlarmClock.ACTION_SHOW_ALARMS
-    } else {
-      AlarmClock.ACTION_SET_ALARM
-    }
-    val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setAction(action)
+    val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      .setAction(AlarmClock.ACTION_SHOW_ALARMS)
     return if (isActivityExists(context.packageManager, intent)) {
       PendingIntent.getActivity(context, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
     } else {
