@@ -17,9 +17,9 @@ class Prefs(prefs: SharedPreferences) {
   var cornerRadius: Int by prefs.property(cornerRadiusDefault)
   var textSize: Int by prefs.property(textSizeDefault)
   var fullWidthDigits: Boolean by prefs.property(false)
-  var hideTime: Boolean by prefs.property(false)
   var language: Language by prefs.property(Language.system)
   var tapAction: TapAction by prefs.property(TapAction.ShowWords)
+  var dateTimeDisplayMode: DateTimeDisplayMode by prefs.property(DateTimeDisplayMode.DateTime)
   var twentyFour: Boolean by prefs.property(false)
   var japaneseEra: Boolean by prefs.property(false)
   var showWords: Boolean by prefs.property(false)
@@ -29,7 +29,7 @@ class Prefs(prefs: SharedPreferences) {
 
   init {
     prefs.edit {
-      val oldKeys = listOf("smallTextSize", "showDigits", "openClock")
+      val oldKeys = listOf("smallTextSize", "showDigits", "openClock", "hideTime")
       oldKeys.forEach(::remove)
     }
   }

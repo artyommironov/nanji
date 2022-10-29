@@ -18,8 +18,11 @@
   <string name="prefsReplaceChars">Заменить символы</string>
   <string name="prefsExample">ABCDEF = заменить A на B、C на D、E на F\nНапример: 零〇~♥</string>
   <string name="prefsFeedback">Отправить отзыв</string>
-  <string name="prefsHideTime">Скрыть время</string>
   <string name="prefsShowBattery">Показать заряд батареи</string>
+  <string name="prefsDateTimeDisplayMode">Режим показа даты и времени</string>
+  <string name="prefsDateTimeDisplayModeDateTime">Дата и время</string>
+  <string name="prefsDateTimeDisplayModeOnlyDate">Только дата</string>
+  <string name="prefsDateTimeDisplayModeOnlyTime">Только время</string>
   <string name="prefsVerboseDisplayMode">Подробный режим отображения</string>
   <string name="prefsTapAction">Действие по нажатию</string>
   <string name="prefsTapActionOpenClock">Открыть часы</string>

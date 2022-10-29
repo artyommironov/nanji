@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.model.DateTimeDisplayMode
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.model.TapAction
@@ -144,17 +145,17 @@ class WidgetProvider : AppWidgetProvider() {
 
   private fun update(context: Context) {
     val prefs = context.getPrefs()
-    val hideTime = prefs.hideTime
+    val dateTimeDisplayMode = prefs.dateTimeDisplayMode
     val time = getTime(prefs)
-    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(context)) else ""
     val cal = Calendar.getInstance().apply {
       timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     }
     val (dateText, timeText) = convertDateAndTimeTexts(
       prefs = prefs,
-      dateText = time.getDateText(cal) + batteryText,
+      dateText = time.getDateText(cal),
       timeText = time.getTimeText(cal)
     )
+    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(context)) else ""
     val intent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
       TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
@@ -163,12 +164,18 @@ class WidgetProvider : AppWidgetProvider() {
     val resources = context.resources
     val headerTextSize =  resources.dp(prefs.textSizeRange.first).toFloat()
     val contentTextSize = resources.dp(prefs.textSize).toFloat()
+    val headerVisible = dateTimeDisplayMode == DateTimeDisplayMode.DateTime
+    val (headerText, contentText) = when (dateTimeDisplayMode) {
+      DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText
+      DateTimeDisplayMode.OnlyDate -> "" to dateText + batteryText
+      DateTimeDisplayMode.OnlyTime -> "" to timeText + batteryText
+    }
     val views = RemoteViews(context.packageName, R.layout.widget).apply {
       setTextViewTextSize(R.id.textHeader, TypedValue.COMPLEX_UNIT_PX, headerTextSize)
       setTextViewTextSize(R.id.textContent, TypedValue.COMPLEX_UNIT_PX, contentTextSize)
-      setViewVisibility(R.id.textHeader, if (hideTime) View.GONE else View.VISIBLE)
-      setTextViewText(R.id.textHeader, dateText)
-      setTextViewText(R.id.textContent, if (hideTime) dateText else timeText)
+      setViewVisibility(R.id.textHeader, if (headerVisible) View.VISIBLE else View.GONE)
+      setTextViewText(R.id.textHeader, headerText)
+      setTextViewText(R.id.textContent, contentText)
       setTextColor(R.id.textHeader, prefs.textColor)
       setTextColor(R.id.textContent, prefs.textColor)
       setOnClickPendingIntent(R.id.content, intent)

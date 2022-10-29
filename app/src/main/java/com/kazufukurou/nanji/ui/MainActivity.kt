@@ -17,6 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.BuildConfig
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
+import com.kazufukurou.nanji.model.DateTimeDisplayMode
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.TapAction
 import com.kazufukurou.nanji.model.getPrefs
@@ -39,10 +40,10 @@ class MainActivity : AppCompatActivity() {
     .map { EditHolder(getItemBinding(it), ::showDialog) }
     .map { SelectorHolder(getItemBinding(it), ::showDialog) }
   private var currentDialog: Dialog? = null
-  private var shouldHideTime: Boolean
-    get() = prefs.hideTime
+  private var dateTimeDisplayModeIndex: Int
+    get() = DateTimeDisplayMode.values().indexOf(prefs.dateTimeDisplayMode)
     set(value) {
-      prefs.hideTime = value
+      prefs.dateTimeDisplayMode = DateTimeDisplayMode.values()[value]
       render()
     }
   private var tapActionIndex: Int
@@ -89,19 +90,22 @@ class MainActivity : AppCompatActivity() {
   private fun render() {
     val languageStrings = Language.values().map { getString(it.title) }
     val tapActionStrings = TapAction.values().map { getString(it.title) }
+    val dateTimeDisplayModeStrings = DateTimeDisplayMode.values().map { getString(it.title) }
     val timeZoneStrings = timeZones.map { it.ifEmpty { getString(R.string.languageSystem) } }
-    val canShowWords = when (shouldHideTime) {
-      true -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
-      false -> prefs.language != Language.system
+    val dateTimeDisplayMode = prefs.dateTimeDisplayMode
+    val canBeVerbose = when (dateTimeDisplayMode) {
+      DateTimeDisplayMode.OnlyDate -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
+      DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime -> prefs.language != Language.system
     }
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
         SelectorItem(R.string.language, languageStrings, ::languageIndex),
         SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
-        SwitchItem(R.string.prefsHideTime, ::shouldHideTime),
-        SwitchItem(R.string.prefsVerboseDisplayMode, prefs::showWords).takeIf { canShowWords },
-        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { !shouldHideTime },
+        SelectorItem(R.string.prefsDateTimeDisplayMode, dateTimeDisplayModeStrings, ::dateTimeDisplayModeIndex),
+        SwitchItem(R.string.prefsVerboseDisplayMode, prefs::showWords).takeIf { canBeVerbose },
+        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour)
+          .takeIf { dateTimeDisplayMode in setOf(DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime) },
         SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
         SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),

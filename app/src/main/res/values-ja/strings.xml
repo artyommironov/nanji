@@ -18,8 +18,11 @@
   <string name="prefsReplaceChars">文字置換</string>
   <string name="prefsExample">ABCDEF = AをBに、CをDに、EをFに置き換える\n例：零〇~♥</string>
   <string name="prefsFeedback">フィードバックを送信</string>
-  <string name="prefsHideTime">時刻を隠す</string>
   <string name="prefsShowBattery">電池の状態を表示</string>
+  <string name="prefsDateTimeDisplayMode">日付と時刻の表示モード</string>
+  <string name="prefsDateTimeDisplayModeDateTime">日付と時刻</string>
+  <string name="prefsDateTimeDisplayModeOnlyDate">日付のみ</string>
+  <string name="prefsDateTimeDisplayModeOnlyTime">時刻のみ</string>
   <string name="prefsVerboseDisplayMode">冗長表示モード</string>
   <string name="prefsTapAction">タッチ時の動作</string>
   <string name="prefsTapActionOpenClock">時計を開く</string>
