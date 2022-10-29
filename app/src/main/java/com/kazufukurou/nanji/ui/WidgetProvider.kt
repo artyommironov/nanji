@@ -10,6 +10,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.RectF
 import android.os.BatteryManager
 import android.os.Build
 import android.provider.AlarmClock
@@ -20,22 +24,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
-import com.kazufukurou.nanji.model.DateTimeDisplayMode
-import com.kazufukurou.nanji.model.Language
-import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.model.TapAction
-import com.kazufukurou.nanji.model.Time
-import com.kazufukurou.nanji.model.TimeEn
-import com.kazufukurou.nanji.model.TimeJa
-import com.kazufukurou.nanji.model.TimeKo
-import com.kazufukurou.nanji.model.TimeRu
-import com.kazufukurou.nanji.model.TimeSystem
-import com.kazufukurou.nanji.model.TimeZh
 import com.kazufukurou.nanji.model.getPrefs
-import com.kazufukurou.nanji.model.toCodePoints
 import java.util.Calendar
-import java.util.Locale
-import java.util.TimeZone
 
 class WidgetProvider : AppWidgetProvider() {
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
@@ -116,50 +107,27 @@ class WidgetProvider : AppWidgetProvider() {
     return if (level == -1 || scale == -1 || scale == 0) 50 else (100f * level.toFloat() / scale.toFloat()).toInt()
   }
 
-  private fun getTime(prefs: Prefs): Time {
-    val useWords = prefs.showWords
-    val useTwentyFourHours = prefs.twentyFour
-    return when (prefs.language) {
-      Language.zhCN -> TimeZh(simplified = true, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.zhTW -> TimeZh(simplified = false, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ja -> TimeJa(useEra = prefs.japaneseEra, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ko -> TimeKo(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.en -> TimeEn(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ru -> TimeRu(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.system -> TimeSystem(Locale.getDefault(), useTwentyFourHours = useTwentyFourHours)
-    }
-  }
-
   private fun update(context: Context) {
     val prefs = context.getPrefs()
-    val time = getTime(prefs)
-    val cal = Calendar.getInstance()
-    cal.timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
-    val dateText = time.getDateText(cal).transform(prefs.fullWidthDigits, prefs.customSymbols)
-    val timeText = time.getTimeText(cal).transform(prefs.fullWidthDigits, prefs.customSymbols)
-    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(getBatteryLevel(context)) else ""
-    val (headerText, contentText) = when (prefs.dateTimeDisplayMode) {
-      DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText
-      DateTimeDisplayMode.OnlyDate -> "" to dateText + batteryText
-      DateTimeDisplayMode.OnlyTime -> "" to timeText + batteryText
-    }
     val resources = context.resources
+    val presenter = WidgetPresenter(prefs)
+    val state = presenter.getState(batteryLevel = getBatteryLevel(context))
     val views = RemoteViews(context.packageName, R.layout.widget)
     views.updateTextView(
       resources = resources,
       id = R.id.textHeader,
-      color = prefs.textColor,
-      sizeDp = prefs.textSizeRange.first,
-      text = headerText,
-      visible = headerText.isNotEmpty()
+      color = state.textColor,
+      sizeDp = state.headerSizeDp,
+      text = state.header,
+      visible = state.header.isNotEmpty()
     )
     views.updateTextView(
       resources = resources,
       id = R.id.textContent,
-      color = prefs.textColor,
-      sizeDp = prefs.textSize,
-      text = contentText,
-      visible = true
+      color = state.textColor,
+      sizeDp = state.contentSizeDp,
+      text = state.content,
+      visible = state.content.isNotEmpty()
     )
     val pendingIntent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
@@ -167,7 +135,11 @@ class WidgetProvider : AppWidgetProvider() {
       TapAction.OpenSetting -> createActivityPendingIntent(context)
     }
     views.setOnClickPendingIntent(R.id.content, pendingIntent)
-    views.drawBg(prefs.bgColor, resources.dp(20), resources.dp(prefs.cornerRadius))
+    views.drawBg(
+      bgColor = state.bgColor,
+      cornerSize = resources.dp(state.bgCornerSizeDp),
+      cornerRadius = resources.dp(state.bgCornerRadiusDp)
+    )
     AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, WidgetProvider::class.java), views)
     scheduleUpdate(context)
   }
@@ -186,16 +158,30 @@ class WidgetProvider : AppWidgetProvider() {
     setViewVisibility(id, if (visible) View.VISIBLE else View.GONE)
   }
 
-  private fun String.transform(useFullWidthDigits: Boolean, customSymbols: String): String {
-    var result = this
-    "0０1１2２3３4４5５6６7７8８9９:："
-      .takeIf { useFullWidthDigits }
-      .orEmpty()
-      .plus(customSymbols)
-      .toCodePoints()
-      .windowed(2, 2, partialWindows = false, transform = { it[0] to it[1] })
-      .forEach { (oldString, newString) -> result = result.replace(oldString, newString) }
-    return result
+  private fun RemoteViews.drawBg(bgColor: Int, cornerSize: Int, cornerRadius: Int) {
+    val paint = Paint().apply {
+      isAntiAlias = true
+      style = Paint.Style.FILL
+      color = bgColor
+    }
+    val radius = cornerRadius.toFloat()
+    val size = cornerSize.toFloat()
+    val config = Bitmap.Config.ARGB_8888
+    listOf(
+      R.id.imageBgRightBottom to RectF(-size, -size, size, size),
+      R.id.imageBgLeftBottom to RectF(0f, -size, size * 2f, size),
+      R.id.imageBgLeftTop to RectF(0f, 0f, size * 2f, size * 2f),
+      R.id.imageBgRightTop to RectF(-size, 0f, size, size * 2f)
+    ).forEach { (id, rect) ->
+      val bitmap = Bitmap.createBitmap(cornerSize, cornerSize, config)
+      Canvas(bitmap).drawRoundRect(rect, radius, radius, paint)
+      setImageViewBitmap(id, bitmap)
+    }
+    val bitmap = Bitmap.createBitmap(2, 2, config)
+    Canvas(bitmap).drawColor(bgColor)
+    setImageViewBitmap(R.id.imageBgTop, bitmap)
+    setImageViewBitmap(R.id.imageBgMiddle, bitmap)
+    setImageViewBitmap(R.id.imageBgBottom, bitmap)
   }
 }
 
