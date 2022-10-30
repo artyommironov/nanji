@@ -98,11 +98,7 @@ class AppearanceActivity : AppCompatActivity() {
 
   private fun reset() {
     isText = false
-    bgColor = prefs.bgColorDef
-    textColor = prefs.textColorDef
-    cornerRadius = prefs.cornerRadiusDefault
-    textSize = prefs.textSizeDefault
-    fullWidthCharacters = false
+    prefs.clearAppearance()
     init()
   }
 
@@ -113,7 +109,6 @@ class AppearanceActivity : AppCompatActivity() {
     prefs.textSize = textSize
     prefs.fullWidthCharacters = fullWidthCharacters
   }
-
 
   private fun SeekBar.onProgressChange(action: (fromUser: Boolean, progress: Int) -> Unit) {
     setOnSeekBarChangeListener(

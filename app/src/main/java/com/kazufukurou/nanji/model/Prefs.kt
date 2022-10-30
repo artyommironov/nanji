@@ -6,11 +6,11 @@ import androidx.core.content.edit
 import com.artyommironov.kprefs.property
 
 class Prefs(private val prefs: SharedPreferences) {
-  val bgColorDef: Int = Color.argb(192, 0, 0, 0)
-  val textColorDef: Int = Color.WHITE
-  val cornerRadiusDefault: Int = 8
+  private val bgColorDef: Int = Color.argb(192, 0, 0, 0)
+  private val textColorDef: Int = Color.WHITE
+  private val cornerRadiusDefault: Int = 8
+  private val textSizeDefault: Int = 24
   val cornerRadiusRange: IntRange = 0..20
-  val textSizeDefault: Int = 24
   val textSizeRange: IntRange = 16..36
   var bgColor: Int by prefs.property(bgColorDef)
   var textColor: Int by prefs.property(textColorDef)
@@ -42,4 +42,12 @@ class Prefs(private val prefs: SharedPreferences) {
   }
 
   fun clear() = prefs.edit().clear().apply()
+
+  fun clearAppearance() {
+    bgColor = bgColorDef
+    textColor = textColorDef
+    cornerRadius = cornerRadiusDefault
+    textSize = textSizeDefault
+    fullWidthCharacters = false
+  }
 }
