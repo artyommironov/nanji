@@ -68,7 +68,7 @@ class AppearanceActivity : AppCompatActivity() {
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     val item = menu.add(R.string.reset)
     item.setIcon(R.drawable.ic_reset)
-    MenuItemCompat.setIconTintList(item, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary)))
+    MenuItemCompat.setIconTintList(item, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.onPrimary)))
     item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     item.setOnMenuItemClickListener {
       reset()

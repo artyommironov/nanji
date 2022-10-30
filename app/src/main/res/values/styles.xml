@@ -3,11 +3,13 @@
   <style name="MyTheme" parent="Theme.Material3.DayNight">
     <item name="android:textColorSecondary">@color/textColorSecondary</item>
     <item name="colorPrimary">@color/primary</item>
+    <item name="colorOnPrimary">@color/onPrimary</item>
     <item name="colorPrimaryContainer">@color/primaryContainer</item>
     <item name="colorPrimaryDark">@color/primaryDark</item>
     <item name="colorSecondaryContainer">@color/secondaryContainer</item>
     <item name="colorAccent">@color/primary</item>
     <item name="switchStyle">@style/MySwitch</item>
+    <item name="toolbarStyle">@style/MyToolbar</item>
   </style>
   <style name="MySwitch" parent="Widget.Material3.CompoundButton.Switch">
     <item name="materialThemeOverlay">@style/MySwitchOverlay</item>
@@ -16,5 +18,9 @@
     <item name="colorOutline">@color/switchTrackUnchecked</item>
     <item name="colorOnSurface">@color/switchThumbUnchecked</item>
     <item name="colorPrimaryContainer">@color/switchTrackChecked</item>
+  </style>
+  <style name="MyToolbar" parent="Widget.Material3.Toolbar">
+    <item name="android:background">@color/primary</item>
+    <item name="titleTextColor">@color/onPrimary</item>
   </style>
 </resources>
