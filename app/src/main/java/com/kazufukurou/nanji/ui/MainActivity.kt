@@ -57,6 +57,12 @@ class MainActivity : AppCompatActivity() {
       prefs.language = Language.values()[value]
       render()
     }
+  private var showBattery: Boolean
+    get() = prefs.showBattery
+    set(value) {
+      prefs.showBattery = value
+      render()
+    }
   private val timeZones: List<String> = listOf("") + TimeZone.getAvailableIDs()
   private var timeZoneIndex: Int
     get() = timeZones.indexOf(prefs.timeZone)
@@ -97,6 +103,7 @@ class MainActivity : AppCompatActivity() {
       DateTimeDisplayMode.OnlyDate -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
       DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime -> prefs.language != Language.system
     }
+    val hasTime = dateTimeDisplayMode in setOf(DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime)
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
@@ -104,12 +111,11 @@ class MainActivity : AppCompatActivity() {
         SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
         SelectorItem(R.string.prefsDateTimeDisplayMode, dateTimeDisplayModeStrings, ::dateTimeDisplayModeIndex),
         SwitchItem(R.string.prefsVerboseDisplayMode, prefs::showWords).takeIf { canBeVerbose },
-        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour)
-          .takeIf { dateTimeDisplayMode in setOf(DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime) },
-        SwitchItem(R.string.prefsShowBattery, prefs::showBattery),
+        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { hasTime },
+        SwitchItem(R.string.prefsBatteryShow, ::showBattery),
+        EditItem(R.string.prefsBatteryLevelPrefix, "", prefs::batteryLevelPrefix) .takeIf { showBattery },
         SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
         SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
-        EditItem(R.string.prefsReplaceChars, getString(R.string.prefsExample), prefs::customSymbols),
         ActionItem(R.string.about, ::showAboutAlert)
       )
     )

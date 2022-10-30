@@ -24,7 +24,7 @@ class Prefs(prefs: SharedPreferences) {
   var japaneseEra: Boolean by prefs.property(false)
   var showWords: Boolean by prefs.property(false)
   var showBattery: Boolean by prefs.property(false)
-  var customSymbols: String by prefs.property("")
+  var batteryLevelPrefix: String by prefs.property("~")
   var timeZone: String by prefs.property("")
 
   init {
@@ -34,7 +34,8 @@ class Prefs(prefs: SharedPreferences) {
         "showDigits",
         "openClock",
         "hideTime",
-        "fullWidthDigits"
+        "customSymbols",
+        "fullWidthDigits",
       )
       oldKeys.forEach(::remove)
     }

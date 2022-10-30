@@ -21,9 +21,9 @@ class WidgetPresenter(private val prefs: Prefs) {
     val time = getTime()
     val now = Calendar.getInstance()
     now.timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
-    val dateText = time.getDateText(now).transform(prefs.fullWidthCharacters, prefs.customSymbols)
-    val timeText = time.getTimeText(now).transform(prefs.fullWidthCharacters, prefs.customSymbols)
-    val batteryText = if (prefs.showBattery) "~" + time.getPercentText(batteryLevel) else ""
+    val dateText = time.getDateText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)
+    val timeText = time.getTimeText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)
+    val batteryText = if (prefs.showBattery) prefs.batteryLevelPrefix + time.getPercentText(batteryLevel) else ""
     val (header, content) = when (prefs.dateTimeDisplayMode) {
       DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText
       DateTimeDisplayMode.OnlyDate -> "" to dateText + batteryText
@@ -55,12 +55,10 @@ class WidgetPresenter(private val prefs: Prefs) {
     }
   }
 
-  private fun String.transform(useFullWidthDigits: Boolean, customSymbols: String): String {
+  private fun String.transform(useFullWidthCharacters: Boolean): String {
+    if (!useFullWidthCharacters) return this
     var result = this
     "0０1１2２3３4４5５6６7７8８9９:："
-      .takeIf { useFullWidthDigits }
-      .orEmpty()
-      .plus(customSymbols)
       .toCodePoints()
       .windowed(2, 2, partialWindows = false, transform = { it[0] to it[1] })
       .forEach { (oldString, newString) -> result = result.replace(oldString, newString) }
