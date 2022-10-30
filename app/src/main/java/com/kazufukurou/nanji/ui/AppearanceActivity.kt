@@ -1,16 +1,12 @@
 package com.kazufukurou.nanji.ui
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.MenuItemCompat
 import com.artyommironov.colorpicker.ColorPicker
 import com.artyommironov.colorpicker.ColorTextWatcher
 import com.artyommironov.colorpicker.SquareTileDrawable
@@ -66,14 +62,7 @@ class AppearanceActivity : AppCompatActivity() {
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    val item = menu.add(R.string.reset)
-    item.setIcon(R.drawable.ic_reset)
-    MenuItemCompat.setIconTintList(item, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.onPrimary)))
-    item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-    item.setOnMenuItemClickListener {
-      reset()
-      true
-    }
+    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::reset)
     return true
   }
 

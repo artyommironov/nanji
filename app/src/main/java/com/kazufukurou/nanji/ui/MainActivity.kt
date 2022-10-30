@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -82,6 +83,11 @@ class MainActivity : AppCompatActivity() {
     render()
   }
 
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::reset)
+    return true
+  }
+
   override fun onPause() {
     super.onPause()
     val ids = AppWidgetManager.getInstance(this).getAppWidgetIds(ComponentName(this, WidgetProvider::class.java))
@@ -91,6 +97,11 @@ class MainActivity : AppCompatActivity() {
         .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
     )
     currentDialog?.dismiss()
+  }
+
+  private fun reset() {
+    prefs.clear()
+    render()
   }
 
   private fun render() {

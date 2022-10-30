@@ -5,7 +5,7 @@ import android.graphics.Color
 import androidx.core.content.edit
 import com.artyommironov.kprefs.property
 
-class Prefs(prefs: SharedPreferences) {
+class Prefs(private val prefs: SharedPreferences) {
   val bgColorDef: Int = Color.argb(192, 0, 0, 0)
   val textColorDef: Int = Color.WHITE
   val cornerRadiusDefault: Int = 8
@@ -40,4 +40,6 @@ class Prefs(prefs: SharedPreferences) {
       oldKeys.forEach(::remove)
     }
   }
+
+  fun clear() = prefs.edit().clear().apply()
 }
