@@ -21,8 +21,8 @@ class WidgetPresenter(private val prefs: Prefs) {
     val time = getTime()
     val now = Calendar.getInstance()
     now.timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
-    val dateText = time.getDateText(now).transform(prefs.fullWidthDigits, prefs.customSymbols)
-    val timeText = time.getTimeText(now).transform(prefs.fullWidthDigits, prefs.customSymbols)
+    val dateText = time.getDateText(now).transform(prefs.fullWidthCharacters, prefs.customSymbols)
+    val timeText = time.getTimeText(now).transform(prefs.fullWidthCharacters, prefs.customSymbols)
     val batteryText = if (prefs.showBattery) "~" + time.getPercentText(batteryLevel) else ""
     val (header, content) = when (prefs.dateTimeDisplayMode) {
       DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText

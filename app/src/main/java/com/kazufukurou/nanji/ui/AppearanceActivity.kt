@@ -27,7 +27,7 @@ class AppearanceActivity : AppCompatActivity() {
   private var bgColor by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var cornerRadius by Delegates.observable(0) { _, old, new -> if (new != old) render() }
   private var textSize by Delegates.observable(0) { _, old, new -> if (new != old) render() }
-  private var fullWidthDigits by Delegates.observable(false) { _, old, new -> if (new != old) render() }
+  private var fullWidthCharacters by Delegates.observable(false) { _, old, new -> if (new != old) render() }
   private lateinit var binding: AppearanceBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +39,10 @@ class AppearanceActivity : AppCompatActivity() {
     textColor = prefs.textColor
     cornerRadius = prefs.cornerRadius.coerceIn(prefs.cornerRadiusRange)
     textSize = prefs.textSize.coerceIn(prefs.textSizeRange)
-    fullWidthDigits = prefs.fullWidthDigits
+    fullWidthCharacters = prefs.fullWidthCharacters
 
     binding.viewSampleBg.background = SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY)
-    binding.switchWideText.setOnClickListener { fullWidthDigits = !fullWidthDigits }
+    binding.switchWideText.setOnClickListener { fullWidthCharacters = !fullWidthCharacters }
     binding.buttonBg.setOnClickListener { isText = false }
     binding.buttonText.setOnClickListener { isText = true }
     with(binding.seekTextSize) {
@@ -94,7 +94,7 @@ class AppearanceActivity : AppCompatActivity() {
     val textSize = resources.dp(textSize).toFloat()
     val radius = resources.dp(cornerRadius).toFloat()
     with(binding.textSample) {
-      text = if (fullWidthDigits) "１２" else "12"
+      text = if (fullWidthCharacters) "１２" else "12"
       setTextColor(textColor)
       setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
       background = GradientDrawable().also {
@@ -103,7 +103,7 @@ class AppearanceActivity : AppCompatActivity() {
         it.setBounds(0, 0, width, height)
       }
     }
-    binding.switchWideText.isChecked = fullWidthDigits
+    binding.switchWideText.isChecked = fullWidthCharacters
     binding.buttons.check((if (isText) binding.buttonText else binding.buttonBg).id)
   }
 
@@ -113,7 +113,7 @@ class AppearanceActivity : AppCompatActivity() {
     textColor = prefs.textColorDef
     cornerRadius = prefs.cornerRadiusDefault
     textSize = prefs.textSizeDefault
-    fullWidthDigits = false
+    fullWidthCharacters = false
     init()
   }
 
@@ -122,7 +122,7 @@ class AppearanceActivity : AppCompatActivity() {
     prefs.textColor = textColor
     prefs.cornerRadius = cornerRadius
     prefs.textSize = textSize
-    prefs.fullWidthDigits = fullWidthDigits
+    prefs.fullWidthCharacters = fullWidthCharacters
   }
 
 
