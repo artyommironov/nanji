@@ -57,20 +57,24 @@ fun Int.toWordsCJK(wordSource: (Int) -> String): String {
   }
 }
 
-val Int.kanji: String get() = when (this) {
-  0 -> "零"
-  1 -> "一"
-  2 -> "二"
-  3 -> "三"
-  4 -> "四"
-  5 -> "五"
-  6 -> "六"
-  7 -> "七"
-  8 -> "八"
-  9 -> "九"
-  10 -> "十"
-  100 -> "百"
-  1000 -> "千"
-  else -> ""
-}
+val String.kanjiText: String
+  get() = map { it.toString().toInt() }.joinToString("") { if (it == 0) "〇" else it.kanji }
+
+val Int.kanji: String
+  get() = when (this) {
+    0 -> "零"
+    1 -> "一"
+    2 -> "二"
+    3 -> "三"
+    4 -> "四"
+    5 -> "五"
+    6 -> "六"
+    7 -> "七"
+    8 -> "八"
+    9 -> "九"
+    10 -> "十"
+    100 -> "百"
+    1000 -> "千"
+    else -> ""
+  }
 

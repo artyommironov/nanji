@@ -11,8 +11,11 @@ class TimeJa(
   override fun getPercentText(value: Int): String = value.toWords() + '％'
 
   override fun getDateText(cal: Calendar): String {
-    val (era, eraYearOffset) = if (useEra) "令和" to 2018 else "" to 0
-    val year = era + (cal.year - eraYearOffset).toWords()
+    val year = when {
+      useEra -> "令和" + (cal.year - 2018).toWords()
+      useWords -> cal.year.toString().kanjiText
+      else -> cal.year.toString()
+    }
     val month = cal.monthNum.toWords()
     val day = cal.day.toWords()
     val weekday = cal.weekday(Locale.JAPANESE)

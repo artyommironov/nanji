@@ -172,13 +172,14 @@ class TimeTest {
 
   @Test
   fun getDateTextJa() = with(TimeJa(useEra = false, useWords = true, useTwentyFourHours = false)) {
-    assertEquals("千九百九十一年四月十八日木曜日", ymd(1991, Calendar.APRIL, 18))
-    assertEquals("二千十九年十二月三十一日火曜日", ymd(2019, Calendar.DECEMBER, 31))
+    assertEquals("一九九一年四月十八日木曜日", ymd(1991, Calendar.APRIL, 18))
+    assertEquals("二〇一九年十二月三十一日火曜日", ymd(2019, Calendar.DECEMBER, 31))
   }
 
   @Test
   fun getDateTextJaEra() = with(TimeJa(useEra = true, useWords = true, useTwentyFourHours = false)) {
     assertEquals("令和一年十二月三十一日火曜日", ymd(2019, Calendar.DECEMBER, 31))
+    assertEquals("令和四年十二月三十一日土曜日", ymd(2022, Calendar.DECEMBER, 31))
   }
 
   @Test
@@ -188,11 +189,12 @@ class TimeTest {
 
   @Test
   fun getDateTextZhWords() = with(TimeZh(simplified = true, useWords = true, useTwentyFourHours = false)) {
-    assertEquals("二零一九年十二月三十一日星期二", ymd(2019, Calendar.DECEMBER, 31))
+    assertEquals("二〇一九年十二月三十一日星期二", ymd(2019, Calendar.DECEMBER, 31))
   }
 
   @Test
   fun getDateTextKo() = with(TimeKo(useWords = true, useTwentyFourHours = false)) {
+    assertEquals("천구백구십이년십이월사일금요일", ymd(1992, Calendar.DECEMBER, 4))
     assertEquals("이천십구년십이월삼십일일화요일", ymd(2019, Calendar.DECEMBER, 31))
   }
 

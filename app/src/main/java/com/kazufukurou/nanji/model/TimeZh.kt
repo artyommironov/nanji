@@ -11,11 +11,7 @@ class TimeZh(
   override fun getPercentText(value: Int): String = value.toWords() + '％'
 
   override fun getDateText(cal: Calendar): String {
-    val year = if (useWords) {
-      cal.year.toString().toList().joinToString("") { it.toString().toInt().kanji }
-    } else {
-      cal.year.toString()
-    }
+    val year = if (useWords) cal.year.toString().kanjiText else cal.year.toString()
     val month = cal.monthNum.toWords()
     val day = cal.day.toWords()
     val weekday = cal.weekday(Locale.CHINESE)
