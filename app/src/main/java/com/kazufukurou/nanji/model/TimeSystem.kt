@@ -1,5 +1,6 @@
 package com.kazufukurou.nanji.model
 
+import android.annotation.SuppressLint
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -17,6 +18,7 @@ class TimeSystem(
       .format(cal.time)
   }
 
+  @SuppressLint("SimpleDateFormat")
   override fun getTimeText(cal: Calendar): String {
     return SimpleDateFormat(if (useTwentyFourHours) "H:mm" else "h:mm a")
       .apply { timeZone = cal.timeZone }

@@ -1,5 +1,6 @@
 package com.kazufukurou.nanji.model
 
+import android.annotation.SuppressLint
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -26,6 +27,8 @@ val Calendar.hour: Int get() = get(Calendar.HOUR)
 val Calendar.hourOfDay: Int get() = get(Calendar.HOUR_OF_DAY)
 val Calendar.hour12: Int get() = hour.let { if (it == 0) 12 else it }
 val Calendar.minute: Int get() = get(Calendar.MINUTE)
+
+@SuppressLint("SimpleDateFormat")
 fun Calendar.weekday(locale: Locale): String = SimpleDateFormat("EEEE", DateFormatSymbols(locale)).format(time)
 
 fun Int.toWordsEnRu(wordSource: (Int) -> String): String {
