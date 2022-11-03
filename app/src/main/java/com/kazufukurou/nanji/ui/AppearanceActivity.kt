@@ -1,6 +1,12 @@
 package com.kazufukurou.nanji.ui
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Shader
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.TypedValue
@@ -8,9 +14,6 @@ import android.view.Menu
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import com.artyommironov.colorpicker.ColorPicker
-import com.artyommironov.colorpicker.ColorTextWatcher
-import com.artyommironov.colorpicker.SquareTileDrawable
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.AppearanceBinding
 import com.kazufukurou.nanji.model.getPrefs
@@ -18,7 +21,6 @@ import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
   private val binding: AppearanceBinding by lazy { AppearanceBinding.inflate(layoutInflater) }
-  private val colorTextWatcher by lazy { ColorTextWatcher(binding.colorPicker) }
   private val prefs by lazy { getPrefs() }
   private var state: State by Delegates.observable(State()) { _, old, new ->
     if (new != old) {
@@ -35,7 +37,7 @@ class AppearanceActivity : AppCompatActivity() {
 
     state = getInitialState()
 
-    binding.viewSampleBg.background = SquareTileDrawable(resources.dp(8), Color.WHITE, Color.LTGRAY)
+    binding.viewSampleBg.background = createAlphaBackgroundDrawable()
     binding.switchWideText.setOnClickListener { state = state.copy(fullWidthCharacters = !state.fullWidthCharacters) }
     binding.buttonBg.setOnClickListener { state = state.copy(isText = false) }
     binding.buttonText.setOnClickListener { state = state.copy(isText = true) }
@@ -49,13 +51,6 @@ class AppearanceActivity : AppCompatActivity() {
       max = prefs.cornerRadiusRange.last - min
       onProgressChange { fromUser, progress -> if (fromUser) state = state.copy(cornerRadiusDp = min + progress) }
     }
-    binding.colorPicker.setup(
-      mode = ColorPicker.Mode.RGBA,
-      onColorChange = {
-        val color = binding.colorPicker.color
-        state = if (state.isText) state.copy(textColor = color) else state.copy(bgColor = color)
-      }
-    )
     updatePickers()
     render()
   }
@@ -73,7 +68,19 @@ class AppearanceActivity : AppCompatActivity() {
   private fun updatePickers() = with(binding) {
     seekCornerRadius.progress = state.cornerRadiusDp - prefs.cornerRadiusRange.first
     seekTextSize.progress = state.textSizeDp - prefs.textSizeRange.first
-    colorPicker.color = if (state.isText) state.textColor else state.bgColor
+    binding.colorPicker.setup(
+      color = if (state.isText) state.textColor else state.bgColor,
+      mode = ColorPicker.Mode.RGBA,
+      barHeight = resources.dp(32),
+      barSpacing = resources.dp(8),
+      alphaBackground = createAlphaBackgroundDrawable(),
+      thumb = createThumbDrawable(),
+      editText = binding.editColor,
+      onColorChange = {
+        val color = binding.colorPicker.color
+        state = if (state.isText) state.copy(textColor = color) else state.copy(bgColor = color)
+      }
+    )
   }
 
   private fun getInitialState() = State(
@@ -86,7 +93,6 @@ class AppearanceActivity : AppCompatActivity() {
   )
 
   private fun render() {
-    colorTextWatcher.updateEditText(binding.editColor)
     val textSize = resources.dp(state.textSizeDp).toFloat()
     val radius = resources.dp(state.cornerRadiusDp).toFloat()
     with(binding.textSample) {
@@ -116,6 +122,28 @@ class AppearanceActivity : AppCompatActivity() {
     cornerRadius = state.cornerRadiusDp
     textSize = state.textSizeDp
     fullWidthCharacters = state.fullWidthCharacters
+  }
+
+
+  private fun createThumbDrawable(): Drawable = GradientDrawable().apply {
+    setColor(Color.WHITE)
+    setStroke(resources.dp(1), Color.BLACK)
+    setSize(resources.dp(8), resources.dp(8))
+  }
+
+  private fun createAlphaBackgroundDrawable(): Drawable {
+    val size = resources.dp(16)
+    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+    val paint = Paint()
+    paint.color = Color.WHITE
+    with(Canvas(bitmap)) {
+      drawColor(Color.LTGRAY)
+      drawRect(0f, 0f, size * 0.5f, size * 0.5f, paint)
+      drawRect(size * 0.5f, size * 0.5f, size.toFloat(), size.toFloat(), paint)
+    }
+    return BitmapDrawable(resources, bitmap).apply {
+      setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
+    }
   }
 
   private fun SeekBar.onProgressChange(action: (fromUser: Boolean, progress: Int) -> Unit) {

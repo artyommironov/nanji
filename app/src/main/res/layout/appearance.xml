@@ -151,7 +151,7 @@
       app:layout_constraintTop_toBottomOf="@id/viewSampleBg"
       tools:ignore="HardcodedText,SpUsage" />
 
-    <com.artyommironov.colorpicker.ColorPicker
+    <com.kazufukurou.nanji.ui.ColorPicker
       android:id="@+id/colorPicker"
       android:layout_width="0dp"
       android:layout_height="wrap_content"

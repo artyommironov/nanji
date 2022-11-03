@@ -43,7 +43,6 @@ android {
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
   implementation("com.github.artyommironov:anyadapter:1.0.1")
-  implementation("com.github.artyommironov:colorpicker:1.1.0")
   implementation("com.github.artyommironov:kprefs:1.1.0")
   implementation("com.google.android.material:material:1.7.0")
   implementation("androidx.core:core-ktx:1.9.0")
