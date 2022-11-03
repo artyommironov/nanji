@@ -3,7 +3,6 @@ package com.kazufukurou.nanji.model
 import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.core.content.edit
-import com.artyommironov.kprefs.property
 
 class Prefs(private val prefs: SharedPreferences) {
   private val bgColorDef: Int = Color.argb(192, 0, 0, 0)
