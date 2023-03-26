@@ -29,4 +29,6 @@
   <string name="prefsTwentyFour">24-часовой формат</string>
   <string name="prefsVerboseDisplayMode">Подробный режим отображения</string>
   <string name="reset">Сбросить</string>
+  <string name="reset_appearance">Сбросить настройки внешнего вида?</string>
+  <string name="reset_settings">Сбросить все настройки?</string>
 </resources>

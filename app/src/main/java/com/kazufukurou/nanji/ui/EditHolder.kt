@@ -1,6 +1,5 @@
 package com.kazufukurou.nanji.ui
 
-import android.app.Dialog
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
@@ -10,7 +9,7 @@ import com.kazufukurou.nanji.databinding.ItemBinding
 
 class EditHolder(
   private val binding: ItemBinding,
-  private val dialogShower: (Dialog) -> Unit
+  private val dialogHolder: DialogHolder,
 ) : AnyHolder<EditItem>(binding.root) {
   init {
     with(binding) {
@@ -45,6 +44,6 @@ class EditHolder(
       }
       .setNegativeButton(android.R.string.cancel, null)
       .create()
-      .let(dialogShower)
+      .let(dialogHolder::show)
   }
 }

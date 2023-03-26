@@ -1,6 +1,5 @@
 package com.kazufukurou.nanji.ui
 
-import android.app.Dialog
 import androidx.core.view.isVisible
 import com.artyommironov.anyadapter.AnyHolder
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -8,7 +7,7 @@ import com.kazufukurou.nanji.databinding.ItemBinding
 
 class SelectorHolder(
   private val binding: ItemBinding,
-  private val dialogShower: (Dialog) -> Unit
+  private val dialogHolder: DialogHolder,
 ) : AnyHolder<SelectorItem>(binding.root) {
   init {
     with(binding) {
@@ -35,6 +34,6 @@ class SelectorHolder(
         onBind(item)
       }
       .create()
-      .let(dialogShower)
+      .let(dialogHolder::show)
   }
 }

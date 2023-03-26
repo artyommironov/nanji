@@ -29,4 +29,6 @@
   <string name="prefsTwentyFour">Use 24-hour format</string>
   <string name="prefsVerboseDisplayMode">Verbose display mode</string>
   <string name="reset">Reset</string>
+  <string name="reset_appearance">Reset appearance settings?</string>
+  <string name="reset_settings">Reset all settings?</string>
 </resources>

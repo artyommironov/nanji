@@ -29,4 +29,6 @@
   <string name="prefsTwentyFour">24時間表示</string>
   <string name="prefsVerboseDisplayMode">冗長表示モード</string>
   <string name="reset">リセット</string>
+  <string name="reset_appearance">外観の設定をリセットしますか?</string>
+  <string name="reset_settings">すべての設定をリセットしますか?</string>
 </resources>

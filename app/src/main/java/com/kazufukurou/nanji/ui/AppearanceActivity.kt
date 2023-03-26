@@ -14,6 +14,7 @@ import android.view.Menu
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.AppearanceBinding
 import com.kazufukurou.nanji.model.getPrefs
@@ -22,6 +23,7 @@ import kotlin.properties.Delegates
 class AppearanceActivity : AppCompatActivity() {
   private val binding: AppearanceBinding by lazy { AppearanceBinding.inflate(layoutInflater) }
   private val prefs by lazy { getPrefs() }
+  private val dialogHolder = DialogHolder()
   private var state: State by Delegates.observable(State()) { _, old, new ->
     if (new != old) {
       if (new.isText != old.isText) {
@@ -56,7 +58,7 @@ class AppearanceActivity : AppCompatActivity() {
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::reset)
+    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::showResetAlert)
     return true
   }
 
@@ -64,6 +66,22 @@ class AppearanceActivity : AppCompatActivity() {
     super.onPause()
     save()
   }
+
+  private fun showResetAlert() {
+    MaterialAlertDialogBuilder(this)
+      .setTitle(R.string.reset)
+      .setMessage(R.string.reset_appearance)
+      .setPositiveButton(R.string.reset) { _, _ ->
+        prefs.clearAppearance()
+        state = getInitialState()
+        updatePickers()
+        render()
+      }
+      .setNegativeButton(android.R.string.cancel, null)
+      .create()
+      .let(dialogHolder::show)
+  }
+
 
   private fun updatePickers() = with(binding) {
     seekCornerRadius.progress = state.cornerRadiusDp - prefs.cornerRadiusRange.first
@@ -107,13 +125,6 @@ class AppearanceActivity : AppCompatActivity() {
     }
     binding.switchWideText.isChecked = state.fullWidthCharacters
     binding.buttons.check((if (state.isText) binding.buttonText else binding.buttonBg).id)
-  }
-
-  private fun reset() {
-    prefs.clearAppearance()
-    state = getInitialState()
-    updatePickers()
-    render()
   }
 
   private fun save() = with(prefs) {

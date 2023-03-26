@@ -1,6 +1,5 @@
 package com.kazufukurou.nanji.ui
 
-import android.app.Dialog
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
@@ -34,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = false
   }
+  private val dialogHolder = DialogHolder()
   private val myAdapter = AnyAdapter(diffUtilItemCallback)
     .map { ActionHolder(getItemBinding(it)) }
     .map { SwitchHolder(getItemBinding(it)) }
-    .map { EditHolder(getItemBinding(it), ::showDialog) }
-    .map { SelectorHolder(getItemBinding(it), ::showDialog) }
-  private var currentDialog: Dialog? = null
+    .map { EditHolder(getItemBinding(it), dialogHolder) }
+    .map { SelectorHolder(getItemBinding(it), dialogHolder) }
   private var dateTimeDisplayModeIndex: Int
     get() = DateTimeDisplayMode.values().indexOf(prefs.dateTimeDisplayMode)
     set(value) {
@@ -83,7 +82,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::reset)
+    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::showResetAlert)
     return true
   }
 
@@ -95,12 +94,7 @@ class MainActivity : AppCompatActivity() {
         .setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
         .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
     )
-    currentDialog?.dismiss()
-  }
-
-  private fun reset() {
-    prefs.clear()
-    render()
+    dialogHolder.dismiss()
   }
 
   private fun render() {
@@ -135,14 +129,21 @@ class MainActivity : AppCompatActivity() {
     return ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
   }
 
-  private fun showDialog(dialog: Dialog) {
-    currentDialog?.dismiss()
-    currentDialog = dialog
-    currentDialog?.show()
-  }
-
   private fun goAppearance() {
     startActivity(Intent(this, AppearanceActivity::class.java))
+  }
+
+  private fun showResetAlert() {
+    MaterialAlertDialogBuilder(this)
+      .setTitle(R.string.reset)
+      .setMessage(R.string.reset_settings)
+      .setPositiveButton(R.string.reset) { _, _ ->
+        prefs.clear()
+        render()
+      }
+      .setNegativeButton(android.R.string.cancel, null)
+      .create()
+      .let(dialogHolder::show)
   }
 
   private fun showAboutAlert() {
@@ -154,7 +155,7 @@ class MainActivity : AppCompatActivity() {
       .setMessage(String.format(LICENSE, year))
       .setPositiveButton(android.R.string.ok, null)
       .create()
-      .let(::showDialog)
+      .let(dialogHolder::show)
   }
 }
 
