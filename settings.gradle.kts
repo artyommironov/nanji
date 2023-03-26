@@ -15,5 +15,5 @@ dependencyResolutionManagement {
   }
 }
 
-include(":app")
 rootProject.name = "Nanji"
+include(":app")
