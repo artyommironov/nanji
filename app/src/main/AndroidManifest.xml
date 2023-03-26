@@ -10,7 +10,7 @@
   </queries>
 
   <application
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@drawable/ic_launcher"
     android:label="@string/appName"
     android:theme="@style/MyTheme">
     <activity
