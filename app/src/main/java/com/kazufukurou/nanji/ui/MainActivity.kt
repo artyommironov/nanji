@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menu.addItem(context = this, title = R.string.reset, icon = R.drawable.ic_reset, onClick = ::showResetAlert)
+    menu.addItem(this, R.string.reset, R.drawable.ic_reset, ::showResetAlert)
     return true
   }
 
