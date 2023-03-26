@@ -21,7 +21,6 @@
   <string name="prefsDateTimeDisplayModeDateTime">Дата и время</string>
   <string name="prefsDateTimeDisplayModeOnlyDate">Только дата</string>
   <string name="prefsDateTimeDisplayModeOnlyTime">Только время</string>
-  <string name="prefsFeedback">Отправить отзыв</string>
   <string name="prefsTapAction">Действие по нажатию</string>
   <string name="prefsTapActionOpenClock">Открыть часы</string>
   <string name="prefsTapActionOpenSettings">Открыть настройки</string>

@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -146,16 +145,6 @@ class MainActivity : AppCompatActivity() {
     startActivity(Intent(this, AppearanceActivity::class.java))
   }
 
-  private fun goEmail(appName: String, appVersion: String) {
-    val deviceInfo = "${Build.BRAND} ${Build.MODEL} (${Build.VERSION.SDK_INT})"
-    Intent(Intent.ACTION_SEND)
-      .setType("plain/text")
-      .putExtra(Intent.EXTRA_EMAIL, arrayOf("artyommironov@gmail.com"))
-      .putExtra(Intent.EXTRA_SUBJECT, "$appName $appVersion $deviceInfo")
-      .takeIf { it.resolveActivity(packageManager) != null }
-      ?.let(::startActivity)
-  }
-
   private fun showAboutAlert() {
     val appName = getString(R.string.appName)
     val appVersion = BuildConfig.VERSION_NAME
@@ -164,13 +153,12 @@ class MainActivity : AppCompatActivity() {
       .setTitle("$appName $appVersion")
       .setMessage(String.format(LICENSE, year))
       .setPositiveButton(android.R.string.ok, null)
-      .setNegativeButton(R.string.prefsFeedback) { _, _ -> goEmail(appName, appVersion) }
       .create()
       .let(::showDialog)
   }
 }
 
-private const val LICENSE = """Copyright %d Artyom Mironov
+private const val LICENSE = """Copyright 2012-%d Artyom Mironov
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -21,7 +21,6 @@
   <string name="prefsDateTimeDisplayModeDateTime">Date and time</string>
   <string name="prefsDateTimeDisplayModeOnlyDate">Date only</string>
   <string name="prefsDateTimeDisplayModeOnlyTime">Time only</string>
-  <string name="prefsFeedback">Send feedback</string>
   <string name="prefsTapAction">Tap action</string>
   <string name="prefsTapActionOpenClock">Open clock</string>
   <string name="prefsTapActionOpenSettings">Open settings</string>
