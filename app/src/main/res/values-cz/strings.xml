@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about">O aplikaci</string>
+  <string name="appName">Nanji</string>
+  <string name="appearance">Vzhled</string>
+  <string name="appearanceBg">Pozadí</string>
+  <string name="appearanceText">Text</string>
+<string name="appearanceReset">Reset</string>
+  <string name="japaneseEra">Datum éry</string>
+  <string name="language">Jazyk</string>
+  <string name="languageEn">Angličtina</string>
+  <string name="languageJa">Japonština</string>
+  <string name="languageKo">Korejština</string>
+  <string name="languageRu">Ruština</string>
+  <string name="languageSystem">Systém</string>
+  <string name="languageZhCn">Čínština (Zjednodušená)</string>
+  <string name="languageZhTw">Čínština (Tradiční)</string>
+  <string name="prefsBatteryLevelPrefix">Výdrž baterie prefix</string>
+  <string name="prefsBatteryShow">Ukázat výdrž baterie</string>
+  <string name="prefsDateTimeDisplayMode">Typ zobrazení datumu a času</string>
+  <string name="prefsDateTimeDisplayModeDateTime">Datum a čas</string>
+  <string name="prefsDateTimeDisplayModeOnlyDate">Jenom datum</string>
+  <string name="prefsDateTimeDisplayModeOnlyTime">Jenom čas</string>
+  <string name="prefsTapAction">Akce po kliknutí</string>
+  <string name="prefsTapActionOpenClock">Otevřít hodiny</string>
+  <string name="prefsTapActionOpenSettings">Otevřít nastavení</string>
+<string name="prefsTapActionToggleVerboseDisplay">Toggle verbose display mode</string>
+  <string name="prefsTimeZone">Časová zóna</string>
+  <string name="prefsTwentyFour">Použít 24-hodinový formát</string>
+<string name="prefsVerboseDisplayMode">Verbose display mode</string>
+<string name="reset">Reset</string>
+  <string name="reset_appearance">Resetovat nastavení vzhledu?</string>
+  <string name="reset_settings">Resetovat všechno nastavení?</string>
+</resources>
