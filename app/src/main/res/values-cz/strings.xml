@@ -5,7 +5,7 @@
   <string name="appearance">Vzhled</string>
   <string name="appearanceBg">Pozadí</string>
   <string name="appearanceText">Text</string>
-<string name="appearanceReset">Reset</string>
+  <string name="appearanceReset">Reset</string>
   <string name="japaneseEra">Datum éry</string>
   <string name="language">Jazyk</string>
   <string name="languageEn">Angličtina</string>
@@ -25,11 +25,11 @@
   <string name="prefsTapAction">Akce po kliknutí</string>
   <string name="prefsTapActionOpenClock">Otevřít hodiny</string>
   <string name="prefsTapActionOpenSettings">Otevřít nastavení</string>
-<string name="prefsTapActionToggleVerboseDisplay">Toggle verbose display mode</string>
+  <string name="prefsTapActionToggleVerboseDisplay">Přepínání podrobné zobrazení</string>
   <string name="prefsTimeZone">Časová zóna</string>
   <string name="prefsTwentyFour">Použít 24-hodinový formát</string>
-<string name="prefsVerboseDisplayMode">Verbose display mode</string>
-<string name="reset">Reset</string>
+  <string name="prefsVerboseDisplayMode">Podrobné zobrazení</string>
+  <string name="reset">Reset</string>
   <string name="reset_appearance">Resetovat nastavení vzhledu?</string>
   <string name="reset_settings">Resetovat všechno nastavení?</string>
 </resources>
