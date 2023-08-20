@@ -11,5 +11,4 @@ enum class Language(@StringRes val title: Int) {
   ko(R.string.languageKo),
   ru(R.string.languageRu),
   en(R.string.languageEn)
-  cz(R.string.languageCz)
 }
