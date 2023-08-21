@@ -23,7 +23,7 @@
   <string name="prefsTapAction">Akce po kliknutí</string>
   <string name="prefsTapActionOpenClock">Otevřít hodiny</string>
   <string name="prefsTapActionOpenSettings">Otevřít nastavení</string>
-  <string name="prefsTapActionToggleVerboseDisplay">Přepínání podrobné zobrazení</string>
+  <string name="prefsTapActionToggleVerboseDisplay">Přepínání podrobného zobrazení</string>
   <string name="prefsTimeZone">Časová zóna</string>
   <string name="prefsTwentyFour">Použít 24-hodinový formát</string>
   <string name="prefsVerboseDisplayMode">Podrobné zobrazení</string>
