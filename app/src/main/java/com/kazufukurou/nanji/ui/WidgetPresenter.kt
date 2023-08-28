@@ -26,8 +26,8 @@ class WidgetPresenter(private val prefs: Prefs) {
     val batteryText = if (prefs.showBattery) prefs.batteryLevelPrefix + time.getPercentText(batteryLevel) else ""
     val (header, content) = when (prefs.dateTimeDisplayMode) {
       DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText
-      DateTimeDisplayMode.OnlyDate -> "" to dateText + batteryText
-      DateTimeDisplayMode.OnlyTime -> "" to timeText + batteryText
+      DateTimeDisplayMode.DateOnly -> "" to dateText + batteryText
+      DateTimeDisplayMode.TimeOnly -> "" to timeText + batteryText
     }
     return State(
       header = header,

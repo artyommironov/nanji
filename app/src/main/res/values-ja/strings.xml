@@ -17,9 +17,9 @@
   <string name="prefsBatteryLevelPrefix">電池残量のプレフィックス</string>
   <string name="prefsBatteryShow">電池残量を表示</string>
   <string name="prefsDateTimeDisplayMode">日付と時刻の表示モード</string>
+  <string name="prefsDateTimeDisplayModeDateOnly">日付のみ</string>
   <string name="prefsDateTimeDisplayModeDateTime">日付と時刻</string>
-  <string name="prefsDateTimeDisplayModeOnlyDate">日付のみ</string>
-  <string name="prefsDateTimeDisplayModeOnlyTime">時刻のみ</string>
+  <string name="prefsDateTimeDisplayModeTimeOnly">時刻のみ</string>
   <string name="prefsTapAction">タッチ時の動作</string>
   <string name="prefsTapActionOpenClock">時計を開く</string>
   <string name="prefsTapActionOpenSettings">設定を開く</string>

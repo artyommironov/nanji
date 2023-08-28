@@ -17,9 +17,9 @@
   <string name="prefsBatteryLevelPrefix">Battery level prefix</string>
   <string name="prefsBatteryShow">Show battery level</string>
   <string name="prefsDateTimeDisplayMode">Date and time display mode</string>
+  <string name="prefsDateTimeDisplayModeDateOnly">Date only</string>
   <string name="prefsDateTimeDisplayModeDateTime">Date and time</string>
-  <string name="prefsDateTimeDisplayModeOnlyDate">Date only</string>
-  <string name="prefsDateTimeDisplayModeOnlyTime">Time only</string>
+  <string name="prefsDateTimeDisplayModeTimeOnly">Time only</string>
   <string name="prefsTapAction">Tap action</string>
   <string name="prefsTapActionOpenClock">Open clock</string>
   <string name="prefsTapActionOpenSettings">Open settings</string>

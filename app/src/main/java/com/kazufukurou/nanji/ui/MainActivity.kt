@@ -104,10 +104,10 @@ class MainActivity : AppCompatActivity() {
     val timeZoneStrings = timeZones.map { it.ifEmpty { getString(R.string.languageSystem) } }
     val dateTimeDisplayMode = prefs.dateTimeDisplayMode
     val canBeVerbose = when (dateTimeDisplayMode) {
-      DateTimeDisplayMode.OnlyDate -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
-      DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime -> prefs.language != Language.system
+      DateTimeDisplayMode.DateOnly -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
+      DateTimeDisplayMode.DateTime, DateTimeDisplayMode.TimeOnly -> prefs.language != Language.system
     }
-    val hasTime = dateTimeDisplayMode in setOf(DateTimeDisplayMode.DateTime, DateTimeDisplayMode.OnlyTime)
+    val hasTime = dateTimeDisplayMode in setOf(DateTimeDisplayMode.DateTime, DateTimeDisplayMode.TimeOnly)
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),

@@ -17,9 +17,9 @@
   <string name="prefsBatteryLevelPrefix">Výdrž baterie prefix</string>
   <string name="prefsBatteryShow">Ukázat výdrž baterie</string>
   <string name="prefsDateTimeDisplayMode">Typ zobrazení datumu a času</string>
+  <string name="prefsDateTimeDisplayModeDateOnly">Jenom datum</string>
   <string name="prefsDateTimeDisplayModeDateTime">Datum a čas</string>
-  <string name="prefsDateTimeDisplayModeOnlyDate">Jenom datum</string>
-  <string name="prefsDateTimeDisplayModeOnlyTime">Jenom čas</string>
+  <string name="prefsDateTimeDisplayModeTimeOnly">Jenom čas</string>
   <string name="prefsTapAction">Akce po kliknutí</string>
   <string name="prefsTapActionOpenClock">Otevřít hodiny</string>
   <string name="prefsTapActionOpenSettings">Otevřít nastavení</string>

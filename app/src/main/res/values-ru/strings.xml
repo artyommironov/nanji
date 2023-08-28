@@ -17,9 +17,9 @@
   <string name="prefsBatteryLevelPrefix">Префикс заряда батареи</string>
   <string name="prefsBatteryShow">Показать заряд батареи</string>
   <string name="prefsDateTimeDisplayMode">Режим показа даты и времени</string>
+  <string name="prefsDateTimeDisplayModeDateOnly">Только дата</string>
   <string name="prefsDateTimeDisplayModeDateTime">Дата и время</string>
-  <string name="prefsDateTimeDisplayModeOnlyDate">Только дата</string>
-  <string name="prefsDateTimeDisplayModeOnlyTime">Только время</string>
+  <string name="prefsDateTimeDisplayModeTimeOnly">Только время</string>
   <string name="prefsTapAction">Действие по нажатию</string>
   <string name="prefsTapActionOpenClock">Открыть часы</string>
   <string name="prefsTapActionOpenSettings">Открыть настройки</string>
