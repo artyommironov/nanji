@@ -112,43 +112,44 @@ class WidgetProvider : AppWidgetProvider() {
     val timeSystem = Module.getTimeSystem(prefs)
     val presenter = WidgetPresenter(timeSystem, prefs)
     val state = presenter.getState(batteryLevel = getBatteryLevel(context))
-    val views = RemoteViews(context.packageName, R.layout.widget)
     val resources = context.resources
-    views.updateTextView(
-      resources = resources,
-      id = R.id.textHeader,
-      color = state.textColor,
-      sizeDp = state.headerFooterSizeDp,
-      text = state.header,
-      visible = state.header.isNotEmpty()
-    )
-    views.updateTextView(
-      resources = resources,
-      id = R.id.textContent,
-      color = state.textColor,
-      sizeDp = state.contentSizeDp,
-      text = state.content,
-      visible = state.content.isNotEmpty()
-    )
-    views.updateTextView(
-      resources = resources,
-      id = R.id.textFooter,
-      color = state.textColor,
-      sizeDp = state.headerFooterSizeDp,
-      text = state.footer,
-      visible = state.footer.isNotEmpty()
-    )
-    val pendingIntent = when (prefs.tapAction) {
-      TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
-      TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
-      TapAction.OpenSetting -> createActivityPendingIntent(context)
+    val views = RemoteViews(context.packageName, R.layout.widget).apply {
+      updateTextView(
+        resources = resources,
+        id = R.id.textHeader,
+        color = state.textColor,
+        sizeDp = state.headerFooterSizeDp,
+        text = state.header,
+        visible = state.header.isNotEmpty()
+      )
+      updateTextView(
+        resources = resources,
+        id = R.id.textContent,
+        color = state.textColor,
+        sizeDp = state.contentSizeDp,
+        text = state.content,
+        visible = state.content.isNotEmpty()
+      )
+      updateTextView(
+        resources = resources,
+        id = R.id.textFooter,
+        color = state.textColor,
+        sizeDp = state.headerFooterSizeDp,
+        text = state.footer,
+        visible = state.footer.isNotEmpty()
+      )
+      val pendingIntent = when (prefs.tapAction) {
+        TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
+        TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
+        TapAction.OpenSetting -> createActivityPendingIntent(context)
+      }
+      setOnClickPendingIntent(R.id.content, pendingIntent)
+      drawBg(
+        bgColor = state.bgColor,
+        cornerSize = resources.dp(state.bgCornerSizeDp),
+        cornerRadius = resources.dp(state.bgCornerRadiusDp)
+      )
     }
-    views.setOnClickPendingIntent(R.id.content, pendingIntent)
-    views.drawBg(
-      bgColor = state.bgColor,
-      cornerSize = resources.dp(state.bgCornerSizeDp),
-      cornerRadius = resources.dp(state.bgCornerRadiusDp)
-    )
     AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, WidgetProvider::class.java), views)
     scheduleUpdate(context)
   }
