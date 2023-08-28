@@ -19,14 +19,14 @@ import com.kazufukurou.nanji.databinding.ItemBinding
 import com.kazufukurou.nanji.model.DateTimeComponent
 import com.kazufukurou.nanji.model.DateTimeDisplayMode
 import com.kazufukurou.nanji.model.Language
+import com.kazufukurou.nanji.model.Module
 import com.kazufukurou.nanji.model.TapAction
-import com.kazufukurou.nanji.model.getPrefs
 import com.kazufukurou.nanji.model.year
 import java.util.Calendar
 import java.util.TimeZone
 
 class MainActivity : AppCompatActivity() {
-  private val prefs by lazy { getPrefs() }
+  private val prefs by lazy { Module.getPrefs(this) }
   private val diffUtilItemCallback = object : DiffUtil.ItemCallback<Any>() {
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
       return oldItem is Item && newItem is Item && oldItem.title == newItem.title

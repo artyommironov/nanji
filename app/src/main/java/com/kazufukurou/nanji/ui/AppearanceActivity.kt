@@ -17,12 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.AppearanceBinding
-import com.kazufukurou.nanji.model.getPrefs
+import com.kazufukurou.nanji.model.Module
 import kotlin.properties.Delegates
 
 class AppearanceActivity : AppCompatActivity() {
   private val binding: AppearanceBinding by lazy { AppearanceBinding.inflate(layoutInflater) }
-  private val prefs by lazy { getPrefs() }
+  private val prefs by lazy { Module.getPrefs(this) }
   private val dialogHolder = DialogHolder()
   private var state: State by Delegates.observable(State()) { _, old, new ->
     if (new != old) {

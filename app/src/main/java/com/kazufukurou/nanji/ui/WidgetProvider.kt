@@ -24,8 +24,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
+import com.kazufukurou.nanji.model.Module
 import com.kazufukurou.nanji.model.TapAction
-import com.kazufukurou.nanji.model.getPrefs
 import java.util.Calendar
 
 class WidgetProvider : AppWidgetProvider() {
@@ -48,7 +48,7 @@ class WidgetProvider : AppWidgetProvider() {
     super.onReceive(context, intent)
     intent ?: return
     if (intent.action == ACTION_CHANGE) {
-      val prefs = context.getPrefs()
+      val prefs = Module.getPrefs(context)
       prefs.showWords = !prefs.showWords
     }
     update(context)
@@ -108,11 +108,12 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun update(context: Context) {
-    val prefs = context.getPrefs()
-    val resources = context.resources
-    val presenter = WidgetPresenter(prefs)
+    val prefs = Module.getPrefs(context)
+    val time = Module.getTime(prefs)
+    val presenter = WidgetPresenter(time, prefs)
     val state = presenter.getState(batteryLevel = getBatteryLevel(context))
     val views = RemoteViews(context.packageName, R.layout.widget)
+    val resources = context.resources
     views.updateTextView(
       resources = resources,
       id = R.id.textHeader,

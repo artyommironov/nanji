@@ -16,9 +16,11 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
 
-class WidgetPresenter(private val prefs: Prefs) {
+class WidgetPresenter(
+  private val time: Time,
+  private val prefs: Prefs
+) {
   fun getState(batteryLevel: Int): State {
-    val time = getTime()
     val now = Calendar.getInstance()
     now.timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     val dateText = time.getDateText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)
@@ -41,20 +43,6 @@ class WidgetPresenter(private val prefs: Prefs) {
       bgCornerRadiusDp = prefs.cornerRadius,
       bgCornerSizeDp = prefs.cornerRadiusRange.last
     )
-  }
-
-  private fun getTime(): Time {
-    val useWords = prefs.showWords
-    val useTwentyFourHours = prefs.twentyFour
-    return when (prefs.language) {
-      Language.zhCN -> TimeZh(simplified = true, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.zhTW -> TimeZh(simplified = false, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ja -> TimeJa(useEra = prefs.japaneseEra, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ko -> TimeKo(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.en -> TimeEn(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ru -> TimeRu(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.system -> TimeSystem(Locale.getDefault(), useTwentyFourHours = useTwentyFourHours)
-    }
   }
 
   private fun String.transform(useFullWidthCharacters: Boolean): String {
