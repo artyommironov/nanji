@@ -4,7 +4,6 @@ import androidx.annotation.ColorInt
 import com.kazufukurou.nanji.model.DateTimeDisplayMode
 import com.kazufukurou.nanji.model.Prefs
 import com.kazufukurou.nanji.model.TimeSystem
-import com.kazufukurou.nanji.model.toCodePoints
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -44,6 +43,17 @@ class WidgetPresenter(
       .toCodePoints()
       .windowed(2, 2, partialWindows = false, transform = { it[0] to it[1] })
       .forEach { (oldString, newString) -> result = result.replace(oldString, newString) }
+    return result
+  }
+
+  private fun String.toCodePoints(): List<String> {
+    var offset = 0
+    val result = mutableListOf<String>()
+    while (offset < length) {
+      val codePoint = codePointAt(offset)
+      result.add(StringBuilder().appendCodePoint(codePoint).toString())
+      offset += Character.charCount(codePoint)
+    }
     return result
   }
 

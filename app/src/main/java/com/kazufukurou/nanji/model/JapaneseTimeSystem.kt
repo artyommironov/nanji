@@ -33,5 +33,5 @@ class JapaneseTimeSystem(
     return "${ampm}${hour}時${minute}分"
   }
 
-  private fun Int.toWords(): String = if (useWords) toWordsCJK(Int::kanji) else toString()
+  private fun Int.toWords(): String = if (useWords) toWordsCJK { it.kanji } else toString()
 }

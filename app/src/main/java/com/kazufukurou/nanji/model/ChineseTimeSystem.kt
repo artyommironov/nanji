@@ -38,7 +38,7 @@ class ChineseTimeSystem(
       !useWords -> toString()
       isSpecialTwo && simplified -> "两"
       isSpecialTwo -> "兩"
-      else -> toWordsCJK(Int::kanji)
+      else -> toWordsCJK { it.kanji }
     }
   }
 }

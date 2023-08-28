@@ -21,7 +21,6 @@ import com.kazufukurou.nanji.model.DateTimeDisplayMode
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.Module
 import com.kazufukurou.nanji.model.TapAction
-import com.kazufukurou.nanji.model.year
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -152,7 +151,7 @@ class MainActivity : AppCompatActivity() {
   private fun showAboutAlert() {
     val appName = getString(R.string.appName)
     val appVersion = BuildConfig.VERSION_NAME
-    val year = Calendar.getInstance().year
+    val year = Calendar.getInstance().get(Calendar.YEAR)
     MaterialAlertDialogBuilder(this)
       .setTitle("$appName $appVersion")
       .setMessage(String.format(LICENSE, year))
