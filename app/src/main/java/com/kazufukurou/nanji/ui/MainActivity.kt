@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.BuildConfig
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
+import com.kazufukurou.nanji.model.DateTimeComponent
 import com.kazufukurou.nanji.model.DateTimeDisplayMode
 import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.TapAction
@@ -109,11 +110,7 @@ class MainActivity : AppCompatActivity() {
       DateTimeDisplayMode.TimeDate,
       DateTimeDisplayMode.TimeOnly -> prefs.language != Language.system
     }
-    val hasTime = dateTimeDisplayMode in setOf(
-      DateTimeDisplayMode.DateTime,
-      DateTimeDisplayMode.TimeDate,
-      DateTimeDisplayMode.TimeOnly
-    )
+    val hasTime = DateTimeComponent.Time in dateTimeDisplayMode.components
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),
