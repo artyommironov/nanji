@@ -3,14 +3,14 @@ package com.kazufukurou.nanji.model
 import java.util.Calendar
 import java.util.Locale
 
-class TimeEn(
+class EnglishTimeSystem(
   private val useWords: Boolean,
   private val useTwentyFourHours: Boolean
-) : Time {
-  private val timeSystem = TimeSystem(Locale.ENGLISH, useTwentyFourHours = useTwentyFourHours)
+) : TimeSystem {
+  private val defaultTimeSystem = DefaultTimeSystem(Locale.ENGLISH, useTwentyFourHours = useTwentyFourHours)
 
-  override fun getPercentText(value: Int): String = timeSystem.getPercentText(value)
-  override fun getDateText(cal: Calendar): String = timeSystem.getDateText(cal)
+  override fun getPercentText(value: Int): String = defaultTimeSystem.getPercentText(value)
+  override fun getDateText(cal: Calendar): String = defaultTimeSystem.getDateText(cal)
 
   override fun getTimeText(cal: Calendar): String {
     val (h, m) = cal.run { hourOfDay to minute }

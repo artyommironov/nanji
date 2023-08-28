@@ -109,8 +109,8 @@ class WidgetProvider : AppWidgetProvider() {
 
   private fun update(context: Context) {
     val prefs = Module.getPrefs(context)
-    val time = Module.getTime(prefs)
-    val presenter = WidgetPresenter(time, prefs)
+    val timeSystem = Module.getTimeSystem(prefs)
+    val presenter = WidgetPresenter(timeSystem, prefs)
     val state = presenter.getState(batteryLevel = getBatteryLevel(context))
     val views = RemoteViews(context.packageName, R.layout.widget)
     val resources = context.resources

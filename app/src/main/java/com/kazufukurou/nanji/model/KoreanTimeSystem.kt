@@ -3,10 +3,10 @@ package com.kazufukurou.nanji.model
 import java.util.Calendar
 import java.util.Locale
 
-class TimeKo(
+class KoreanTimeSystem(
   private val useWords: Boolean,
   private val useTwentyFourHours: Boolean
-) : Time {
+) : TimeSystem {
   override fun getPercentText(value: Int): String = value.toWords() + '％'
 
   override fun getDateText(cal: Calendar): String {
