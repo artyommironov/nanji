@@ -19,6 +19,7 @@
   <string name="prefsDateTimeDisplayMode">日付と時刻の表示モード</string>
   <string name="prefsDateTimeDisplayModeDateOnly">日付のみ</string>
   <string name="prefsDateTimeDisplayModeDateTime">日付と時刻</string>
+  <string name="prefsDateTimeDisplayModeTimeDate">時刻と日付</string>
   <string name="prefsDateTimeDisplayModeTimeOnly">時刻のみ</string>
   <string name="prefsTapAction">タッチ時の動作</string>
   <string name="prefsTapActionOpenClock">時計を開く</string>

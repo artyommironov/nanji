@@ -19,6 +19,7 @@
   <string name="prefsDateTimeDisplayMode">Date and time display mode</string>
   <string name="prefsDateTimeDisplayModeDateOnly">Date only</string>
   <string name="prefsDateTimeDisplayModeDateTime">Date and time</string>
+  <string name="prefsDateTimeDisplayModeTimeDate">Time and date</string>
   <string name="prefsDateTimeDisplayModeTimeOnly">Time only</string>
   <string name="prefsTapAction">Tap action</string>
   <string name="prefsTapActionOpenClock">Open clock</string>

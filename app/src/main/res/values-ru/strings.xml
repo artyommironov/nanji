@@ -19,6 +19,7 @@
   <string name="prefsDateTimeDisplayMode">Режим показа даты и времени</string>
   <string name="prefsDateTimeDisplayModeDateOnly">Только дата</string>
   <string name="prefsDateTimeDisplayModeDateTime">Дата и время</string>
+  <string name="prefsDateTimeDisplayModeTimeDate">Время и дата</string>
   <string name="prefsDateTimeDisplayModeTimeOnly">Только время</string>
   <string name="prefsTapAction">Действие по нажатию</string>
   <string name="prefsTapActionOpenClock">Открыть часы</string>

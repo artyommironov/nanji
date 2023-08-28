@@ -117,7 +117,7 @@ class WidgetProvider : AppWidgetProvider() {
       resources = resources,
       id = R.id.textHeader,
       color = state.textColor,
-      sizeDp = state.headerSizeDp,
+      sizeDp = state.headerFooterSizeDp,
       text = state.header,
       visible = state.header.isNotEmpty()
     )
@@ -128,6 +128,14 @@ class WidgetProvider : AppWidgetProvider() {
       sizeDp = state.contentSizeDp,
       text = state.content,
       visible = state.content.isNotEmpty()
+    )
+    views.updateTextView(
+      resources = resources,
+      id = R.id.textFooter,
+      color = state.textColor,
+      sizeDp = state.headerFooterSizeDp,
+      text = state.footer,
+      visible = state.footer.isNotEmpty()
     )
     val pendingIntent = when (prefs.tapAction) {
       TapAction.ShowWords -> createBroadcastPendingIntent(context, true)

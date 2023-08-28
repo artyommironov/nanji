@@ -105,9 +105,15 @@ class MainActivity : AppCompatActivity() {
     val dateTimeDisplayMode = prefs.dateTimeDisplayMode
     val canBeVerbose = when (dateTimeDisplayMode) {
       DateTimeDisplayMode.DateOnly -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
-      DateTimeDisplayMode.DateTime, DateTimeDisplayMode.TimeOnly -> prefs.language != Language.system
+      DateTimeDisplayMode.DateTime,
+      DateTimeDisplayMode.TimeDate,
+      DateTimeDisplayMode.TimeOnly -> prefs.language != Language.system
     }
-    val hasTime = dateTimeDisplayMode in setOf(DateTimeDisplayMode.DateTime, DateTimeDisplayMode.TimeOnly)
+    val hasTime = dateTimeDisplayMode in setOf(
+      DateTimeDisplayMode.DateTime,
+      DateTimeDisplayMode.TimeDate,
+      DateTimeDisplayMode.TimeOnly
+    )
     myAdapter.submitList(
       listOfNotNull(
         ActionItem(R.string.appearance, ::goAppearance),

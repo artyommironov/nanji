@@ -24,15 +24,17 @@ class WidgetPresenter(private val prefs: Prefs) {
     val dateText = time.getDateText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)
     val timeText = time.getTimeText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)
     val batteryText = if (prefs.showBattery) prefs.batteryLevelPrefix + time.getPercentText(batteryLevel) else ""
-    val (header, content) = when (prefs.dateTimeDisplayMode) {
-      DateTimeDisplayMode.DateTime -> dateText + batteryText to timeText
-      DateTimeDisplayMode.DateOnly -> "" to dateText + batteryText
-      DateTimeDisplayMode.TimeOnly -> "" to timeText + batteryText
+    val (header, content, footer) = when (prefs.dateTimeDisplayMode) {
+      DateTimeDisplayMode.DateTime -> Triple(dateText + batteryText, timeText, "")
+      DateTimeDisplayMode.TimeDate -> Triple("", timeText, dateText + batteryText)
+      DateTimeDisplayMode.DateOnly -> Triple("", dateText + batteryText, "")
+      DateTimeDisplayMode.TimeOnly -> Triple("", timeText + batteryText, "")
     }
     return State(
       header = header,
       content = content,
-      headerSizeDp = prefs.textSizeRange.first,
+      footer = footer,
+      headerFooterSizeDp = prefs.textSizeRange.first,
       contentSizeDp = prefs.textSize,
       textColor = prefs.textColor,
       bgColor = prefs.bgColor,
@@ -68,7 +70,8 @@ class WidgetPresenter(private val prefs: Prefs) {
   class State(
     val header: String,
     val content: String,
-    val headerSizeDp: Int,
+    val footer: String,
+    val headerFooterSizeDp: Int,
     val contentSizeDp: Int,
     @ColorInt val textColor: Int,
     @ColorInt val bgColor: Int,
