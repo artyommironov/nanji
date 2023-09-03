@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about">Hakkında</string>
+  <string name="appName">Nanji</string>
+  <string name="appearance">Dış görünüş</string>
+  <string name="appearanceBg">Arka plan</string>
+  <string name="appearanceText">Metin</string>
+  <string name="appearanceReset">Sıfırla</string>
+  <string name="japaneseEra">Dönem tarihi</string>
+  <string name="language">Dil</string>
+  <string name="languageEn">İngilizce</string>
+  <string name="languageJa">Japonca</string>
+  <string name="languageKo">Korece</string>
+  <string name="languageRu">Rusça</string>
+  <string name="languageSystem">Sistem dili</string>
+  <string name="languageZhCn">Çince (Basitleştirilmiş)</string>
+  <string name="languageZhTw">Çince (Geleneksel)</string>
+  <string name="prefsBatteryLevelPrefix">Pil seviyesi önbilgisi</string>
+  <string name="prefsBatteryShow">Pil seviyesini göster</string>
+  <string name="prefsDateTimeDisplayMode">Tarih ve saat görüntüleme modu</string>
+  <string name="prefsDateTimeDisplayModeDateTime">Tarih ve saat</string>
+  <string name="prefsDateTimeDisplayModeOnlyDate">Yalnızca tarih</string>
+  <string name="prefsDateTimeDisplayModeOnlyTime">Sadece zaman</string>
+  <string name="prefsFeedback">Geri bildirim gönder</string>
+  <string name="prefsTapAction">Dokunma eylemi</string>
+  <string name="prefsTapActionOpenClock">Açık saat</string>
+  <string name="prefsTapActionOpenSettings">Ayarları aç</string>
+  <string name="prefsTapActionToggleVerboseDisplay">Ayrıntılı görüntüleme modunu aç / kapat</string>
+  <string name="prefsTimeZone">Saat dilimi</string>
+  <string name="prefsTwentyFour">24 saat biçimini kullan</string>
+  <string name="prefsVerboseDisplayMode">Ayrıntılı ekran modu</string>
+  <string name="Sıfırla">Reset</string>
+</resources>
