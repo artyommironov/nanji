@@ -16,13 +16,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.BuildConfig
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
-import com.kazufukurou.nanji.model.DateTimeComponent
-import com.kazufukurou.nanji.model.DateTimeDisplayMode
-import com.kazufukurou.nanji.model.Language
 import com.kazufukurou.nanji.model.Module
-import com.kazufukurou.nanji.model.TapAction
 import java.util.Calendar
-import java.util.TimeZone
 
 class MainActivity : AppCompatActivity() {
   private val prefs by lazy { Module.getPrefs(this) }
@@ -39,35 +34,15 @@ class MainActivity : AppCompatActivity() {
     .map { SwitchHolder(getItemBinding(it)) }
     .map { EditHolder(getItemBinding(it), dialogHolder) }
     .map { SelectorHolder(getItemBinding(it), dialogHolder) }
-  private var dateTimeDisplayModeIndex: Int
-    get() = DateTimeDisplayMode.values().indexOf(prefs.dateTimeDisplayMode)
-    set(value) {
-      prefs.dateTimeDisplayMode = DateTimeDisplayMode.values()[value]
-      render()
-    }
-  private var tapActionIndex: Int
-    get() = TapAction.values().indexOf(prefs.tapAction)
-    set(value) {
-      prefs.tapAction = TapAction.values()[value]
-    }
-  private var languageIndex: Int
-    get() = Language.values().indexOf(prefs.language)
-    set(value) {
-      prefs.language = Language.values()[value]
-      render()
-    }
-  private var showBattery: Boolean
-    get() = prefs.showBattery
-    set(value) {
-      prefs.showBattery = value
-      render()
-    }
-  private val timeZones: List<String> = listOf("") + TimeZone.getAvailableIDs()
-  private var timeZoneIndex: Int
-    get() = timeZones.indexOf(prefs.timeZone)
-    set(value) {
-      prefs.timeZone = timeZones[value]
-    }
+  private val presenter: SettingsPresenter by lazy {
+    SettingsPresenter(
+      prefs = prefs,
+      getString = { getString(it) },
+      render = ::render,
+      goAppearance = { startActivity(Intent(this, AppearanceActivity::class.java)) },
+      showAboutAlert = ::showAboutAlert
+    )
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -98,37 +73,12 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun render() {
-    val languageStrings = Language.values().map { getString(it.title) }
-    val tapActionStrings = TapAction.values().map { getString(it.title) }
-    val dateTimeDisplayModeStrings = DateTimeDisplayMode.values().map { getString(it.title) }
-    val timeZoneStrings = timeZones.map { it.ifEmpty { getString(R.string.languageSystem) } }
-    val dateTimeDisplayMode = prefs.dateTimeDisplayMode
     val timeSystem = Module.getTimeSystem(prefs)
-    val canBeVerbose = dateTimeDisplayMode.components.intersect(timeSystem.verboseComponents).isNotEmpty()
-    val hasTime = DateTimeComponent.Time in dateTimeDisplayMode.components
-    myAdapter.submitList(
-      listOfNotNull(
-        ActionItem(R.string.appearance, ::goAppearance),
-        SelectorItem(R.string.language, languageStrings, ::languageIndex),
-        SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
-        SelectorItem(R.string.prefsDateTimeDisplayMode, dateTimeDisplayModeStrings, ::dateTimeDisplayModeIndex),
-        SwitchItem(R.string.prefsVerboseDisplayMode, prefs::showWords).takeIf { canBeVerbose },
-        SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { hasTime },
-        SwitchItem(R.string.prefsBatteryShow, ::showBattery),
-        EditItem(R.string.prefsBatteryLevelPrefix, "", prefs::batteryLevelPrefix) .takeIf { showBattery },
-        SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
-        SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
-        ActionItem(R.string.about, ::showAboutAlert)
-      )
-    )
+    myAdapter.submitList(presenter.getItems(timeSystem))
   }
 
   private fun getItemBinding(parent: ViewGroup): ItemBinding {
     return ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-  }
-
-  private fun goAppearance() {
-    startActivity(Intent(this, AppearanceActivity::class.java))
   }
 
   private fun showResetAlert() {
