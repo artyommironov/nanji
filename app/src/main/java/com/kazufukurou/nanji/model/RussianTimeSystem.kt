@@ -5,9 +5,9 @@ import java.util.Locale
 
 class RussianTimeSystem(
   private val verbose: Boolean,
-  private val useTwentyFourHours: Boolean
+  private val twentyFourHours: Boolean
 ) : TimeSystem {
-  private val defaultTimeSystem = DefaultTimeSystem(Locale("ru"), useTwentyFourHours = useTwentyFourHours)
+  private val defaultTimeSystem = DefaultTimeSystem(Locale("ru"), twentyFourHours = twentyFourHours)
 
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Time)
 
@@ -16,7 +16,7 @@ class RussianTimeSystem(
   override fun getDateText(cal: Calendar): String = defaultTimeSystem.getDateText(cal)
 
   override fun getTimeText(cal: Calendar): String {
-    val (h, m) = cal.run { (if (useTwentyFourHours) cal.hourOfDay else cal.hour12) to minute }
+    val (h, m) = cal.run { (if (twentyFourHours) cal.hourOfDay else cal.hour12) to minute }
     val hour = h.toWords(female = false) + NBSP + h.toPlural("час", "часа", "часов")
     val minute = m.toWords(female = true) + NBSP + m.toPlural("минута", "минуты", "минут")
     return "$hour $minute"

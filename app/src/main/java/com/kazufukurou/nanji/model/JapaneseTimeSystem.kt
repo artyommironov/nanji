@@ -6,7 +6,7 @@ import java.util.Locale
 class JapaneseTimeSystem(
   private val useEra: Boolean,
   private val verbose: Boolean,
-  private val useTwentyFourHours: Boolean
+  private val twentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
 
@@ -26,11 +26,11 @@ class JapaneseTimeSystem(
 
   override fun getTimeText(cal: Calendar): String {
     val ampm = when {
-      useTwentyFourHours -> ""
+      twentyFourHours -> ""
       cal.ampm == Calendar.AM -> "午前"
       else -> "午後"
     }
-    val hour = (if (useTwentyFourHours) cal.hourOfDay else cal.hour).toWords()
+    val hour = (if (twentyFourHours) cal.hourOfDay else cal.hour).toWords()
     val minute = cal.minute.toWords()
     return "${ampm}${hour}時${minute}分"
   }

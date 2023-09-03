@@ -13,12 +13,12 @@ class TimeSystemTest {
       println(
         listOf(
           SimpleDateFormat("H:mm").format(cal.time),
-          ChineseTimeSystem(simplified = true, verbose = true, useTwentyFourHours = false).getTimeText(cal),
-          ChineseTimeSystem(simplified = true, verbose = true, useTwentyFourHours = true).getTimeText(cal),
-          JapaneseTimeSystem(useEra = false, verbose = true, useTwentyFourHours = false).getTimeText(cal),
-          JapaneseTimeSystem(useEra = false, verbose = true, useTwentyFourHours = true).getTimeText(cal),
-          KoreanTimeSystem(verbose = true, useTwentyFourHours = false).getTimeText(cal),
-          KoreanTimeSystem(verbose = true, useTwentyFourHours = true).getTimeText(cal)
+          ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = false).getTimeText(cal),
+          ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = true).getTimeText(cal),
+          JapaneseTimeSystem(useEra = false, verbose = true, twentyFourHours = false).getTimeText(cal),
+          JapaneseTimeSystem(useEra = false, verbose = true, twentyFourHours = true).getTimeText(cal),
+          KoreanTimeSystem(verbose = true, twentyFourHours = false).getTimeText(cal),
+          KoreanTimeSystem(verbose = true, twentyFourHours = true).getTimeText(cal)
         ).joinToString()
       )
     }

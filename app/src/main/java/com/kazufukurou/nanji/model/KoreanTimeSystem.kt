@@ -5,7 +5,7 @@ import java.util.Locale
 
 class KoreanTimeSystem(
   private val verbose: Boolean,
-  private val useTwentyFourHours: Boolean
+  private val twentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
 
@@ -22,14 +22,14 @@ class KoreanTimeSystem(
   override fun getTimeText(cal: Calendar): String {
     val hourOfDay = cal.hourOfDay
     val ampm = when {
-      useTwentyFourHours -> ""
+      twentyFourHours -> ""
       hourOfDay in 0..5 -> "새벽"
       hourOfDay in 6..11 -> "오전"
       hourOfDay in 12..17 -> "오후"
       hourOfDay in 18..20 -> "저녁"
       else -> "밤"
     }
-    val h = if (useTwentyFourHours) cal.hourOfDay else cal.hour12
+    val h = if (twentyFourHours) cal.hourOfDay else cal.hour12
     val hour = when {
       !verbose -> "$h"
       else -> listOf(

@@ -8,7 +8,7 @@ import java.util.Locale
 
 class DefaultTimeSystem(
   private val locale: Locale,
-  private val useTwentyFourHours: Boolean
+  private val twentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = emptySet()
 
@@ -22,7 +22,7 @@ class DefaultTimeSystem(
 
   @SuppressLint("SimpleDateFormat")
   override fun getTimeText(cal: Calendar): String {
-    return SimpleDateFormat(if (useTwentyFourHours) "H:mm" else "h:mm a")
+    return SimpleDateFormat(if (twentyFourHours) "H:mm" else "h:mm a")
       .apply { timeZone = cal.timeZone }
       .format(cal.time)
   }

@@ -6,7 +6,7 @@ import java.util.Locale
 class ChineseTimeSystem(
   private val simplified: Boolean,
   private val verbose: Boolean,
-  private val useTwentyFourHours: Boolean
+  private val twentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
 
@@ -22,13 +22,13 @@ class ChineseTimeSystem(
 
   override fun getTimeText(cal: Calendar): String {
     val ampm = when {
-      useTwentyFourHours -> ""
+      twentyFourHours -> ""
       cal.hourOfDay == 0 -> "午夜"
       cal.hourOfDay == 12 -> "中午"
       cal.ampm == Calendar.AM -> "上午"
       else -> "下午"
     }
-    val hour = (if (useTwentyFourHours) cal.hourOfDay else cal.hour12).toWords(useSpecialKanjiForTwo = true)
+    val hour = (if (twentyFourHours) cal.hourOfDay else cal.hour12).toWords(useSpecialKanjiForTwo = true)
     val minute = cal.minute.toWords(useSpecialKanjiForTwo = true)
     val hourSuffix = if (simplified) "点" else "點"
     return "${ampm}${hour}${hourSuffix}${minute}分"

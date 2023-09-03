@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class EnglishTimeSystemTest {
   @Test
-  fun getTimeText() = with(EnglishTimeSystem(verbose = false, useTwentyFourHours = false)) {
+  fun getTimeText() = with(EnglishTimeSystem(verbose = false, twentyFourHours = false)) {
     assertEquals("It's 12${NBSP}o'clock", getTimeText(hm(0, 0)))
     assertEquals("It's 1${NBSP}minute past${NBSP}12", getTimeText(hm(0, 1)))
     assertEquals("It's 12${NBSP}o'clock", getTimeText(hm(12, 0)))
@@ -15,7 +15,7 @@ class EnglishTimeSystemTest {
   }
 
   @Test
-  fun getTimeText_Verbose() = with(EnglishTimeSystem(verbose = true, useTwentyFourHours = false)) {
+  fun getTimeText_Verbose() = with(EnglishTimeSystem(verbose = true, twentyFourHours = false)) {
     assertEquals("It's twelve${NBSP}o'clock", getTimeText(hm(0, 0)))
     assertEquals("It's one${NBSP}minute past${NBSP}twelve", getTimeText(hm(0, 1)))
     assertEquals("It's twelve${NBSP}o'clock", getTimeText(hm(12, 0)))
@@ -24,7 +24,7 @@ class EnglishTimeSystemTest {
   }
 
   @Test
-  fun getTimeText_TwentyFour() = with(EnglishTimeSystem(verbose = false, useTwentyFourHours = true)) {
+  fun getTimeText_TwentyFour() = with(EnglishTimeSystem(verbose = false, twentyFourHours = true)) {
     assertEquals("00:00", getTimeText(hm(0, 0)))
     assertEquals("00:01", getTimeText(hm(0, 1)))
     assertEquals("12:00", getTimeText(hm(12, 0)))
@@ -33,7 +33,7 @@ class EnglishTimeSystemTest {
   }
 
   @Test
-  fun getTimeText_Verbose_TwentyFour() = with(EnglishTimeSystem(verbose = true, useTwentyFourHours = true)) {
+  fun getTimeText_Verbose_TwentyFour() = with(EnglishTimeSystem(verbose = true, twentyFourHours = true)) {
     assertEquals("zero hundred", getTimeText(hm(0, 0)))
     assertEquals("zero${NBSP}zero zero${NBSP}one", getTimeText(hm(0, 1)))
     assertEquals("twelve hundred", getTimeText(hm(12, 0)))
@@ -42,7 +42,7 @@ class EnglishTimeSystemTest {
   }
 
   @Test
-  fun getDateText() = with(EnglishTimeSystem(verbose = false, useTwentyFourHours = false)) {
+  fun getDateText() = with(EnglishTimeSystem(verbose = false, twentyFourHours = false)) {
     assertEquals("Thursday, April 18, 1991", getDateText(ymd(1991, Calendar.APRIL, 18)))
     assertEquals("Tuesday, December 31, 2019", getDateText(ymd(2019, Calendar.DECEMBER, 31)))
   }

@@ -5,9 +5,9 @@ import java.util.Locale
 
 class EnglishTimeSystem(
   private val verbose: Boolean,
-  private val useTwentyFourHours: Boolean
+  private val twentyFourHours: Boolean
 ) : TimeSystem {
-  private val defaultTimeSystem = DefaultTimeSystem(Locale.ENGLISH, useTwentyFourHours = useTwentyFourHours)
+  private val defaultTimeSystem = DefaultTimeSystem(Locale.ENGLISH, twentyFourHours = twentyFourHours)
 
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Time)
 
@@ -18,8 +18,8 @@ class EnglishTimeSystem(
   override fun getTimeText(cal: Calendar): String {
     val (h, m) = cal.run { hourOfDay to minute }
     return when {
-      useTwentyFourHours && !verbose -> "$h".padStart(2, '0') + ":" + "$m".padStart(2, '0')
-      useTwentyFourHours -> {
+      twentyFourHours && !verbose -> "$h".padStart(2, '0') + ":" + "$m".padStart(2, '0')
+      twentyFourHours -> {
         val hour = h.toWords()
           .let { if (h < 10 && !(h == 0 && m == 0)) "${0.word}$NBSP$it" else it }
         val minute = m.toWords()

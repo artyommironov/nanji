@@ -6,14 +6,14 @@ import kotlin.test.assertEquals
 
 class ChineseTimeSystemTest {
   @Test
-  fun getTimeText() = with(ChineseTimeSystem(simplified = true, verbose = false, useTwentyFourHours = false)) {
+  fun getTimeText() = with(ChineseTimeSystem(simplified = true, verbose = false, twentyFourHours = false)) {
     assertEquals("午夜12点0分", getTimeText(hm(0, 0)))
     assertEquals("午夜12点1分", getTimeText(hm(0, 1)))
     assertEquals("中午12点0分", getTimeText(hm(12, 0)))
   }
 
   @Test
-  fun getTimeText_Verbose() = with(ChineseTimeSystem(simplified = true, verbose = true, useTwentyFourHours = false)) {
+  fun getTimeText_Verbose() = with(ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = false)) {
     assertEquals("午夜十二点零分", getTimeText(hm(0, 0)))
     assertEquals("午夜十二点一分", getTimeText(hm(0, 1)))
     assertEquals("上午两点两分", getTimeText(hm(2, 2)))
@@ -23,7 +23,7 @@ class ChineseTimeSystemTest {
 
   @Test
   fun getTimeText_TwentyFour() = with(
-    ChineseTimeSystem(simplified = true, verbose = false, useTwentyFourHours = true)
+    ChineseTimeSystem(simplified = true, verbose = false, twentyFourHours = true)
   ) {
     assertEquals("0点0分", getTimeText(hm(0, 0)))
     assertEquals("0点1分", getTimeText(hm(0, 1)))
@@ -32,7 +32,7 @@ class ChineseTimeSystemTest {
 
   @Test
   fun getTimeText_Verbose_TwentyFour() = with(
-    ChineseTimeSystem(simplified = true, verbose = true, useTwentyFourHours = true)
+    ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = true)
   ) {
     assertEquals("零点零分", getTimeText(hm(0, 0)))
     assertEquals("零点一分", getTimeText(hm(0, 1)))
@@ -41,12 +41,12 @@ class ChineseTimeSystemTest {
 
 
   @Test
-  fun getDateText() = with(ChineseTimeSystem(simplified = true, verbose = false, useTwentyFourHours = false)) {
+  fun getDateText() = with(ChineseTimeSystem(simplified = true, verbose = false, twentyFourHours = false)) {
     assertEquals("2019年12月31日星期二", getDateText(ymd(2019, Calendar.DECEMBER, 31)))
   }
 
   @Test
-  fun getDateText_Verbose() = with(ChineseTimeSystem(simplified = true, verbose = true, useTwentyFourHours = false)) {
+  fun getDateText_Verbose() = with(ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = false)) {
     assertEquals("二〇一九年十二月三十一日星期二", getDateText(ymd(2019, Calendar.DECEMBER, 31)))
   }
 }

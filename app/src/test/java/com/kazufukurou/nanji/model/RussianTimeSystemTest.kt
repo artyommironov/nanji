@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class RussianTimeSystemTest {
   @Test
-  fun getTimeText() = with(RussianTimeSystem(verbose = false, useTwentyFourHours = false)) {
+  fun getTimeText() = with(RussianTimeSystem(verbose = false, twentyFourHours = false)) {
     assertEquals("12${NBSP}часов 0${NBSP}минут", getTimeText(hm(0, 0)))
     assertEquals("12${NBSP}часов 1${NBSP}минута", getTimeText(hm(0, 1)))
     assertEquals("12${NBSP}часов 0${NBSP}минут", getTimeText(hm(12, 0)))
@@ -14,7 +14,7 @@ class RussianTimeSystemTest {
   }
 
   @Test
-  fun getTimeText_Verbose() = with(RussianTimeSystem(verbose = true, useTwentyFourHours = false)) {
+  fun getTimeText_Verbose() = with(RussianTimeSystem(verbose = true, twentyFourHours = false)) {
     assertEquals("двенадцать${NBSP}часов ноль${NBSP}минут", getTimeText(hm(0, 0)))
     assertEquals("двенадцать${NBSP}часов одна${NBSP}минута", getTimeText(hm(0, 1)))
     assertEquals("двенадцать${NBSP}часов ноль${NBSP}минут", getTimeText(hm(12, 0)))
@@ -23,7 +23,7 @@ class RussianTimeSystemTest {
   }
 
   @Test
-  fun getTimeText_TwentyFour() = with(RussianTimeSystem(verbose = false, useTwentyFourHours = true)) {
+  fun getTimeText_TwentyFour() = with(RussianTimeSystem(verbose = false, twentyFourHours = true)) {
     assertEquals("0${NBSP}часов 0${NBSP}минут", getTimeText(hm(0, 0)))
     assertEquals("0${NBSP}часов 1${NBSP}минута", getTimeText(hm(0, 1)))
     assertEquals("12${NBSP}часов 0${NBSP}минут", getTimeText(hm(12, 0)))
@@ -32,7 +32,7 @@ class RussianTimeSystemTest {
   }
 
   @Test
-  fun getTimeText_Verbose_TwentyFour() = with(RussianTimeSystem(verbose = true, useTwentyFourHours = true)) {
+  fun getTimeText_Verbose_TwentyFour() = with(RussianTimeSystem(verbose = true, twentyFourHours = true)) {
     assertEquals("ноль${NBSP}часов ноль${NBSP}минут", getTimeText(hm(0, 0)))
     assertEquals("ноль${NBSP}часов одна${NBSP}минута", getTimeText(hm(0, 1)))
     assertEquals("двенадцать${NBSP}часов ноль${NBSP}минут", getTimeText(hm(12, 0)))
