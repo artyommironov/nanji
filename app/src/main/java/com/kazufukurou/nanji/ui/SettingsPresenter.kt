@@ -57,14 +57,14 @@ class SettingsPresenter(
     return listOfNotNull(
       ActionItem(R.string.appearance, goAppearance),
       SelectorItem(R.string.language, languageStrings, ::languageIndex),
-      SelectorItem(R.string.prefsTapAction, tapActionStrings, ::tapActionIndex),
-      SelectorItem(R.string.prefsDateTimeDisplayMode, dateTimeDisplayModeStrings, ::dateTimeDisplayModeIndex),
-      SwitchItem(R.string.prefsVerboseDisplayMode, prefs::showWords).takeIf { canBeVerbose },
-      SwitchItem(R.string.prefsTwentyFour, prefs::twentyFour).takeIf { hasTime },
-      SwitchItem(R.string.prefsBatteryShow, ::showBattery),
-      EditItem(R.string.prefsBatteryLevelPrefix, "", prefs::batteryLevelPrefix).takeIf { showBattery },
+      SelectorItem(R.string.tapAction, tapActionStrings, ::tapActionIndex),
+      SelectorItem(R.string.dateTimeDisplayMode, dateTimeDisplayModeStrings, ::dateTimeDisplayModeIndex),
+      SwitchItem(R.string.verboseDisplayMode, prefs::showWords).takeIf { canBeVerbose },
+      SwitchItem(R.string.twentyFour, prefs::twentyFour).takeIf { hasTime },
+      SwitchItem(R.string.batteryShow, ::showBattery),
+      EditItem(R.string.batteryLevelPrefix, "", prefs::batteryLevelPrefix).takeIf { showBattery },
       SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
-      SelectorItem(R.string.prefsTimeZone, timeZoneStrings, ::timeZoneIndex),
+      SelectorItem(R.string.timeZone, timeZoneStrings, ::timeZoneIndex),
       ActionItem(R.string.about, showAboutAlert)
     )
   }

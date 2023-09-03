@@ -30,11 +30,11 @@ class SettingsPresenterTest {
       listOf(
         R.string.appearance,
         R.string.language,
-        R.string.prefsTapAction,
-        R.string.prefsDateTimeDisplayMode,
-        R.string.prefsTwentyFour,
-        R.string.prefsBatteryShow,
-        R.string.prefsTimeZone,
+        R.string.tapAction,
+        R.string.dateTimeDisplayMode,
+        R.string.twentyFour,
+        R.string.batteryShow,
+        R.string.timeZone,
         R.string.about
       ),
       presenter.getItems(timeSystem).map(Item::title)
@@ -49,12 +49,12 @@ class SettingsPresenterTest {
       listOf(
         R.string.appearance,
         R.string.language,
-        R.string.prefsTapAction,
-        R.string.prefsDateTimeDisplayMode,
-        R.string.prefsVerboseDisplayMode,
-        R.string.prefsTwentyFour,
-        R.string.prefsBatteryShow,
-        R.string.prefsTimeZone,
+        R.string.tapAction,
+        R.string.dateTimeDisplayMode,
+        R.string.verboseDisplayMode,
+        R.string.twentyFour,
+        R.string.batteryShow,
+        R.string.timeZone,
         R.string.about
       ),
       presenter.getItems(timeSystem).map(Item::title)
@@ -69,10 +69,10 @@ class SettingsPresenterTest {
       listOf(
         R.string.appearance,
         R.string.language,
-        R.string.prefsTapAction,
-        R.string.prefsDateTimeDisplayMode,
-        R.string.prefsBatteryShow,
-        R.string.prefsTimeZone,
+        R.string.tapAction,
+        R.string.dateTimeDisplayMode,
+        R.string.batteryShow,
+        R.string.timeZone,
         R.string.about
       ),
       presenter.getItems(timeSystem).map(Item::title)
@@ -87,12 +87,12 @@ class SettingsPresenterTest {
       listOf(
         R.string.appearance,
         R.string.language,
-        R.string.prefsTapAction,
-        R.string.prefsDateTimeDisplayMode,
-        R.string.prefsVerboseDisplayMode,
-        R.string.prefsTwentyFour,
-        R.string.prefsBatteryShow,
-        R.string.prefsTimeZone,
+        R.string.tapAction,
+        R.string.dateTimeDisplayMode,
+        R.string.verboseDisplayMode,
+        R.string.twentyFour,
+        R.string.batteryShow,
+        R.string.timeZone,
         R.string.about
       ),
       presenter.getItems(timeSystem).map(Item::title)
