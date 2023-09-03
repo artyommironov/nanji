@@ -4,7 +4,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class KoreanTimeSystem(
-  private val useWords: Boolean,
+  private val verbose: Boolean,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
@@ -31,7 +31,7 @@ class KoreanTimeSystem(
     }
     val h = if (useTwentyFourHours) cal.hourOfDay else cal.hour12
     val hour = when {
-      !useWords -> "$h"
+      !verbose -> "$h"
       else -> listOf(
         "영", "한", "두", "세", "네", "다섯", "여섯", "일곱", "여덟", "아홉", "열", "열한",
         "열두", "열세", "열네", "열다섯", "열여섯", "열일곱", "열여덟", "열아홉", "스물", "스물한", "스물두", "스물세"
@@ -58,5 +58,5 @@ class KoreanTimeSystem(
     else -> ""
   }
 
-  private fun Int.toWords(): String = if (useWords) toWordsCJK { it.word } else toString()
+  private fun Int.toWords(): String = if (verbose) toWordsCJK { it.word } else toString()
 }

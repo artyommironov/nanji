@@ -5,7 +5,7 @@ import java.util.Locale
 
 class ChineseTimeSystem(
   private val simplified: Boolean,
-  private val useWords: Boolean,
+  private val verbose: Boolean,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
@@ -13,7 +13,7 @@ class ChineseTimeSystem(
   override fun getPercentText(value: Int): String = value.toWords() + '％'
 
   override fun getDateText(cal: Calendar): String {
-    val year = if (useWords) cal.year.toString().kanjiText else cal.year.toString()
+    val year = if (verbose) cal.year.toString().kanjiText else cal.year.toString()
     val month = cal.monthNum.toWords()
     val day = cal.day.toWords()
     val weekday = cal.weekday(Locale.CHINESE)
@@ -37,7 +37,7 @@ class ChineseTimeSystem(
   private fun Int.toWords(useSpecialKanjiForTwo: Boolean = false): String {
     val isSpecialTwo = this == 2 && useSpecialKanjiForTwo
     return when {
-      !useWords -> toString()
+      !verbose -> toString()
       isSpecialTwo && simplified -> "两"
       isSpecialTwo -> "兩"
       else -> toWordsCJK { it.kanji }

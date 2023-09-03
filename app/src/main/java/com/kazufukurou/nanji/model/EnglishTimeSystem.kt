@@ -4,7 +4,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class EnglishTimeSystem(
-  private val useWords: Boolean,
+  private val verbose: Boolean,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
   private val defaultTimeSystem = DefaultTimeSystem(Locale.ENGLISH, useTwentyFourHours = useTwentyFourHours)
@@ -18,7 +18,7 @@ class EnglishTimeSystem(
   override fun getTimeText(cal: Calendar): String {
     val (h, m) = cal.run { hourOfDay to minute }
     return when {
-      useTwentyFourHours && !useWords -> "$h".padStart(2, '0') + ":" + "$m".padStart(2, '0')
+      useTwentyFourHours && !verbose -> "$h".padStart(2, '0') + ":" + "$m".padStart(2, '0')
       useTwentyFourHours -> {
         val hour = h.toWords()
           .let { if (h < 10 && !(h == 0 && m == 0)) "${0.word}$NBSP$it" else it }
@@ -73,5 +73,5 @@ class EnglishTimeSystem(
     else -> ""
   }
 
-  private fun Int.toWords(): String = if (useWords) toWordsEnRu { it.word } else toString()
+  private fun Int.toWords(): String = if (verbose) toWordsEnRu { it.word } else toString()
 }

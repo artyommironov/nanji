@@ -8,15 +8,15 @@ object Module {
   fun getPrefs(context: Context): Prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(context))
 
   fun getTimeSystem(prefs: Prefs): TimeSystem {
-    val useWords = prefs.showWords
+    val verbose = prefs.showWords
     val useTwentyFourHours = prefs.twentyFour
     return when (prefs.language) {
-      Language.zhCN -> ChineseTimeSystem(simplified = true, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.zhTW -> ChineseTimeSystem(simplified = false, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ja -> JapaneseTimeSystem(useEra = prefs.japaneseEra, useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ko -> KoreanTimeSystem(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.en -> EnglishTimeSystem(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
-      Language.ru -> RussianTimeSystem(useWords = useWords, useTwentyFourHours = useTwentyFourHours)
+      Language.zhCN -> ChineseTimeSystem(simplified = true, verbose = verbose, useTwentyFourHours = useTwentyFourHours)
+      Language.zhTW -> ChineseTimeSystem(simplified = false, verbose = verbose, useTwentyFourHours = useTwentyFourHours)
+      Language.ja -> JapaneseTimeSystem(useEra = prefs.japaneseEra, verbose = verbose, useTwentyFourHours = useTwentyFourHours)
+      Language.ko -> KoreanTimeSystem(verbose = verbose, useTwentyFourHours = useTwentyFourHours)
+      Language.en -> EnglishTimeSystem(verbose = verbose, useTwentyFourHours = useTwentyFourHours)
+      Language.ru -> RussianTimeSystem(verbose = verbose, useTwentyFourHours = useTwentyFourHours)
       Language.system -> DefaultTimeSystem(Locale.getDefault(), useTwentyFourHours = useTwentyFourHours)
     }
   }

@@ -4,7 +4,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class RussianTimeSystem(
-  private val useWords: Boolean,
+  private val verbose: Boolean,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
   private val defaultTimeSystem = DefaultTimeSystem(Locale("ru"), useTwentyFourHours = useTwentyFourHours)
@@ -61,7 +61,7 @@ class RussianTimeSystem(
   }
 
   private fun Int.toWords(female: Boolean): String = when {
-    !useWords -> toString()
+    !verbose -> toString()
     female -> toWordsEnRu { it.toWord(female = true) }
     else -> toWordsEnRu { it.toWord(female = false) }
   }

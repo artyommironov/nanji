@@ -5,7 +5,7 @@ import java.util.Locale
 
 class JapaneseTimeSystem(
   private val useEra: Boolean,
-  private val useWords: Boolean,
+  private val verbose: Boolean,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
   override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
@@ -15,7 +15,7 @@ class JapaneseTimeSystem(
   override fun getDateText(cal: Calendar): String {
     val year = when {
       useEra -> "令和" + (cal.year - 2018).toWords()
-      useWords -> cal.year.toString().kanjiText
+      verbose -> cal.year.toString().kanjiText
       else -> cal.year.toString()
     }
     val month = cal.monthNum.toWords()
@@ -35,5 +35,5 @@ class JapaneseTimeSystem(
     return "${ampm}${hour}時${minute}分"
   }
 
-  private fun Int.toWords(): String = if (useWords) toWordsCJK { it.kanji } else toString()
+  private fun Int.toWords(): String = if (verbose) toWordsCJK { it.kanji } else toString()
 }
