@@ -53,7 +53,7 @@ class WidgetPresenter(private val prefs: Prefs) {
     return result
   }
 
-  class State(
+  data class State(
     val header: String,
     val content: String,
     val footer: String,
