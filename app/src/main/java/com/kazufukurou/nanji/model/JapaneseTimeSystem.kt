@@ -4,7 +4,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class JapaneseTimeSystem(
-  private val useEra: Boolean,
+  private val era: Boolean,
   private val verbose: Boolean,
   private val twentyFourHours: Boolean
 ) : TimeSystem {
@@ -14,7 +14,7 @@ class JapaneseTimeSystem(
 
   override fun getDateText(cal: Calendar): String {
     val year = when {
-      useEra -> "令和" + (cal.year - 2018).toWords()
+      era -> "令和" + (cal.year - 2018).toWords()
       verbose -> cal.year.toString().kanjiText
       else -> cal.year.toString()
     }

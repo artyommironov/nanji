@@ -13,7 +13,7 @@ object Module {
     return when (prefs.language) {
       Language.zhCN -> ChineseTimeSystem(simplified = true, verbose = verbose, twentyFourHours = twentyFourHours)
       Language.zhTW -> ChineseTimeSystem(simplified = false, verbose = verbose, twentyFourHours = twentyFourHours)
-      Language.ja -> JapaneseTimeSystem(useEra = prefs.japaneseEra, verbose = verbose, twentyFourHours = twentyFourHours)
+      Language.ja -> JapaneseTimeSystem(era = prefs.japaneseEra, verbose = verbose, twentyFourHours = twentyFourHours)
       Language.ko -> KoreanTimeSystem(verbose = verbose, twentyFourHours = twentyFourHours)
       Language.en -> EnglishTimeSystem(verbose = verbose, twentyFourHours = twentyFourHours)
       Language.ru -> RussianTimeSystem(verbose = verbose, twentyFourHours = twentyFourHours)

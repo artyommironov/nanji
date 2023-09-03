@@ -15,8 +15,8 @@ class TimeSystemTest {
           SimpleDateFormat("H:mm").format(cal.time),
           ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = false).getTimeText(cal),
           ChineseTimeSystem(simplified = true, verbose = true, twentyFourHours = true).getTimeText(cal),
-          JapaneseTimeSystem(useEra = false, verbose = true, twentyFourHours = false).getTimeText(cal),
-          JapaneseTimeSystem(useEra = false, verbose = true, twentyFourHours = true).getTimeText(cal),
+          JapaneseTimeSystem(era = false, verbose = true, twentyFourHours = false).getTimeText(cal),
+          JapaneseTimeSystem(era = false, verbose = true, twentyFourHours = true).getTimeText(cal),
           KoreanTimeSystem(verbose = true, twentyFourHours = false).getTimeText(cal),
           KoreanTimeSystem(verbose = true, twentyFourHours = true).getTimeText(cal)
         ).joinToString()
