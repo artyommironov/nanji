@@ -57,4 +57,5 @@ dependencies {
   implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.21")
+  testImplementation("io.mockk:mockk:1.13.7")
 }
