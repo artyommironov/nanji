@@ -103,12 +103,8 @@ class MainActivity : AppCompatActivity() {
     val dateTimeDisplayModeStrings = DateTimeDisplayMode.values().map { getString(it.title) }
     val timeZoneStrings = timeZones.map { it.ifEmpty { getString(R.string.languageSystem) } }
     val dateTimeDisplayMode = prefs.dateTimeDisplayMode
-    val canBeVerbose = when (dateTimeDisplayMode) {
-      DateTimeDisplayMode.DateOnly -> prefs.language in setOf(Language.zhCN, Language.zhTW, Language.ja, Language.ko)
-      DateTimeDisplayMode.DateTime,
-      DateTimeDisplayMode.TimeDate,
-      DateTimeDisplayMode.TimeOnly -> prefs.language != Language.system
-    }
+    val timeSystem = Module.getTimeSystem(prefs)
+    val canBeVerbose = dateTimeDisplayMode.components.intersect(timeSystem.verboseComponents).isNotEmpty()
     val hasTime = DateTimeComponent.Time in dateTimeDisplayMode.components
     myAdapter.submitList(
       listOfNotNull(

@@ -7,6 +7,7 @@ import java.util.Calendar
 import java.util.Locale
 
 interface TimeSystem {
+  val verboseComponents: Set<DateTimeComponent>
   fun getPercentText(value: Int): String
   fun getDateText(cal: Calendar): String
   fun getTimeText(cal: Calendar): String

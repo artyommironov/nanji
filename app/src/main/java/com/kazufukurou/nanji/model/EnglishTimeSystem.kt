@@ -9,7 +9,10 @@ class EnglishTimeSystem(
 ) : TimeSystem {
   private val defaultTimeSystem = DefaultTimeSystem(Locale.ENGLISH, useTwentyFourHours = useTwentyFourHours)
 
+  override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Time)
+
   override fun getPercentText(value: Int): String = defaultTimeSystem.getPercentText(value)
+
   override fun getDateText(cal: Calendar): String = defaultTimeSystem.getDateText(cal)
 
   override fun getTimeText(cal: Calendar): String {

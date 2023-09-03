@@ -10,6 +10,8 @@ class DefaultTimeSystem(
   private val locale: Locale,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
+  override val verboseComponents: Set<DateTimeComponent> = emptySet()
+
   override fun getPercentText(value: Int): String = "$value%"
 
   override fun getDateText(cal: Calendar): String {

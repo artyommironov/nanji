@@ -8,6 +8,8 @@ class JapaneseTimeSystem(
   private val useWords: Boolean,
   private val useTwentyFourHours: Boolean
 ) : TimeSystem {
+  override val verboseComponents: Set<DateTimeComponent> = setOf(DateTimeComponent.Date, DateTimeComponent.Time)
+
   override fun getPercentText(value: Int): String = value.toWords() + '％'
 
   override fun getDateText(cal: Calendar): String {
