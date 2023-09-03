@@ -7,12 +7,8 @@ import com.kazufukurou.nanji.model.TimeSystem
 import java.util.Calendar
 import java.util.TimeZone
 
-class WidgetPresenter(
-  private val timeSystem: TimeSystem,
-  private val prefs: Prefs
-) {
-  fun getState(batteryLevel: Int): State {
-    val now = Calendar.getInstance()
+class WidgetPresenter(private val prefs: Prefs) {
+  fun getState(timeSystem: TimeSystem, now: Calendar, batteryLevel: Int): State {
     now.timeZone = if (prefs.timeZone.isBlank()) TimeZone.getDefault() else TimeZone.getTimeZone(prefs.timeZone)
     val dateText = timeSystem.getDateText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)
     val timeText = timeSystem.getTimeText(now).transform(useFullWidthCharacters = prefs.fullWidthCharacters)

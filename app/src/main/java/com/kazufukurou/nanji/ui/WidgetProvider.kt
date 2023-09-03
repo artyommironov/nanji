@@ -110,8 +110,8 @@ class WidgetProvider : AppWidgetProvider() {
   private fun update(context: Context) {
     val prefs = Module.getPrefs(context)
     val timeSystem = Module.getTimeSystem(prefs)
-    val presenter = WidgetPresenter(timeSystem, prefs)
-    val state = presenter.getState(batteryLevel = getBatteryLevel(context))
+    val presenter = WidgetPresenter(prefs)
+    val state = presenter.getState(timeSystem, Calendar.getInstance(), getBatteryLevel(context))
     val resources = context.resources
     val views = RemoteViews(context.packageName, R.layout.widget).apply {
       updateTextView(
