@@ -6,7 +6,7 @@
   <string name="appearanceBg">Arrière-plan</string>
   <string name="appearanceText">Texte</string>
   <string name="batteryLevelPrefix">Préfixe du niveau de batterie</string>
-  <string name="batteryShow">Afficher le niveau batterie</string>
+  <string name="batteryShow">Afficher le niveau de batterie</string>
   <string name="dateTimeDisplayMode">Mode d'affichage de la date et de l'heure</string>
   <string name="dateTimeDisplayModeDateOnly">Date uniquement</string>
   <string name="dateTimeDisplayModeDateTime">Date et heure</string>
