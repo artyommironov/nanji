@@ -25,10 +25,10 @@
   <string name="reset_appearance">Réinitialiser les paramètres d'apparence ?</string>
   <string name="reset_settings">Réinitialiser tous les paramètres ?</string>
   <string name="tapAction">Action lors du toucher</string>
+  <string name="tapActionOpenClock">Ouvrir l'horloge</string>
   <string name="tapActionOpenSettings">Ouvrir les paramètres</string>
-  <string name="tapActionToggleVerboseDisplay">Basculer le mode d'affichage des mots</string>
+  <string name="tapActionToggleVerboseDisplay">Basculer entre les nombres et les mots</string>
   <string name="timeZone">Fuseau horaire</string>
   <string name="twentyFour">Utiliser le format 24 heures</string>
   <string name="verboseDisplayMode">Remplacer les nombres par des mots</string>
- <string name="tapActionOpenClock">Ouvrir l'horloge</string>
 </resources>
