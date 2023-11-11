@@ -1,0 +1,9 @@
+Hodinový widget na domovskou obrazovku pro studenty jazyků.
+
+- Čínština, Japonština, Korejština, Ruština, Angličtina a výchozí datumový/časový formát
+- 12/24 hodinový formát
+- Japonská éra formát
+- Možnost měnit časové pásmo
+- Hodně upravitelný vzhled
+- Přepínat mezi zobrazováním čísel/slov na kliknutí
+- Otevřít systémovou aplikaci alarmu na kliknutí
