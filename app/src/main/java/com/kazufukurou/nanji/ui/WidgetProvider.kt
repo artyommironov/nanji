@@ -29,6 +29,7 @@ import com.kazufukurou.nanji.model.TapAction
 import java.util.Calendar
 
 class WidgetProvider : AppWidgetProvider() {
+
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
     super.onUpdate(context, appWidgetManager, appWidgetIds)
     update(context)
@@ -41,7 +42,7 @@ class WidgetProvider : AppWidgetProvider() {
 
   override fun onDisabled(context: Context) {
     super.onDisabled(context)
-    context.getSystemService<AlarmManager>()?.cancel(createBroadcastPendingIntent(context, false))
+    context.alarmManager.cancel(createBroadcastPendingIntent(context, change = false))
   }
 
   override fun onReceive(context: Context, intent: Intent?) {
@@ -59,19 +60,20 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun createBroadcastPendingIntent(context: Context, change: Boolean): PendingIntent {
-    val intent = Intent(context, WidgetProvider::class.java).setAction(if (change) ACTION_CHANGE else ACTION_TICK)
+    val intent = Intent(context, WidgetProvider::class.java)
+      .setAction(if (change) ACTION_CHANGE else ACTION_TICK)
     return PendingIntent.getBroadcast(context, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
   }
 
   private fun scheduleUpdate(context: Context) {
-    val pendingIntent = createBroadcastPendingIntent(context, false)
+    val alarmManager = context.alarmManager
+    val pendingIntent = createBroadcastPendingIntent(context, change = false)
     val cal = Calendar.getInstance().apply {
       set(Calendar.SECOND, 0)
       set(Calendar.MILLISECOND, 0)
       add(Calendar.MINUTE, 1)
     }
-    val alarmManager = context.getSystemService<AlarmManager>()
-    alarmManager?.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
+    alarmManager.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
   }
 
   private fun getAlarmPendingIntent(context: Context): PendingIntent? {
@@ -92,12 +94,13 @@ class WidgetProvider : AppWidgetProvider() {
 
   private fun isActivityExists(packageManager: PackageManager, intent: Intent): Boolean {
     val flags = PackageManager.MATCH_DEFAULT_ONLY
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    val resolveInfos = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
       packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(flags.toLong()))
     } else {
       @Suppress("DEPRECATION")
       packageManager.queryIntentActivities(intent, flags)
-    }.isNotEmpty()
+    }
+    return resolveInfos.isNotEmpty()
   }
 
   private fun getBatteryLevel(context: Context): Int {
@@ -139,7 +142,7 @@ class WidgetProvider : AppWidgetProvider() {
         visible = state.footer.isNotEmpty()
       )
       val pendingIntent = when (prefs.tapAction) {
-        TapAction.ShowWords -> createBroadcastPendingIntent(context, true)
+        TapAction.ShowWords -> createBroadcastPendingIntent(context, change = true)
         TapAction.OpenClock -> getAlarmPendingIntent(context) ?: createActivityPendingIntent(context)
         TapAction.OpenSetting -> createActivityPendingIntent(context)
       }
@@ -193,6 +196,8 @@ class WidgetProvider : AppWidgetProvider() {
     setImageViewBitmap(R.id.imageBgMiddle, bitmap)
     setImageViewBitmap(R.id.imageBgBottom, bitmap)
   }
+
+  private val Context.alarmManager: AlarmManager get() = requireNotNull(getSystemService())
 }
 
 private const val PREFIX = "com.kazufukurou.nanji"
