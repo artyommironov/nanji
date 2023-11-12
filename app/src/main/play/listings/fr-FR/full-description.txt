@@ -1,0 +1,9 @@
+Un widget d'horloge pour l'écran d'accueil destiné aux personnes apprenant une langue.
+
+- Chinois, japonais, coréen, russe, anglais et format de date et d'heure par défaut
+- Format 12 ou 24 heures
+- Format de date utilisant les ères japonaises
+- Fuseau horaire personnalisable
+- Apparence hautement personnalisable
+- Possibilité de basculer l'affichage entre les nombres ou les mots au toucher
+- Possibilité d'ouvrir l'application d'alarme système en touchant le widget

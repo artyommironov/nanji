@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about">À propos</string>
+  <string name="appName">Nanji</string>
+  <string name="appearance">Apparence</string>
+  <string name="appearanceBg">Arrière-plan</string>
+  <string name="appearanceText">Texte</string>
+  <string name="batteryLevelPrefix">Préfixe du niveau de batterie</string>
+  <string name="batteryShow">Afficher le niveau de batterie</string>
+  <string name="dateTimeDisplayMode">Mode d\'affichage de la date et de l\'heure</string>
+  <string name="dateTimeDisplayModeDateOnly">Date uniquement</string>
+  <string name="dateTimeDisplayModeDateTime">Date et heure</string>
+  <string name="dateTimeDisplayModeTimeDate">Heure et date</string>
+  <string name="dateTimeDisplayModeTimeOnly">Heure uniquement</string>
+  <string name="japaneseEra">Utiliser les ères japonaises</string>
+  <string name="language">Langue</string>
+  <string name="languageEn">Anglais</string>
+  <string name="languageJa">Japonais</string>
+  <string name="languageKo">Coréen</string>
+  <string name="languageRu">Russe</string>
+  <string name="languageSystem">Système</string>
+  <string name="languageZhCn">Chinois (Simplifié)</string>
+  <string name="languageZhTw">Chinois (Traditionnel)</string>
+  <string name="reset">Réinitialiser</string>
+  <string name="reset_appearance">Réinitialiser les paramètres d\'apparence ?</string>
+  <string name="reset_settings">Réinitialiser tous les paramètres ?</string>
+  <string name="tapAction">Action lors du toucher</string>
+  <string name="tapActionOpenClock">Ouvrir l\'horloge</string>
+  <string name="tapActionOpenSettings">Ouvrir les paramètres</string>
+  <string name="tapActionToggleVerboseDisplay">Basculer entre les nombres et les mots</string>
+  <string name="timeZone">Fuseau horaire</string>
+  <string name="twentyFour">Utiliser le format 24 heures</string>
+  <string name="verboseDisplayMode">Mots au lieu des nombres</string>
+</resources>
