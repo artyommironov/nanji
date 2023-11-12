@@ -1,11 +1,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-
 # Nanji Clock Widget
 Home screen clock widget for language learners.
 
 ## Features
-- Chinese, Japanese, Korean, Russian, English and default date and time format.
+- Chinese, Japanese, Korean, Russian, English and default date and time format
 - 12/24 hours time format
 - Japanese era date format
 - Customizable time zone
