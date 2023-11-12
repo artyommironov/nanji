@@ -7,12 +7,12 @@
   <string name="appearanceText">Text</string>
   <string name="batteryLevelPrefix">Výdrž baterie prefix</string>
   <string name="batteryShow">Ukázat výdrž baterie</string>
+  <string name="dateJapaneseEra">Datum éry</string>
   <string name="dateTimeDisplayMode">Typ zobrazení datumu a času</string>
   <string name="dateTimeDisplayModeDateOnly">Jenom datum</string>
   <string name="dateTimeDisplayModeDateTime">Datum a čas</string>
   <string name="dateTimeDisplayModeTimeDate">Čas a datum</string>
   <string name="dateTimeDisplayModeTimeOnly">Jenom čas</string>
-  <string name="japaneseEra">Datum éry</string>
   <string name="language">Jazyk</string>
   <string name="languageEn">Angličtina</string>
   <string name="languageJa">Japonština</string>
@@ -28,7 +28,7 @@
   <string name="tapActionOpenClock">Otevřít hodiny</string>
   <string name="tapActionOpenSettings">Otevřít nastavení</string>
   <string name="tapActionToggleVerboseDisplay">Přepínání podrobného zobrazení</string>
+  <string name="timeTwentyFourFormat">24-hodinový formát</string>
   <string name="timeZone">Časová zóna</string>
-  <string name="twentyFour">24-hodinový formát</string>
   <string name="verboseDisplayMode">Podrobné zobrazení</string>
 </resources>

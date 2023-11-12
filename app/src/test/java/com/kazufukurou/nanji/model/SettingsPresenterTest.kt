@@ -32,7 +32,7 @@ class SettingsPresenterTest {
         R.string.language,
         R.string.tapAction,
         R.string.dateTimeDisplayMode,
-        R.string.twentyFour,
+        R.string.timeTwentyFourFormat,
         R.string.batteryShow,
         R.string.timeZone,
         R.string.about
@@ -52,7 +52,7 @@ class SettingsPresenterTest {
         R.string.tapAction,
         R.string.dateTimeDisplayMode,
         R.string.verboseDisplayMode,
-        R.string.twentyFour,
+        R.string.timeTwentyFourFormat,
         R.string.batteryShow,
         R.string.timeZone,
         R.string.about
@@ -90,7 +90,7 @@ class SettingsPresenterTest {
         R.string.tapAction,
         R.string.dateTimeDisplayMode,
         R.string.verboseDisplayMode,
-        R.string.twentyFour,
+        R.string.timeTwentyFourFormat,
         R.string.batteryShow,
         R.string.timeZone,
         R.string.about

@@ -7,12 +7,12 @@
   <string name="appearanceText">Text</string>
   <string name="batteryLevelPrefix">Battery level prefix</string>
   <string name="batteryShow">Show battery level</string>
+  <string name="dateJapaneseEra">Era date</string>
   <string name="dateTimeDisplayMode">Date and time display mode</string>
   <string name="dateTimeDisplayModeDateOnly">Date only</string>
   <string name="dateTimeDisplayModeDateTime">Date and time</string>
   <string name="dateTimeDisplayModeTimeDate">Time and date</string>
   <string name="dateTimeDisplayModeTimeOnly">Time only</string>
-  <string name="japaneseEra">Era date</string>
   <string name="language">Language</string>
   <string name="languageEn">English</string>
   <string name="languageJa">Japanese</string>
@@ -28,7 +28,7 @@
   <string name="tapActionOpenClock">Open clock</string>
   <string name="tapActionOpenSettings">Open settings</string>
   <string name="tapActionToggleVerboseDisplay">Toggle words/numbers</string>
+  <string name="timeTwentyFourFormat">24-hour format</string>
   <string name="timeZone">Time zone</string>
-  <string name="twentyFour">24-hour format</string>
   <string name="verboseDisplayMode">Words instead of numbers</string>
 </resources>

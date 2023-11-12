@@ -7,12 +7,12 @@
   <string name="appearanceText">Текст</string>
   <string name="batteryLevelPrefix">Префикс заряда батареи</string>
   <string name="batteryShow">Показать заряд батареи</string>
+  <string name="dateJapaneseEra">Год императорской эры</string>
   <string name="dateTimeDisplayMode">Режим показа даты и времени</string>
   <string name="dateTimeDisplayModeDateOnly">Только дата</string>
   <string name="dateTimeDisplayModeDateTime">Дата и время</string>
   <string name="dateTimeDisplayModeTimeDate">Время и дата</string>
   <string name="dateTimeDisplayModeTimeOnly">Только время</string>
-  <string name="japaneseEra">Год императорской эры</string>
   <string name="language">Язык</string>
   <string name="languageEn">Английский</string>
   <string name="languageJa">Японский</string>
@@ -28,7 +28,7 @@
   <string name="tapActionOpenClock">Открыть часы</string>
   <string name="tapActionOpenSettings">Открыть настройки</string>
   <string name="tapActionToggleVerboseDisplay">Переключить числа/слова</string>
+  <string name="timeTwentyFourFormat">24-часовой формат</string>
   <string name="timeZone">Часовой пояс</string>
-  <string name="twentyFour">24-часовой формат</string>
   <string name="verboseDisplayMode">Слова вместо чисел</string>
 </resources>

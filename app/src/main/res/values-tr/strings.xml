@@ -7,12 +7,12 @@
   <string name="appearanceText">Metin</string>
   <string name="batteryLevelPrefix">Pil seviyesi önbilgisi</string>
   <string name="batteryShow">Pil seviyesini göster</string>
+  <string name="dateJapaneseEra">Dönem tarihi</string>
   <string name="dateTimeDisplayMode">Tarih ve saat görüntüleme modu</string>
   <string name="dateTimeDisplayModeDateOnly">Yalnızca tarih</string>
   <string name="dateTimeDisplayModeDateTime">Tarih ve saat</string>
   <string name="dateTimeDisplayModeTimeDate">Saat ve tarih</string>
   <string name="dateTimeDisplayModeTimeOnly">Sadece zaman</string>
-  <string name="japaneseEra">Dönem tarihi</string>
   <string name="language">Dil</string>
   <string name="languageEn">İngilizce</string>
   <string name="languageJa">Japonca</string>
@@ -28,7 +28,7 @@
   <string name="tapActionOpenClock">Açık saat</string>
   <string name="tapActionOpenSettings">Ayarları aç</string>
   <string name="tapActionToggleVerboseDisplay">Ayrıntılı görüntüleme modunu aç / kapat</string>
+  <string name="timeTwentyFourFormat">24 saat biçimini</string>
   <string name="timeZone">Saat dilimi</string>
-  <string name="twentyFour">24 saat biçimini</string>
   <string name="verboseDisplayMode">Ayrıntılı ekran modu</string>
 </resources>

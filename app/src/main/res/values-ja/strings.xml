@@ -7,12 +7,12 @@
   <string name="appearanceText">テキスト</string>
   <string name="batteryLevelPrefix">電池残量のプレフィックス</string>
   <string name="batteryShow">電池残量を表示</string>
+  <string name="dateJapaneseEra">元号の日付</string>
   <string name="dateTimeDisplayMode">日付と時刻の表示モード</string>
   <string name="dateTimeDisplayModeDateOnly">日付のみ</string>
   <string name="dateTimeDisplayModeDateTime">日付と時刻</string>
   <string name="dateTimeDisplayModeTimeDate">時刻と日付</string>
   <string name="dateTimeDisplayModeTimeOnly">時刻のみ</string>
-  <string name="japaneseEra">元号の日付</string>
   <string name="language">言語</string>
   <string name="languageEn">英語</string>
   <string name="languageJa">日本語</string>
@@ -28,7 +28,7 @@
   <string name="tapActionOpenClock">時計を開く</string>
   <string name="tapActionOpenSettings">設定を開く</string>
   <string name="tapActionToggleVerboseDisplay">単語と数字を切り替える</string>
+  <string name="timeTwentyFourFormat">24時間表示</string>
   <string name="timeZone">タイムゾーン</string>
-  <string name="twentyFour">24時間表示</string>
   <string name="verboseDisplayMode">数字の代わりに単語</string>
 </resources>

@@ -60,10 +60,10 @@ class SettingsPresenter(
       SelectorItem(R.string.tapAction, tapActionStrings, ::tapActionIndex),
       SelectorItem(R.string.dateTimeDisplayMode, dateTimeDisplayModeStrings, ::dateTimeDisplayModeIndex),
       SwitchItem(R.string.verboseDisplayMode, prefs::showWords).takeIf { canBeVerbose },
-      SwitchItem(R.string.twentyFour, prefs::twentyFour).takeIf { hasTime },
+      SwitchItem(R.string.timeTwentyFourFormat, prefs::twentyFour).takeIf { hasTime },
       SwitchItem(R.string.batteryShow, ::showBattery),
       EditItem(R.string.batteryLevelPrefix, "", prefs::batteryLevelPrefix).takeIf { showBattery },
-      SwitchItem(R.string.japaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
+      SwitchItem(R.string.dateJapaneseEra, prefs::japaneseEra).takeIf { prefs.language == Language.ja },
       SelectorItem(R.string.timeZone, timeZoneStrings, ::timeZoneIndex),
       ActionItem(R.string.about, showAboutAlert)
     )
