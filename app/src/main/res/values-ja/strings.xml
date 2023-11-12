@@ -27,8 +27,8 @@
   <string name="tapAction">タッチ時の動作</string>
   <string name="tapActionOpenClock">時計を開く</string>
   <string name="tapActionOpenSettings">設定を開く</string>
-  <string name="tapActionToggleVerboseDisplay">冗長表示モードを切り替える</string>
+  <string name="tapActionToggleVerboseDisplay">単語と数字を切り替える</string>
   <string name="timeZone">タイムゾーン</string>
   <string name="twentyFour">24時間表示</string>
-  <string name="verboseDisplayMode">冗長表示モード</string>
+  <string name="verboseDisplayMode">数字の代わりに単語</string>
 </resources>

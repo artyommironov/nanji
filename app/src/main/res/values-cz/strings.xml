@@ -29,6 +29,6 @@
   <string name="tapActionOpenSettings">Otevřít nastavení</string>
   <string name="tapActionToggleVerboseDisplay">Přepínání podrobného zobrazení</string>
   <string name="timeZone">Časová zóna</string>
-  <string name="twentyFour">Použít 24-hodinový formát</string>
+  <string name="twentyFour">24-hodinový formát</string>
   <string name="verboseDisplayMode">Podrobné zobrazení</string>
 </resources>

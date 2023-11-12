@@ -27,8 +27,8 @@
   <string name="tapAction">Действие по нажатию</string>
   <string name="tapActionOpenClock">Открыть часы</string>
   <string name="tapActionOpenSettings">Открыть настройки</string>
-  <string name="tapActionToggleVerboseDisplay">Переключить подробный режим отображения</string>
+  <string name="tapActionToggleVerboseDisplay">Переключить числа/слова</string>
   <string name="timeZone">Часовой пояс</string>
   <string name="twentyFour">24-часовой формат</string>
-  <string name="verboseDisplayMode">Подробный режим отображения</string>
+  <string name="verboseDisplayMode">Слова вместо чисел</string>
 </resources>

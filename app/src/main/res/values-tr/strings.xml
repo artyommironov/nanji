@@ -29,6 +29,6 @@
   <string name="tapActionOpenSettings">Ayarları aç</string>
   <string name="tapActionToggleVerboseDisplay">Ayrıntılı görüntüleme modunu aç / kapat</string>
   <string name="timeZone">Saat dilimi</string>
-  <string name="twentyFour">24 saat biçimini kullan</string>
+  <string name="twentyFour">24 saat biçimini</string>
   <string name="verboseDisplayMode">Ayrıntılı ekran modu</string>
 </resources>
