@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about">O aplikaci</string>
+  <string name="alarmPermissionMessage">Pro aktualizaci widgetu každou minutu je vyžadováno oprávnění k nastavení alarmu.</string>
+  <string name="alarmPermissionTitle">Nastavte oprávnění alarmu</string>
   <string name="appName">Nanji</string>
   <string name="appearance">Vzhled</string>
   <string name="appearanceBg">Pozadí</string>

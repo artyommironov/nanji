@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about">О программе</string>
+  <string name="alarmPermissionMessage">Для обновления виджета каждую минуту требуется разрешение на установку будильника.</string>
+  <string name="alarmPermissionTitle">Разрешение на установку будильника</string>
   <string name="appName">Nanji</string>
   <string name="appearance">Внешний вид</string>
   <string name="appearanceBg">Фон</string>

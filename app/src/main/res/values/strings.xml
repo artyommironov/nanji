@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about">About</string>
+  <string name="alarmPermissionMessage">To update widget every minute, permission to set alarm is required.</string>
+  <string name="alarmPermissionTitle">Set alarm permission</string>
   <string name="appName">Nanji</string>
   <string name="appearance">Appearance</string>
   <string name="appearanceBg">Background</string>

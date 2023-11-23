@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about">情報</string>
+  <string name="alarmPermissionMessage">毎分ウィジェットを更新するには、アラームを設定する許可が必要です。</string>
+  <string name="alarmPermissionTitle">アラーム許可の設定</string>
   <string name="appName">Nanji</string>
   <string name="appearance">外観</string>
   <string name="appearanceBg">背景</string>

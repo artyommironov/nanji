@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about">Hakkında</string>
+  <string name="alarmPermissionMessage">Widget\'ı her dakika güncellemek için alarm ayarlama izni gereklidir.</string>
+  <string name="alarmPermissionTitle">Alarm iznini ayarlayın</string>
   <string name="appName">Nanji</string>
   <string name="appearance">Dış görünüş</string>
   <string name="appearanceBg">Arka plan</string>

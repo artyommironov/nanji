@@ -1,6 +1,5 @@
 package com.kazufukurou.nanji.ui
 
-import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -8,7 +7,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -22,7 +20,6 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
-import androidx.core.content.getSystemService
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.model.Module
 import com.kazufukurou.nanji.model.TapAction
@@ -42,7 +39,7 @@ class WidgetProvider : AppWidgetProvider() {
 
   override fun onDisabled(context: Context) {
     super.onDisabled(context)
-    context.alarmManager.cancel(createBroadcastPendingIntent(context, change = false))
+    Module.getEnvironment(context).cancelAlarm(createBroadcastPendingIntent(context, change = false))
   }
 
   override fun onReceive(context: Context, intent: Intent?) {
@@ -66,20 +63,22 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   private fun scheduleUpdate(context: Context) {
-    val alarmManager = context.alarmManager
-    val pendingIntent = createBroadcastPendingIntent(context, change = false)
-    val cal = Calendar.getInstance().apply {
-      set(Calendar.SECOND, 0)
-      set(Calendar.MILLISECOND, 0)
-      add(Calendar.MINUTE, 1)
+    val environment = Module.getEnvironment(context)
+    if (environment.canScheduleExactAlarms()) {
+      val cal = Calendar.getInstance()
+      cal.set(Calendar.SECOND, 0)
+      cal.set(Calendar.MILLISECOND, 0)
+      cal.add(Calendar.MINUTE, 1)
+      val pendingIntent = createBroadcastPendingIntent(context, change = false)
+      environment.scheduleExactAlarm(cal.timeInMillis, pendingIntent)
     }
-    alarmManager.setExact(AlarmManager.RTC, cal.timeInMillis, pendingIntent)
   }
 
   private fun getAlarmPendingIntent(context: Context): PendingIntent? {
     val intent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       .setAction(AlarmClock.ACTION_SHOW_ALARMS)
-    return if (isActivityExists(context.packageManager, intent)) {
+    val environment = Module.getEnvironment(context)
+    return if (environment.isActivityExists(intent)) {
       PendingIntent.getActivity(context, 0, intent, fixPendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT))
     } else {
       null
@@ -90,17 +89,6 @@ class WidgetProvider : AppWidgetProvider() {
     flags or PendingIntent.FLAG_IMMUTABLE
   } else {
     flags
-  }
-
-  private fun isActivityExists(packageManager: PackageManager, intent: Intent): Boolean {
-    val flags = PackageManager.MATCH_DEFAULT_ONLY
-    val resolveInfos = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(flags.toLong()))
-    } else {
-      @Suppress("DEPRECATION")
-      packageManager.queryIntentActivities(intent, flags)
-    }
-    return resolveInfos.isNotEmpty()
   }
 
   private fun getBatteryLevel(context: Context): Int {
@@ -196,8 +184,6 @@ class WidgetProvider : AppWidgetProvider() {
     setImageViewBitmap(R.id.imageBgMiddle, bitmap)
     setImageViewBitmap(R.id.imageBgBottom, bitmap)
   }
-
-  private val Context.alarmManager: AlarmManager get() = requireNotNull(getSystemService())
 }
 
 private const val PREFIX = "com.kazufukurou.nanji"

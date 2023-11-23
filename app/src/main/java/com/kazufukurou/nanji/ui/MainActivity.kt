@@ -16,11 +16,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kazufukurou.nanji.BuildConfig
 import com.kazufukurou.nanji.R
 import com.kazufukurou.nanji.databinding.ItemBinding
+import com.kazufukurou.nanji.model.Environment
 import com.kazufukurou.nanji.model.Module
+import com.kazufukurou.nanji.model.Prefs
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
-  private val prefs by lazy { Module.getPrefs(this) }
+  private val prefs: Prefs by lazy { Module.getPrefs(this) }
+  private val environment: Environment by lazy { Module.getEnvironment(this) }
   private val diffUtilItemCallback = object : DiffUtil.ItemCallback<Any>() {
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
       return oldItem is Item && newItem is Item && oldItem.title == newItem.title
@@ -72,6 +75,13 @@ class MainActivity : AppCompatActivity() {
     dialogHolder.dismiss()
   }
 
+  override fun onResume() {
+    super.onResume()
+    if (!environment.canScheduleExactAlarms()) {
+      showAlarmPermissionAlert()
+    }
+  }
+
   private fun render() {
     val timeSystem = Module.getTimeSystem(prefs)
     myAdapter.submitList(presenter.getItems(timeSystem))
@@ -88,6 +98,18 @@ class MainActivity : AppCompatActivity() {
       .setPositiveButton(R.string.reset) { _, _ ->
         prefs.clear()
         render()
+      }
+      .setNegativeButton(android.R.string.cancel, null)
+      .create()
+      .let(dialogHolder::show)
+  }
+
+  private fun showAlarmPermissionAlert() {
+    MaterialAlertDialogBuilder(this)
+      .setTitle(R.string.alarmPermissionTitle)
+      .setMessage(R.string.alarmPermissionMessage)
+      .setPositiveButton(android.R.string.ok) { _, _ ->
+        environment.getAlarmSettingsIntent()?.let(::startActivity)
       }
       .setNegativeButton(android.R.string.cancel, null)
       .create()

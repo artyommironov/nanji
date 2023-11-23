@@ -7,6 +7,8 @@ import java.util.Locale
 object Module {
   fun getPrefs(context: Context): Prefs = Prefs(PreferenceManager.getDefaultSharedPreferences(context))
 
+  fun getEnvironment(context: Context): Environment = Environment(context)
+
   fun getTimeSystem(prefs: Prefs): TimeSystem {
     val verbose = prefs.showWords
     val twentyFourHours = prefs.twentyFour
