@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
   private fun showResetAlert() {
     MaterialAlertDialogBuilder(this)
       .setTitle(R.string.reset)
-      .setMessage(R.string.reset_settings)
+      .setMessage(R.string.resetSettings)
       .setPositiveButton(R.string.reset) { _, _ ->
         prefs.clear()
         render()

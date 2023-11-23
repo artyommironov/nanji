@@ -22,8 +22,8 @@
   <string name="languageZhCn">Китайский (упрощённый)</string>
   <string name="languageZhTw">Китайский (традиционный)</string>
   <string name="reset">Сбросить</string>
-  <string name="reset_appearance">Сбросить настройки внешнего вида?</string>
-  <string name="reset_settings">Сбросить все настройки?</string>
+  <string name="resetAppearance">Сбросить настройки внешнего вида?</string>
+  <string name="resetSettings">Сбросить все настройки?</string>
   <string name="tapAction">Действие по нажатию</string>
   <string name="tapActionOpenClock">Открыть часы</string>
   <string name="tapActionOpenSettings">Открыть настройки</string>

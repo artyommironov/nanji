@@ -22,8 +22,8 @@
   <string name="languageZhCn">Čínština (Zjednodušená)</string>
   <string name="languageZhTw">Čínština (Tradiční)</string>
   <string name="reset">Reset</string>
-  <string name="reset_appearance">Resetovat nastavení vzhledu?</string>
-  <string name="reset_settings">Resetovat všechno nastavení?</string>
+  <string name="resetAppearance">Resetovat nastavení vzhledu?</string>
+  <string name="resetSettings">Resetovat všechno nastavení?</string>
   <string name="tapAction">Akce po kliknutí</string>
   <string name="tapActionOpenClock">Otevřít hodiny</string>
   <string name="tapActionOpenSettings">Otevřít nastavení</string>

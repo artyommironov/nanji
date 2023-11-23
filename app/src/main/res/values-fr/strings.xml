@@ -22,8 +22,8 @@
   <string name="languageZhCn">Chinois (Simplifié)</string>
   <string name="languageZhTw">Chinois (Traditionnel)</string>
   <string name="reset">Réinitialiser</string>
-  <string name="reset_appearance">Réinitialiser les paramètres d\'apparence ?</string>
-  <string name="reset_settings">Réinitialiser tous les paramètres ?</string>
+  <string name="resetAppearance">Réinitialiser les paramètres d\'apparence ?</string>
+  <string name="resetSettings">Réinitialiser tous les paramètres ?</string>
   <string name="tapAction">Action lors du toucher</string>
   <string name="tapActionOpenClock">Ouvrir l\'horloge</string>
   <string name="tapActionOpenSettings">Ouvrir les paramètres</string>

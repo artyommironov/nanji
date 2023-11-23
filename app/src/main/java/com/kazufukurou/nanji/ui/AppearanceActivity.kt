@@ -70,7 +70,7 @@ class AppearanceActivity : AppCompatActivity() {
   private fun showResetAlert() {
     MaterialAlertDialogBuilder(this)
       .setTitle(R.string.reset)
-      .setMessage(R.string.reset_appearance)
+      .setMessage(R.string.resetAppearance)
       .setPositiveButton(R.string.reset) { _, _ ->
         prefs.clearAppearance()
         state = getInitialState()

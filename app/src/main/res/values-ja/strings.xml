@@ -22,8 +22,8 @@
   <string name="languageZhCn">中国語（簡体）</string>
   <string name="languageZhTw">中国語（繁体）</string>
   <string name="reset">リセット</string>
-  <string name="reset_appearance">外観の設定をリセットしますか?</string>
-  <string name="reset_settings">すべての設定をリセットしますか?</string>
+  <string name="resetAppearance">外観の設定をリセットしますか?</string>
+  <string name="resetSettings">すべての設定をリセットしますか?</string>
   <string name="tapAction">タッチ時の動作</string>
   <string name="tapActionOpenClock">時計を開く</string>
   <string name="tapActionOpenSettings">設定を開く</string>

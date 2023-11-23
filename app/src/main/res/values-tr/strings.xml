@@ -22,8 +22,8 @@
   <string name="languageZhCn">Çince (Basitleştirilmiş)</string>
   <string name="languageZhTw">Çince (Geleneksel)</string>
   <string name="reset">Sıfırla</string>
-  <string name="reset_appearance">Görünüm ayarlarını sıfırlayın?</string>
-  <string name="reset_settings">Bütün ayarları sıfırla?</string>
+  <string name="resetAppearance">Görünüm ayarlarını sıfırlayın?</string>
+  <string name="resetSettings">Bütün ayarları sıfırla?</string>
   <string name="tapAction">Dokunma eylemi</string>
   <string name="tapActionOpenClock">Açık saat</string>
   <string name="tapActionOpenSettings">Ayarları aç</string>
