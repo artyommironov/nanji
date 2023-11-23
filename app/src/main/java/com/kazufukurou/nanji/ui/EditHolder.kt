@@ -39,7 +39,7 @@ class EditHolder(
         }
       )
       .setPositiveButton(android.R.string.ok) { _, _ ->
-        item.property.set(edit.text.toString().trim())
+        item.property.set(edit.text.toString())
         onBind(item)
       }
       .setNegativeButton(android.R.string.cancel, null)
